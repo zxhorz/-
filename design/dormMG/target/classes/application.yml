@@ -50,3 +50,11 @@ fileServer:
 filemanager:
   root: E:/file
 debug: true
+devtools:
+    restart:
+    #热部署生效
+    enabled: true
+    #设置重启的目录
+    additional-paths: resources/**,static/**,templates/**
+    #该目录下的内容修改不重启
+    exclude: WEB-INF/**

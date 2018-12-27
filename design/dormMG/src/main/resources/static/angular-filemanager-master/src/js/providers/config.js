@@ -59,7 +59,7 @@
             isImageFilePattern: /\.(jpe?g|gif|bmp|png|svg|tiff?)$/i,
             isDocumentFilePattern: /\.(docx|doc|xlsx|xls|pptx|ppt)$/i,
             isExtractableFilePattern: /\.(gz|tar|7z|rar|g?zip)$/i,
-            tplPath: 'src/templates'
+            tplPath: 'templates'
         };
 
         return {
