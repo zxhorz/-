@@ -10,11 +10,6 @@ import com.zxh.dormMG.enums.OperationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
-/**
- * @author <a href="mailto:chendonghuang@hengtiansoft.com"> chendonghuang</a>
- * @version 创建时间：May 15, 2018 1:18:42 PM
- */
 @Component
 public class OperationLogger {
 

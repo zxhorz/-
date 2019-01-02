@@ -9,10 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * @author <a href="mailto:chendonghuang@hengtiansoft.com"> chendonghuang</a>
- * @version 创建时间：May 15, 2018 11:33:08 AM
- */
 @Entity
 @Table(name = "operation_log")
 public class OperationLog implements Serializable {
