@@ -6,10 +6,10 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
 @ServletComponentScan
-public class SpringBootFileManagerApplication {
+public class SpringBootDormitoryManagerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootFileManagerApplication.class, args);
+        SpringApplication.run(SpringBootDormitoryManagerApplication.class, args);
     }
 
 }
