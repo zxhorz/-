@@ -61,7 +61,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (find != null) {
             if (find.getPassword().equals(password)) {
                 SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(username, password, getName());
-                operationLogger.saveLogin(find.getId(), "UserId : " + find.getId() + " loged in the bwb system.");
+                operationLogger.saveLogin(find.getName(), "UserId : " + find.getId() + " loged in the bwb system.");
                 return info;
             } else {
                 throw new AuthenticationException("Password not correct!");

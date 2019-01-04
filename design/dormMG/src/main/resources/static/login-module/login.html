@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" data-ng-app="loginApp" style="height: 100%; width:100%">
+
+<head>
+    <meta charset="utf-8" />
+    <title>WorkBench</title>
+    <link rel="stylesheet" type="text/css" href="login.css"/>
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+    <script type="text/javascript"  src="login.controller.js"></script>
+</head>
+
+<body style="height: 100%; color:black; overflow-x:auto; min-width:1280px">
+    <div class="container">
+        <div class="logo-area">
+            <img src='images/logo.png'/>
+        </div>
+        <div class="splitLine"></div>
+        <div id="login" class="center-box center-login" style="display: block;" ng-controller="loginController">
+            <h2 class="title">Sign in with BlueMorpho Account</h2>
+            <form id="form-login" modelAttribute="loginDto" action="/login/login" method="post">
+                <div class="fields">
+                    <div class="field username">
+                        <span class="icon icon-W32H32 icon-username"></span>
+                        <input id="username" name="userName" type="text" placeholder="Username" maxlength="30" autofocus="autofocus" ng-model="userName">
+                    </div>
+                    <div class="field password">
+                        <span class="icon icon-W32H32 icon-password"></span>
+                        <input id="password" name="password" type="password" placeholder="Password" maxlength="30" ng-model="password">
+                    </div>
+                </div>
+                <div class="actions">
+                    <div class="row">
+                        <a id="link-forgotPassword" class="link-forgotPassword float-right" href="javascript:void(0);">Forgot password ?</a>
+                    </div>
+						<button id="btn-login" class="btn btn-login" type="submit">Sign In</button>
+                    <a id="link-register" class="link-register" ui-sref="project/select">
+                        <span class="icon icon-W32H32 icon-goRight"></span>
+                        No account? register now
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

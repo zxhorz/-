@@ -36,14 +36,26 @@ public class ShiroConfiguration {
         Map<String,String> map = new HashMap<String, String>();
         //登出
         map.put("/logout","logout");
+
+        map.put("/**/*.css","anon");
+        map.put("/**/*.js","anon");
+        map.put("/**/*.png","anon");
+        map.put("/login-module/**","anon");
+        map.put("/login/*","anon");
+        //swagger接口权限 开放
+        map.put("/swagger-ui.html", "anon");
+        map.put("/swagger-resources", "anon");
+        map.put("/v2/api-docs", "anon");
+        map.put("/webjars/springfox-swagger-ui/**", "anon");
+
         //对所有用户认证
         map.put("/**","authc");
         //登录
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/login-module/login.html");
         //首页
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/index.html");
         //错误页面，认证不通过跳转
-        shiroFilterFactoryBean.setUnauthorizedUrl("/error");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/login-module/login_error.html");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }

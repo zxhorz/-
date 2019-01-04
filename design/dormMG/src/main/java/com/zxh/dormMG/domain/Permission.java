@@ -3,6 +3,7 @@ package com.zxh.dormMG.domain;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "permission")
 public class Permission {
 
     @Id

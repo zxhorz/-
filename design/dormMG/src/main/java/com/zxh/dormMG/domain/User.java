@@ -4,20 +4,32 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "user")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	private String id;
+
 	@Column(name = "name")
 	private String name;
+
     @Column(name = "password")
-	private Integer password;
+	private String password;
+
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
 	private List<Role> roles;
 
-	public String getId() {
+    public User() {
+    }
+
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
+    public String getId() {
 		return id;
 	}
 
@@ -41,11 +53,11 @@ public class User {
 		this.roles = roles;
 	}
 
-	public Integer getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(Integer password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 }

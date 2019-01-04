@@ -1,9 +1,9 @@
 spring:
   debug: true
-#     mvc:
-# 配置jsp文件的位置，默认位置为：src/main/webapp
-#         view.prefix: /WEB-INF/jsp/
-#         view.suffix: .jsp
+#  mvc:
+## 配置jsp文件的位置，默认位置为：src/main/webapp
+#    view.prefix: src/main/resources
+#    view.suffix: .html
   aop:
     proxy-target-class: true
   thymeleaf:
@@ -15,7 +15,7 @@ spring:
     multipart.maxFileSize: 1024MB
     multipart.maxRequestSize: 1024MB
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/bwb?useUnicode=true&amp;characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/dorm_mg?useUnicode=true&amp;characterEncoding=utf-8
     username: root
     password: 123456
     # 使用druid数据源

@@ -41,12 +41,12 @@ public class UserUtil {
 		return userName;
 	}
 
-	public String getCurrentUserRole() {
-		String userId = getCurrentUserId();
-		if(null==userId){
-			return null;
-		}
-		String roleId = roleRepository.findByUserId(userId);
-		return roleId;
-	}
+//	public String getCurrentUserRole() {
+//		String userId = getCurrentUserId();
+//		if(null==userId){
+//			return null;
+//		}
+//		String roleId = roleRepository.findByUserId(userId);
+//		return roleId;
+//	}
 }

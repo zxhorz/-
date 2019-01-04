@@ -1,0 +1,145 @@
+.container{
+    min-width: 400px;
+    width: 100%;
+    height: auto;
+    float: left;
+}
+.logo-area{
+    width: 100%;
+    height: auto;
+    text-align: center;
+    padding: 50px 0 20px 0;
+}
+.splitLine{
+    width: 80%;
+    margin: 0 auto;
+    height: 0;
+    border-top: 1px solid #101113;
+    border-bottom: 1px solid #34363a;
+}
+.center-box {
+    height: auto;
+    margin: 60px auto;
+    width: 333px;
+    min-height: 538px;
+}
+.title {
+    font-weight: normal;
+    font-size: 20px;
+    color: #858888;
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+form {
+    clear: both;
+    float: left;
+    width: 100%;
+    margin-top: 34px;
+}
+.fields {
+    width: 100%;
+    margin-bottom: 16px;
+    font-size: 16px;
+}
+.center-login .field.username {
+    border-bottom: 1px solid #303236;
+}
+.center-login .field.password {
+    border-top: 1px solid #53565c;
+}
+.field {
+    height: 50px;
+    width: 331px;
+    background-color: #414348;
+    border: 1px solid #161519;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.icon-W32H32 {
+    width: 32px;
+    height: 32px;
+    float: left;
+    margin: 9px;
+    position: absolute;
+}
+.icon, .btn {
+    background: url("images/icon.png") no-repeat;
+}
+.icon-username {
+    background-position: 0 0;
+}
+.icon-password {
+    background-position: -32px 0;
+}
+.icon-goRight {
+    position: relative;
+    background-position: -128px -32px;
+}
+.center-login .actions .link-register span.icon-goRight {
+    float: right;
+    margin: 0 -5px 0 0;
+}
+.field input {
+    background-color: #414348;
+    height: 50px;
+    width: 281px;
+    border: 0px transparent;
+    border-left: 50px solid transparent;
+    color: #FFF;
+    font-size: 16px;
+    transition: all 0.5s;
+    box-sizing: content-box;
+}
+.actions {
+    float: left;
+    width: 100%;
+}
+.center-login .actions .row {
+    font-size: 15px;
+    margin-bottom: 16px;
+    /* color: #909195; */
+    color: #858585;
+    float: left;
+    width: 100%;
+}
+.center-login .actions .row .link-forgotPassword {
+    display: none;
+    color: #858585;
+}
+#link-register:hover,
+.center-login .actions .row .link-forgotPassword:hover {
+    color: #157FFF;
+}
+.btn-signUp, .btn-login, .btn-submit {
+    width: 100%;
+    float: left;
+    background-position: 0 -96px;
+}
+.btn {
+    cursor: pointer;
+    color: #FFF;
+    text-align: center;
+    font-size: 26px;
+    line-height: 58px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+    border: 0;
+    outline: none;
+    padding: 0;
+}
+.float-right,
+.center-login .actions .link-register,
+.center-login .actions .link-register span {
+    float: right;
+}
+#link-register{
+    color: #858585;
+    height: 32px;
+    line-height: 32px;
+    display: none;
+}

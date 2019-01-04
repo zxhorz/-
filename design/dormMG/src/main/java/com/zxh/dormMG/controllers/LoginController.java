@@ -3,41 +3,55 @@ package com.zxh.dormMG.controllers;
 import com.zxh.dormMG.Service.LoginService;
 import com.zxh.dormMG.domain.Role;
 import com.zxh.dormMG.domain.User;
+import com.zxh.dormMG.dto.LoginDto;
+import com.zxh.dormMG.utils.PasswordUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
+@RequestMapping(value = "/login")
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
 
+    //post登录
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView login(@Valid LoginDto loginDto, BindingResult result) {
+        Subject currentUser = SecurityUtils.getSubject();
+        String userName = loginDto.getUserName();
+        String password = loginDto.getPassword();
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, PasswordUtil.MD5(password));
+        token.setRememberMe(true);
+        try {
+            currentUser.login(token);
+            Session s = currentUser.getSession();
+            s.setAttribute("signinId", userName);
+            ModelAndView modelAndView = new ModelAndView("redirect:/index.html");
+            return modelAndView;
+        } catch (Exception e) {
+            token.clear();
+            ModelAndView modelAndView = new ModelAndView("redirect:/login-module/login_error.html");
+            return modelAndView;
+        }
+    }
+
+
     //退出的时候是get请求，主要是用于退出
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(){
-        return "login";
-    }
-
-    //post登录
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String login(@RequestBody Map map){
-        //添加用户认证信息
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
-                map.get("username").toString(),
-                map.get("password").toString());
-        //进行验证，这里可以捕获异常，然后返回对应信息
-        subject.login(usernamePasswordToken);
         return "login";
     }
 
