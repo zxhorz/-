@@ -50,7 +50,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         String username = token.getUsername();
         String password = String.valueOf(token.getPassword());
-        User find = userRepository.findByName(username);
+        User find = userRepository.findUserByName(username);
 //		if (find != null && find.getPassword().equals(password)) {
 //			info = new SimpleAuthenticationInfo(username, password, getName());
 //			operationLogger.saveLogin(find.getId(), "UserId : " + find.getId() + " loged in the bwb system.");
@@ -61,7 +61,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (find != null) {
             if (find.getPassword().equals(password)) {
                 SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(username, password, getName());
-                operationLogger.saveLogin(find.getName(), "UserId : " + find.getId() + " loged in the bwb system.");
+                operationLogger.saveLogin(find.getUsername(), "UserId : " + find.getId() + " loged in the bwb system.");
                 return info;
             } else {
                 throw new AuthenticationException("Password not correct!");

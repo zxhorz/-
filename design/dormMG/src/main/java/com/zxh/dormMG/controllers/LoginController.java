@@ -4,6 +4,7 @@ import com.zxh.dormMG.Service.LoginService;
 import com.zxh.dormMG.domain.Role;
 import com.zxh.dormMG.domain.User;
 import com.zxh.dormMG.dto.LoginDto;
+import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.utils.PasswordUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -85,6 +86,19 @@ public class LoginController {
         Role role = loginService.addRole(map);
         return "addRole is ok! \n" + role;
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDto<String> register(@RequestParam("email") String email) {
+        return loginService.register(email);
+    }
+
+    @RequestMapping(value = "/activeAccount", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView activeAccount(@RequestParam("activationCode") String activationCode, @RequestParam("account") String account) {
+        return loginService.activeAccount(activationCode, account);
+    }
+
 
     //注解的使用
     @RequiresRoles("admin")

@@ -39,6 +39,10 @@
 	                    <p>{{activation_msg}}</p>
 	                </div>
                     <div class="row">
+                    	<div class="notes-error" ng-show="showAccountError">
+	                    	<span class="icon icon-W32H32 icon-noteError"></span>
+							<p>userName/password not correct or the account is not activated!</p>
+               	 		</div>
                         <a id="link-forgotPassword" class="link-forgotPassword float-right" href="javascript:void(0);">Forgot password ?</a>
                     </div>
 						<button id="btn-login" class="btn btn-login" type="submit">Sign In</button>

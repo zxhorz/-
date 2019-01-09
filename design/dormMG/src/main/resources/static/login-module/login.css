@@ -10,12 +10,12 @@
     text-align: center;
     padding: 50px 0 20px 0;
 }
-.splitLine{
+.splitLine {
     width: 80%;
     margin: 0 auto;
     height: 0;
-    border-top: 1px solid #101113;
-    border-bottom: 1px solid #34363a;
+    border-top: 1px solid #1C75C7;
+    border-bottom: 1px solid #1C75C7;
 }
 .center-box {
     height: auto;
@@ -26,7 +26,7 @@
 .title {
     font-weight: normal;
     font-size: 20px;
-    color: #858888;
+    color: #418CD1;
     float: left;
     width: 100%;
     text-align: center;
@@ -43,12 +43,12 @@ form {
     margin-bottom: 16px;
     font-size: 16px;
 }
-.center-login .field.username {
+/* .center-login .field.username {
     border-bottom: 1px solid #303236;
-}
-.center-login .field.password {
+} */
+/* .center-login .field.password {
     border-top: 1px solid #53565c;
-}
+} */
 .field {
     height: 50px;
     width: 331px;
@@ -82,12 +82,10 @@ form {
     margin: 0 -5px 0 0;
 }
 .field input {
-    background-color: #414348;
     height: 50px;
     width: 281px;
     border: 0px transparent;
     border-left: 50px solid transparent;
-    color: #FFF;
     font-size: 16px;
     transition: all 0.5s;
     box-sizing: content-box;
@@ -105,7 +103,7 @@ form {
     width: 100%;
 }
 .center-login .actions .row .link-forgotPassword {
-    display: none;
+/*     display: none; */
     color: #858585;
 }
 #link-register:hover,
@@ -141,5 +139,111 @@ form {
     color: #858585;
     height: 32px;
     line-height: 32px;
-    display: none;
+/*     display: none; */
+}
+a {
+	text-decoration:none;
+	cursor:pointer;
+}
+.footer{
+	margin-top: 10px;
+	width: 100%;
+	text-align: center;
+	float: left;
+	/*color: #57595e;*/
+	color: #858585;
+}
+.footer a{
+	text-decoration:none;
+	color:#858585;
+}
+.footer a:focus,.footer a:hover{
+	color:#418CD1;
+}
+.footer .trusted{
+	font-size: 16px;
+}
+.footer .copyright{
+	font-size: 12px;
+}
+.icon-goLeft{
+	position: relative;
+	background-position: -128px -64px;
+}
+.actions .link-login{
+	float: left;
+}
+.actions .link-login span{
+	float: left;
+	margin-left: -10px;
+}
+.actions .link-login span.icon-goLeft{
+	float: left;
+	margin: 0;
+	left: -5px;
+}
+.actions .link-login:hover span.icon-goLeft{
+	background-position: -96px -64px;
+}
+.notes-error,.notes-success{
+	float: left;
+	border: 1px solid #393b3f;
+	width: 331px;
+	border-radius: 2px;
+	margin: 0 0 16px 0;
+	/*color: #8d313d;*/
+	color:#BB4252;
+	position: relative;
+	padding: 15px 0 15px 0;
+	min-height: 26px;
+	height: auto;
+}
+.notes-error .icon-noteError,.notes-success .icon-noteSuccess{
+	top: 50%;
+	left:0;
+	margin-top: -16px;
+}
+.notes-error p,.notes-success p{
+	font-size: 14px;
+	line-height: 14px;
+	margin:5px 5px 5px 50px;
+}
+.ie7 .center-forgotPassword .notes-error p{
+	line-height:20px;
+}
+.notes-success p{
+	/*color:#328944;*/
+	color:#22993B;
+}
+.center-register .field.register-email{
+	border-top: 1px solid #53565c;
+}
+.icon-email{
+	background-position: -64px 0;
+}
+.icon-noteError{
+	background-position: -96px 0;
+}
+.icon-noteSuccess{
+	background-position: -128px 0;
+}
+a[class^=link-] span{
+	height: 32px;
+	line-height: 32px;
+}
+a[class^=link-]{
+	/*color: #909195;*/
+	color:#858585;
+	text-decoration: none;
+}
+a[class^=link-]:hover{
+	color: #0e73d3;
+}
+.center-license .notes a{
+	text-decoration:none;
+	color: #858585;
+}
+.center-license .notes a:hover,
+.center-license .notes a:active{
+	color:#fff;
 }

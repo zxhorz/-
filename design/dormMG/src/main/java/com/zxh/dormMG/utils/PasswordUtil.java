@@ -31,16 +31,19 @@ public class PasswordUtil {
 		return null;
 	}
 
-	public static String generatePassword() {
-		// TODO Auto-generated method stub
-		char charr[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!@#$%^&*.?".toCharArray();
-		// System.out.println("字符数组长度:" + charr.length); //可以看到调用此方法多少次
-		StringBuilder sb = new StringBuilder();
-		Random r = new Random();
-		for (int x = 0; x < PASSWORD_LENGTH; ++x) {
-			sb.append(charr[r.nextInt(charr.length)]);
+	public static String generateRandomString(int length) {
+		String val = "";
+		Random random = new Random();
+		for(int i = 0; i < length; i++) {
+			String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";
+			if( "char".equalsIgnoreCase(charOrNum) ) {
+				int temp = random.nextInt(2) % 2 == 0 ? 65 : 97;
+				val += (char)(random.nextInt(26) + temp);
+			} else if( "num".equalsIgnoreCase(charOrNum) ) {
+				val += String.valueOf(random.nextInt(10));
+			}
 		}
-		return sb.toString();
+		return val;
 	}
 
 }

@@ -7,57 +7,80 @@ import java.util.List;
 @Table(name = "user")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
-	private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
+    private String id;
 
-	@Column(name = "name")
-	private String name;
+    @Column(name = "name")
+    private String username;
 
     @Column(name = "password")
-	private String password;
+    private String password;
 
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
-	private List<Role> roles;
+    @Column(name = "activation_code")
+    private String activationCode;
+
+    @Column(name = "state")
+    private String state;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Role> roles;
 
     public User() {
     }
 
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
+    public User(String id, String activationCode, String state) {
+        this.id = id;
+        this.activationCode = activationCode;
+        this.state = state;
     }
 
     public String getId() {
-		return id;
-	}
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public List<Role> getRoles() {
-		return roles;
-	}
+    public List<Role> getRoles() {
+        return roles;
+    }
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getActivationCode() {
+        return activationCode;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

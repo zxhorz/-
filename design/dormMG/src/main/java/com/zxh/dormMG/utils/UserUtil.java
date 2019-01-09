@@ -9,12 +9,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
-/**
- * @Description: User的一些操作
- * @author gaochaodeng
- * @date May 21, 2018
- */
 @Component
 public class UserUtil {
 	@Autowired
@@ -26,7 +20,7 @@ public class UserUtil {
 	public String getCurrentUserId() {
 		String userName = String.valueOf(SecurityUtils.getSubject()
 				.getSession().getAttribute("signinId"));
-		User user = userRepository.findByName(userName);
+		User user = userRepository.findUserByName(userName);
 		if (user != null) {
 			return user.getId();
 		}
