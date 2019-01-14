@@ -7,6 +7,8 @@ public class LoginDto implements Serializable {
 
 	private String userName;
 	private String password;
+	private String newPassword;
+	private String captcha;
 
 	public LoginDto() {
 		super();
@@ -16,6 +18,13 @@ public class LoginDto implements Serializable {
 		super();
 		this.userName = userName;
 		this.password = password;
+	}
+
+	public LoginDto(String userName, String password, String newPassword) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.newPassword = newPassword;
 	}
 
 	public String getUserName() {
@@ -32,6 +41,22 @@ public class LoginDto implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getCaptcha() {
+		return captcha;
+	}
+
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
 	}
 
 }

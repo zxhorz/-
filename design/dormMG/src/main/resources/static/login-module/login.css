@@ -52,8 +52,8 @@ form {
 .field {
     height: 50px;
     width: 331px;
-    background-color: #414348;
-    border: 1px solid #161519;
+    background-color: #ffffff;
+    border: 1px solid #1c75c7;
     border-radius: 2px;
     overflow: hidden;
 }
@@ -81,11 +81,14 @@ form {
     float: right;
     margin: 0 -5px 0 0;
 }
+.center-login .actions .link-register:hover span.icon-goRight{
+	background-position: -96px -32px;
+}
 .field input {
     height: 50px;
-    width: 281px;
+    width: 321px;
     border: 0px transparent;
-    border-left: 50px solid transparent;
+    border-left: 10px solid transparent;
     font-size: 16px;
     transition: all 0.5s;
     box-sizing: content-box;
@@ -104,7 +107,7 @@ form {
 }
 .center-login .actions .row .link-forgotPassword {
 /*     display: none; */
-    color: #858585;
+    color: #000000;
 }
 #link-register:hover,
 .center-login .actions .row .link-forgotPassword:hover {
@@ -136,7 +139,7 @@ form {
     float: right;
 }
 #link-register{
-    color: #858585;
+    color: #000000;
     height: 32px;
     line-height: 32px;
 /*     display: none; */
@@ -151,11 +154,11 @@ a {
 	text-align: center;
 	float: left;
 	/*color: #57595e;*/
-	color: #858585;
+	color: #418CD1;
 }
 .footer a{
 	text-decoration:none;
-	color:#858585;
+	color:#157fff;
 }
 .footer a:focus,.footer a:hover{
 	color:#418CD1;
@@ -164,7 +167,7 @@ a {
 	font-size: 16px;
 }
 .footer .copyright{
-	font-size: 12px;
+	font-size: 16px;
 }
 .icon-goLeft{
 	position: relative;
@@ -216,7 +219,7 @@ a {
 	color:#22993B;
 }
 .center-register .field.register-email{
-	border-top: 1px solid #53565c;
+	border-top: 1px solid #1c75c7;
 }
 .icon-email{
 	background-position: -64px 0;
@@ -246,4 +249,13 @@ a[class^=link-]:hover{
 .center-license .notes a:hover,
 .center-license .notes a:active{
 	color:#fff;
+}
+.field.captcha {
+    display: inline-flex;
+}
+input.captcha {
+    width: 201px;
+}
+img.captcha {
+    cursor: pointer;
 }

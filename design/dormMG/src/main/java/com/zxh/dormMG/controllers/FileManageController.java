@@ -328,7 +328,7 @@ public class FileManageController {
 
             try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zip))) {
 //                zipFiles(out, "", files.toArray(new File[files.size()]));
-                toZip(true, zos, zip.getName(), files.toArray(new File[files.size()]));
+                toZip(zos, zip.getPath(), files.toArray(new File[files.size()]));
             }
             return success();
         } catch (Exception e) {

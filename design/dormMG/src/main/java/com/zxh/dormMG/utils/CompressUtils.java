@@ -27,34 +27,31 @@ import com.github.junrar.exception.RarException.RarExceptionType;
 import com.github.junrar.rarfile.FileHeader;
 
 public class CompressUtils {
-    public static void toZip(boolean KeepDirStructure, ZipOutputStream zos, String name, File... srcFiles)
-            throws Exception {
-        byte[] buf = new byte[2048];
+    public static void toZip(ZipOutputStream out, String path, File... srcFiles)
+            throws IOException {
+        path = path.replaceAll("\\*", "/");
+        if (!path.endsWith("/") && !path.equals("")) {
+            path += "/";
+        }
+        byte[] buf = new byte[1024];
         for (File srcFile : srcFiles) {
-            if (srcFile.isFile()) {
-                zos.putNextEntry(new ZipEntry(name));
-                int len;
-                FileInputStream in = new FileInputStream(srcFile);
-                while ((len = in.read(buf)) != -1) {
-                    zos.write(buf, 0, len);
+            if (srcFile.isDirectory()) {
+                File[] files = srcFile.listFiles();
+                String srcPath = srcFile.getName();
+                srcPath = srcPath.replaceAll("\\*", "/");
+                if (!srcPath.endsWith("/")) {
+                    srcPath += "/";
                 }
-                zos.closeEntry();
-                in.close();
+                out.putNextEntry(new ZipEntry(path + srcPath));
+                toZip(out, path + srcPath, files);
             } else {
-                File[] listFiles = srcFile.listFiles();
-                if (listFiles == null || listFiles.length == 0) {
-                    if (KeepDirStructure) {
-                        zos.putNextEntry(new ZipEntry(name + "/"));
-                        zos.closeEntry();
+                try (FileInputStream in = new FileInputStream(srcFile)) {
+                    out.putNextEntry(new ZipEntry(path + srcFile.getName()));
+                    int len;
+                    while ((len = in.read(buf)) > 0) {
+                        out.write(buf, 0, len);
                     }
-                } else {
-                    for (File file : listFiles) {
-                        if (KeepDirStructure) {
-                            toZip(KeepDirStructure, zos, name + "/" + file.getName(), file);
-                        } else {
-                            toZip(KeepDirStructure, zos, file.getName(), file);
-                        }
-                    }
+                    out.closeEntry();
                 }
             }
         }

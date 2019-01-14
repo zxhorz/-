@@ -5,7 +5,9 @@ import com.zxh.dormMG.domain.Role;
 import com.zxh.dormMG.domain.User;
 import com.zxh.dormMG.dto.LoginDto;
 import com.zxh.dormMG.dto.ResultDto;
+import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.utils.PasswordUtil;
+import com.zxh.dormMG.utils.ValidateCode;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -17,6 +19,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Map;
 
@@ -30,8 +35,11 @@ public class LoginController {
     //post登录
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView login(@Valid LoginDto loginDto, BindingResult result) {
+    public ResultDto<String> login(@Valid LoginDto loginDto, BindingResult result, HttpServletRequest request) {
         Subject currentUser = SecurityUtils.getSubject();
+        String captcha = loginDto.getCaptcha();
+        if(!loginService.checkCaptcha(captcha, request))
+            return ResultDtoFactory.toAck("F", "Captcha wrong");
         String userName = loginDto.getUserName();
         String password = loginDto.getPassword();
         UsernamePasswordToken token = new UsernamePasswordToken(userName, PasswordUtil.MD5(password));
@@ -40,12 +48,14 @@ public class LoginController {
             currentUser.login(token);
             Session s = currentUser.getSession();
             s.setAttribute("signinId", userName);
-            ModelAndView modelAndView = new ModelAndView("redirect:/index.html");
-            return modelAndView;
+            // ModelAndView modelAndView = new ModelAndView("redirect:/index.html");
+            // return modelAndView;
+            return ResultDtoFactory.toAck("S", userName);
         } catch (Exception e) {
             token.clear();
-            ModelAndView modelAndView = new ModelAndView("redirect:/login-module/login_error.html");
-            return modelAndView;
+            // ModelAndView modelAndView = new ModelAndView("redirect:/static/login-module/login1.html");
+            // return modelAndView;
+            return ResultDtoFactory.toAck("F", "userName/password not correct or the account is not activated!");
         }
     }
 
@@ -99,7 +109,6 @@ public class LoginController {
         return loginService.activeAccount(activationCode, account);
     }
 
-
     //注解的使用
     @RequiresRoles("admin")
     @RequiresPermissions("create")
@@ -107,4 +116,44 @@ public class LoginController {
     public String create(){
         return "Create success!";
     }
+
+
+    @RequestMapping(value = "/forget", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDto<String> forget(@RequestParam("email") String email) {
+        return loginService.forget(email);
+    }
+
+    @RequestMapping(value = "/checkForgotActivationCode", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDto<String> checkForgotActivationCode(@RequestParam("email") String email,
+                                                       @RequestParam("activationCode") String activationCode) {
+        return loginService.checkForgotActivationCode(email, activationCode);
+    }
+
+    @RequestMapping(value = "/changeForgotPassword", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDto<String> changeForgotPassword(@Valid LoginDto loginDto, BindingResult result) {
+        String userName = loginDto.getUserName();
+        String password = loginDto.getPassword();
+        return loginService.changePassword(userName, password);
+    }
+
+    @RequestMapping(value = "/validateCode", method = RequestMethod.GET)
+    public String validateCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        response.setContentType("image/jpeg");
+        // 禁止图像缓存
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        HttpSession session = request.getSession();
+
+        ValidateCode vCode = new ValidateCode(120, 40, 5, 100);
+        session.setAttribute("captcha", vCode.getCode());
+        vCode.write(response.getOutputStream());
+        return null;
+    }
+
 }

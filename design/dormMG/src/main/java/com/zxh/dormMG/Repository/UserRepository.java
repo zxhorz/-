@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends BaseRepository<User,Long>{
-    @Query("select p from User p where p.name = :query")
+    @Query("select p from User p where p.username = :query")
     User findUserByName(@Param("query") String name);
 
     @Query("select p from User p where p.activationCode = :query")

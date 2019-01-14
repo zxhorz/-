@@ -24,6 +24,9 @@ public class User {
     @Column(name = "state")
     private String state;
 
+    @Column(name = "send_time")
+    private String time;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Role> roles;
 
@@ -82,5 +85,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

@@ -49,11 +49,11 @@ public class OperationLogger {
         operationLogRepository.save(op);
     }
 
-    private String getCurrentTime() {
+    public static String getCurrentTime() {
         return getCurrentTime(new Date());
     }
 
-    private String getCurrentTime(Date startTime) {
+    public static String getCurrentTime(Date startTime) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return df.format(startTime);
     }

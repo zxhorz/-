@@ -8,7 +8,10 @@ import com.zxh.dormMG.domain.Role;
 import com.zxh.dormMG.domain.User;
 import com.zxh.dormMG.dto.RegisterDto;
 import com.zxh.dormMG.dto.ResultDto;
+import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.enums.UserState;
+import com.zxh.dormMG.utils.FilePathUtil;
+import com.zxh.dormMG.utils.OperationLogger;
 import com.zxh.dormMG.utils.PasswordUtil;
 import org.apache.commons.net.smtp.SMTPClient;
 import org.apache.commons.net.smtp.SMTPReply;
@@ -20,12 +23,15 @@ import org.xbill.DNS.Lookup;
 import org.xbill.DNS.Record;
 import org.xbill.DNS.Type;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.mail.*;
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
@@ -41,6 +47,14 @@ public class LoginService {
     @Autowired
     private RoleRepository roleRepository;
 
+    public boolean checkUserExists(String userName) {
+        User find = userRepository.findUserByName(userName);
+        if (find != null) {
+            return true;
+        }
+        return false;
+    }
+
     //添加用户
     public User addUser(Map<String, Object> map) {
         User user = new User();
@@ -48,6 +62,16 @@ public class LoginService {
         user.setPassword(map.get("password").toString());
         userRepository.save(user);
         return user;
+    }
+
+    //验证码校验
+    public boolean checkCaptcha(String captcha,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String sessionCode = (String) session.getAttribute("captcha");
+        if (!sessionCode.equalsIgnoreCase(captcha)) {
+            return false;
+        }
+        return true;
     }
 
     //添加角色
@@ -76,38 +100,185 @@ public class LoginService {
     }
 
 
-    public static boolean sendMail(String to, String code) {
-
-        try {
-            Properties props = new Properties();
-            props.put("username", "huyuyang6688@163.com");
-            props.put("password", "123456");
-            props.put("mail.transport.protocol", "smtp");
-            props.put("mail.smtp.host", "smtp.163.com");
-            props.put("mail.smtp.port", "25");
-
-            Session mailSession = Session.getDefaultInstance(props);
-
-            Message msg = new MimeMessage(mailSession);
-            msg.setFrom(new InternetAddress("huyuyang6688@163.com"));
-            msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            msg.setSubject("激活邮件");
-            msg.setContent("<h1>此邮件为官方激活邮件！请点击下面链接完成激活操作！</h1><h3><a href='http://localhost:8080/SendMail/servlet/ActiveServlet?code=" + code + "'>http://localhost:8080/SendMail/servlet/ActiveServlet</a></h3>", "text/html;charset=UTF-8");
-            msg.saveChanges();
-
-            Transport transport = mailSession.getTransport("smtp");
-            transport.connect(props.getProperty("mail.smtp.host"), props
-                    .getProperty("username"), props.getProperty("password"));
-            transport.sendMessage(msg, msg.getAllRecipients());
-            transport.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e);
-            return false;
+    public ModelAndView activeAccount(String activationCode, String account) {
+        User user = userRepository.findUserByActivationCode(activationCode);
+        if (user != null) {
+            user.setState(UserState.ACTIVE.getState());
+            userRepository.save(user);
         }
-        return true;
+        return new ModelAndView("redirect:/static/login-module/login.html");
     }
 
+    public ResultDto<String> forget(String userName) {
+        ResultDto<String> resultDto = new ResultDto<String>();
+        boolean exists = checkUserExists(userName);
+        if (!exists) {
+            resultDto.setCode("E");
+            resultDto.setData("The user is non-existent.");
+            return resultDto;
+        } else {
+            resultDto.setData(null);
+            // 4位激活码
+            String activationCode = PasswordUtil.generateRandomString(4);
+            User user = userRepository.findUserByName(userName);
+            user.setActivationCode(PasswordUtil.MD5(activationCode));
+            user.setTime(OperationLogger.getCurrentTime());
+            userRepository.save(user);
+            // 发送密码和激活码到注册邮箱
+            try {
+                sendChangePassword(activationCode, userName);
+            } catch (Exception e) {
+                resultDto.setCode("E");
+                resultDto.setData("Send activation email exception!");
+                return resultDto;
+            }
+            resultDto.setCode("S");
+            resultDto.setData("Activation email was successfully sended, please check in your email in 15 minutes!");
+            return resultDto;
+        }
+    }
+
+    public ResultDto<String> register(String userName) {
+        ResultDto<String> resultDto = new ResultDto<String>();
+        boolean exists = checkEmail(userName);
+        if (exists) {
+            resultDto.setCode("E");
+            resultDto.setData("Invalid Email.");
+            return resultDto;
+        } else {
+            if (userRepository.findUserByName(userName) != null) {
+                resultDto.setCode("E");
+                resultDto.setData("The Email has been registered.");
+                return resultDto;
+            } else {
+                resultDto.setData(null);
+                // 4位激活码
+                String activationCode = PasswordUtil.generateRandomString(4);
+                // 6位密码
+                String password = PasswordUtil.generateRandomString(6);
+                User user = new User();
+                user.setUsername(userName);
+                user.setPassword(PasswordUtil.MD5(password));
+                user.setActivationCode(activationCode);
+                user.setState(UserState.NON_ACTIVE.getState());
+                userRepository.save(user);
+                // 发送密码和激活码到注册邮箱
+                try {
+                    sendPasswordAndActivationCode(activationCode, password, userName);
+                } catch (Exception e) {
+                    resultDto.setCode("E");
+                    resultDto.setData("Send activation email exception!");
+                    return resultDto;
+                }
+                resultDto.setCode("S");
+                resultDto.setData("The user was successfully registered, please activate your account in your email!");
+                return resultDto;
+            }
+        }
+    }
+
+    public ResultDto<String> changePassword(String userName, String newPassword) {
+        User user = userRepository.findUserByName(userName);
+        if (user != null) {
+            user.setPassword(PasswordUtil.MD5(newPassword));
+            user.setState(UserState.ACTIVE.getState());
+            userRepository.save(user);
+            return ResultDtoFactory.toAck("S","Password successfully changed");
+        }
+        else{
+            return ResultDtoFactory.toAck("F","Password failed to change");
+        }
+    }
+
+    public ResultDto<String> checkForgotActivationCode(String email, String activationCode) {
+        // TODO Auto-generated method stub
+        User user = userRepository.findUserByName(email);
+        String time = user.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date = sdf.parse(time);
+            Date currentDate = new Date();
+            long diff = currentDate.getTime() - date.getTime();
+            long min = diff /(60*1000);
+            if(min > 15)
+                return ResultDtoFactory.toAck("F","Activation code is overdue");
+            if(user.getActivationCode().equals(PasswordUtil.MD5(activationCode)))
+                return ResultDtoFactory.toAck("S");
+            else
+                return ResultDtoFactory.toAck("F","Activation code not correct");
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            return ResultDtoFactory.toAck("F","Record time error");
+        }
+    }
+
+    private void sendPasswordAndActivationCode(String activationCode, String password, String toEmail) throws MessagingException {
+        Properties props = new Properties();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(FilePathUtil.getSmtpConfigPath()));
+            props.load(br);
+        } catch(Exception e) {
+            logger.error("read smtp properties file error.");
+        }
+
+        String fromUserName = props.getProperty("username");
+        String fromPassword = props.getProperty("password");
+        String transportProtocol = props.getProperty("mail.transport.protocol");
+        String smtpHost = props.getProperty("mail.smtp.host");
+
+        Authentication authentication = new Authentication(fromUserName, fromPassword);
+        Session mailSession = Session.getDefaultInstance(props, authentication);
+
+        Message msg = new MimeMessage(mailSession);
+        msg.setFrom(new InternetAddress(fromUserName));
+        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+        msg.setSubject("BlueMorpho Workbench Activation Email");
+        msg.setContent("<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply. "
+                + "<br/>password : "
+                + password
+                + ".<br/> Please click on the link below to complete activation and set your own password!</h1><h3><a href='http://localhost:8888/login/activeAccount?activationCode="
+                + activationCode
+                + "&account="
+                + toEmail
+                + "'>http://localhost:8888/activeAccount</a></h3>", "text/html;charset=UTF-8");
+        msg.saveChanges();
+        Transport transport = mailSession.getTransport(transportProtocol);
+        transport.connect(smtpHost, fromUserName, fromPassword);
+        transport.sendMessage(msg, msg.getAllRecipients());
+        transport.close();
+    }
+
+    private void sendChangePassword(String activationCode, String toEmail) throws MessagingException {
+        Properties props = new Properties();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(FilePathUtil.getSmtpConfigPath()));
+            props.load(br);
+        } catch (Exception e) {
+            logger.error("read smtp properties file error.");
+        }
+
+        String fromUserName = props.getProperty("username");
+        String fromPassword = props.getProperty("password");
+        String transportProtocol = props.getProperty("mail.transport.protocol");
+        String smtpHost = props.getProperty("mail.smtp.host");
+
+        Authentication authentication = new Authentication(fromUserName, fromPassword);
+        Session mailSession = Session.getDefaultInstance(props, authentication);
+
+        Message msg = new MimeMessage(mailSession);
+        msg.setFrom(new InternetAddress(fromUserName));
+        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+        msg.setSubject("BlueMorpho Workbench Activation Email");
+        msg.setContent("<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply."
+                + "<br/>Activation code is ："
+                + activationCode + "</h1>", "text/html;charset=UTF-8");
+        msg.saveChanges();
+
+        Transport transport = mailSession.getTransport(transportProtocol);
+        transport.connect(smtpHost, fromUserName, fromPassword);
+        transport.sendMessage(msg, msg.getAllRecipients());
+        transport.close();
+    }
 
     public static boolean checkEmail(String email) {
         if (!email.matches("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+")) {
@@ -179,88 +350,4 @@ public class LoginService {
         }
         return false;
     }
-
-    public ResultDto<String> register(String userName) {
-        ResultDto<String> resultDto = new ResultDto<String>();
-        boolean exists = checkEmail(userName);
-        if (exists) {
-            resultDto.setCode("E");
-            resultDto.setData("Invalid Email.");
-            return resultDto;
-        } else {
-            if (userRepository.findUserByName(userName) != null) {
-                resultDto.setCode("E");
-                resultDto.setData("The Email has been registered.");
-                return resultDto;
-            } else {
-                resultDto.setData(null);
-                // 4位激活码
-                String activationCode = PasswordUtil.generateRandomString(4);
-                // 6位密码
-                String password = PasswordUtil.generateRandomString(6);
-                User user = new User();
-                user.setUsername(userName);
-                user.setPassword(PasswordUtil.MD5(password));
-                user.setActivationCode(activationCode);
-                user.setState(UserState.NON_ACTIVE.getState());
-                userRepository.save(user);
-                // 发送密码和激活码到注册邮箱
-                try {
-                    sendPasswordAndActivationCode(activationCode, password, userName);
-                } catch (Exception e) {
-                    resultDto.setCode("E");
-                    resultDto.setData("Send activation email exception!");
-                    return resultDto;
-                }
-                resultDto.setCode("S");
-                resultDto.setData("The user was successfully registered, please activate your account in your email!");
-                return resultDto;
-            }
-        }
-    }
-
-    private void sendPasswordAndActivationCode(String activationCode, String password, String toEmail) throws MessagingException {
-        Properties props = new Properties();
-        props.put("username", "huangchendong111@163.com");
-        props.put("password", "13336100573");
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.host", "smtp.163.com");
-        props.put("mail.smtp.port", "25");
-        props.put("mail.smtp.auth", "true");
-
-        Authentication authentication = new Authentication("huangchendong111@163.com", "13336100573");
-        Session mailSession = Session.getDefaultInstance(props, authentication);
-
-        Message msg = new MimeMessage(mailSession);
-        msg.setFrom(new InternetAddress("huangchendong111@163.com"));
-        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-        msg.setSubject("DeepMorpho产品激活邮件");
-        msg.setContent("<h1>此邮件为DeepMorpho产品官方激活邮件，您注册的账号为："
-                + toEmail
-                + "， 密码为："
-                + password
-                + "，请点击下面链接完成激活操作！</h1><h3><a href='http://localhost:8080/activeAccount?activationCode="
-                + activationCode
-                + "&account="
-                + toEmail
-                + "'>http://localhost:8080/activeAccount</a></h3>", "text/html;charset=UTF-8");
-        msg.saveChanges();
-
-        Transport transport = mailSession.getTransport("smtp");
-        transport.connect(props.getProperty("mail.smtp.host"), props
-                .getProperty("username"), props.getProperty("password"));
-        transport.sendMessage(msg, msg.getAllRecipients());
-        transport.close();
-    }
-
-    public ModelAndView activeAccount(String activationCode, String account) {
-        User user = userRepository.findUserByActivationCode(activationCode);
-        if (user != null) {
-            user.setState(UserState.ACTIVE.getState());
-            userRepository.save(user);
-        }
-        return new ModelAndView("redirect:/static/login-module/login.html");
-    }
-
-
 }
