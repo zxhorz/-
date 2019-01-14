@@ -1,0 +1,5 @@
+<div class="detailSearch">
+    <input class="searchInp" name="searchInp" ng-model="searchInp" required ng-init="" ng-keyup="setFocus($event)" />
+    <button class="btn btnColor searchBtn" ng-click="kerWordSearch(true)">Search</button>
+</div>
+<div ui-grid="gridOptions" class="grid fade in" ui-grid-selection ui-grid-pagination></div>

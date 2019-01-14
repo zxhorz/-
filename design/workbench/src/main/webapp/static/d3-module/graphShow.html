@@ -1,0 +1,28 @@
+<p ng-show="showNeo4j" class="graphTitle n4jContent">this is graph</p>
+<div ng-show="showNeo4j" class="n4jContent">
+    <select ng-model="selectedCypher" ng-options="x.title for x in cypherLists" ng-change="getChange()" class="cypherLists">
+    <option value="">select cypher</option>
+    </select>
+    <!--<input type="textarea" name="" class="" ng-model="cypherstmt" placeholder="cypher" style="width:200px;height:50px"/>-->
+    <button id="query" ng-click="getNode()">query</button>
+    </br>
+    <textarea name="" class="" ng-model="cypherstmt" placeholder="cypher" class="cypher" />
+</div>
+<div ng-show="showNeo4j" class="n4jContent">
+    <div id="{{cypherId}}" style="float:left;height:440px;width:100% ">
+    </div>
+    <!--<button id="showRecord " ng-click="show() " class="btn-primary pull-right ">{{buttonName}}</button>-->
+    <!--<div id="d3record " style="float:left;width:100%;overflow:scroll;display:{{isShow}} ">-->
+        <!--<table border="1 " class="table " style="float:left;width:100%;overflow:scroll;display:{{isShow}} " >
+            <thead>
+                <tr>
+                    <th ng-repeat="title in records.title track by $index ">{{title}}</th>
+                </tr>
+            </thead>
+            <tbody> <tr ng-repeat="rec in records.record track by $index ">
+                <td ng-repeat="column in rec track by $index ">{{column}}</td>
+                </tr>
+            </tbody>
+        </table>-->
+    <!--</div>-->
+</div>

@@ -1,0 +1,141 @@
+<div class="detailBox content cloneCode">
+	<div class="detailHeader">
+        <ul class="nav nav-tabs detailNav">
+            <li role="presentation" id="summary" class = 'active'>
+				<a class="text" ng-click="cloneTab('summary')">Clone Summary</a>
+            </li>
+            <li role="presentation" id="group">
+				<a class="text" ng-click="cloneTab('group')">Clone Group</a>
+            </li>
+            <li role="presentation" id="codecompare">
+                <a class="text" ng-click="cloneTab('codecompare',true)">Clone Paragraph Compare</a>
+            </li>
+        </ul>
+	</div>
+
+	<div class="tabBox" style = "padding: 0.5% 2%">
+        <div class="cloneSummary" ng-if="'summary'==cloneNavTxt" style="margin-left: 5%;">
+            <div class="analysis" style = "float:left;width:60%">
+                <h3>There are<strong class="cloneCode">
+                {{cloneinfo.percent}}</strong>Clone Code found in totally <strong class="programsNum">
+                    {{cloneinfo.programCount}}</strong> programs. And these programs are divided into
+                    <strong class="programsNum linkFlag" ng-click="cloneTab('group')">
+                    {{cloneinfo.groupCount}}</strong>
+                    clone groups.</h3></div>
+            <div class="clonedead_chart" style = "float:left">
+                <div class="chartsContainer">
+                    <p class="chartTitle">{{chartTitle}}</p>
+                    <canvas id="pie_chart" class="chart chart-pie" chart-data="data1" chart-labels="labels1" chart-options="options1" chart-colors="colors1">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div ng-if="'group'==cloneNavTxt">
+            <div class="clonecode_table" style="margin-left:5%">
+                <div>
+                    <table class="clonecode_table_head">
+                        <thead>
+                            <td>Group#</td>
+                            <td>Tier-1<br>Paragraphs</td>
+                            <td>Tier-2<br>Paragraphs</td>
+                            <td>Tier-3<br>Paragraphs</td>
+                        </thead>
+                    </table>
+                </div>
+                <div class="clonecode_table_body">
+                    <table class="code_table">
+                        <tbody>
+                            <tr ng-repeat="t in tierGroup track by $index">
+                                <td ng-click="to_diff($index)" class="group under_line">{{$index+1}}</td>
+                                <td>{{t.tier1Num}}({{t.tier1Loc}})</td>
+                                <td>{{t.tier2Num}}({{t.tier2Loc}})</td>
+                                <td>{{t.tier3Num}}({{t.tier3Loc}})</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div ng-if="'codecompare'==cloneNavTxt" >
+           <div class="diffContent" style = "width:100%; margin-left:0.5%" ng-show="hasGroup">
+                <div class="diffList">
+                    <div class="thumbnail" ng-mouseenter="$parent.ps=true" ng-show="$parent.thumbnail">
+                        Tier-1</br>
+                        Tier-2</br>
+                        Tier-3</br>
+                    </div>
+                    <label>Group: </label>
+                    <select id="groupSelect" ng-model="$parent.selectedGroup" ng-options="item.id for item in cloneGroup" ng-change='changeDiffInfo()'>
+                    </select>
+                    <h4>Cloned Paragraphs in Group</h4>
+                    <ul class="TList first_list">
+                        <li ng-repeat="list in tierParasInGroup.memberInfo track by $index" ng-click="pargraph_select($event,list.id)">{{list.name}}</li>
+                    </ul>
+                    <ul class="TList next_list" ng-show="$parent.ps" ng-mouseleave="$parent.ps=false;$parent.thumbnail=true;">
+                        <li><h4>Clone Relations</h4></li>
+                        <!--<li>
+                            <button type="button" class="close" ng-click="ps=false" style="position:inherit;"><span aria-hidden="true">&times;</span></button>
+                        </li>-->
+                        <li class="TList_li" ng-if="Tier.tier_1.length!=0">
+                            <h4>Tier-1</h4>
+                            <ul class="T1List ttlist">
+                                <li ng-repeat="l in Tier.tier_1 track by $index" ng-click="diff_select($event)">{{l}}</li>
+                            </ul>
+                        </li>
+                        <li class="TList_li" ng-if="Tier.tier_2.length!=0">
+                            <h4>Tier-2</h4>
+                            <ul class="T2List ttlist">
+                                <li ng-repeat="l in Tier.tier_2 track by $index" ng-click="diff_select($event)">{{l}}</li>
+                            </ul>
+                        </li>
+                        <li class="TList_li" ng-if="Tier.tier_3.length!=0">
+                            <h4>Tier-3</h4>
+                            <ul class="T3List ttlist">
+                                <li ng-repeat="l in Tier.tier_3 track by $index" ng-click="diff_select($event)">{{l}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class='compareContent'>
+                    <p class="diff_result">{{diffResult}}</p>
+                    <!-- <div flex layout="column" layout-gt-md="row">
+                        <md-card flex>
+                            <md-card-content>
+                                <h4 class="cloneCodeTxt">{{name1}}</h4>
+                                <textarea layout-fill class="inputBox" ng-model="left" style="font-size:14px; height:500px"></textarea>
+                            </md-card-content>
+                        </md-card>
+                    </div>
+                    <div flex layout="column" layout-gt-md="row" style="margin-left:1%">
+                        <md-card flex>
+                            <md-card-content>
+                                <h4 class="cloneCodeTxt">{{name2}}</h4>
+                                <pre class="textdiff" diff left-obj="left" right-obj="right" style="font-size:14px;height:512px"></pre>
+                            </md-card-content>
+                        </md-card>
+                    </div> -->
+                    <diffchecker-directive name1='name1' name2='name2' left='left' right='right'></diffchecker-directive>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="loading" ng-show="load" ng-switch="part">
+            <div class="loadcontent" ng-switch-when="error">
+                <img src="/predict-module/error.png">
+                <p>error</p>
+            </div>
+            <div class="loadcontent" ng-switch-when="tip">
+                <p style="font-size:16px;">{{tipContent}}</p>
+            </div>
+            <div class="loadcontent" ng-switch-when="success">
+                <img src="/predict-module/success.png">
+                <p>success</p>
+            </div>
+            <div class="loadcontent" ng-switch-default>
+                <img src="/analysis-module/loading.gif">
+                <p>loading...</p>
+            </div>
+        </div> -->
+	</div>
+</div>
+<modelshow-directive></modelshow-directive>

@@ -1,0 +1,47 @@
+[
+{"nodeName": "Program",
+"tableColumn":"Number of Programs" ,
+"summaryName":"non-CICS-programs",
+"tabName" : "Programs"
+},
+{"nodeName": "CICS",
+"tableColumn":"Number of CICS" ,
+"summaryName":"CICS-programs",
+"tabName" : "Programs" 
+},
+{"nodeName": "Paragraph",
+"tableColumn":"Number of Paragraphs" ,
+"summaryName":"Paragraphs",
+"tabName" : "Paragraphs" 
+},
+{"nodeName": "Table", 
+"tableColumn":"Number of Tables" ,
+"summaryName":"Tables",
+"tabName" : "Tables"
+},
+{"nodeName": "File",
+"tableColumn":"Number of Files" ,
+"summaryName":"Files",
+"tabName" : "Files" 
+},
+{"nodeName": "Copybook",
+"tableColumn":"Number of Copybooks" ,
+"summaryName":"Copybooks",
+"tabName" : "Copybooks"
+},
+{"nodeName": "JCL", 
+"tableColumn":"Number of JCL" ,
+"summaryName":"JCL",
+"tabName" : "JCL"
+},
+{"nodeName": "LOC",
+"tableColumn":"Lines of Code" ,
+"summaryName":"LOC", 
+"tabName" : "Summary"
+},
+{"nodeName": "SqlLogic",
+"tableColumn":"SQL Logics" ,
+"summaryName":"SQL Logics", 
+"tabName" : "SQLLogic"
+}
+]

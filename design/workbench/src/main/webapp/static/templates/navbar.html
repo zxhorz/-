@@ -1,0 +1,70 @@
+<nav class="navbar navbar-inverse" ng-class="{'customNav':config.isCustom,'fileManagerNav':!config.isCustom}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9 col-md-8 hidden-xs">
+                <div ng-show="!config.breadcrumb">
+                    <a class="navbar-brand hidden-xs ng-binding" href="">angular-{{"filemanager" | translate}}</a>
+                </div>
+                <div calss="headTxt" ng-include="config.tplPath + '/current-folder-breadcrumb.html'" ng-show="config.breadcrumb">
+                </div>
+            </div>
+            <div class="col-sm-3 col-md-4">
+                <div class="navbar-collapse">
+                    <div class="navbar-form navbar-right text-right">
+                        <div class="pull-left visible-xs" ng-if="fileNavigator.currentPath.length">
+                            <button class="btn btn-primary btn-flat" ng-click="fileNavigator.upDir()">
+                                <i class="glyphicon glyphicon-chevron-left"></i>
+                            </button>
+                            {{fileNavigator.getCurrentFolderName() | strLimit : 12}}
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-flat btn-sm dropdown-toggle" type="button" id="dropDownMenuSearch" data-toggle="dropdown" aria-expanded="true"
+                                title="{{'search' | translate}}" ng-click="dropDownMenuSearch()">
+                                <i class="glyphicon glyphicon-search mr2"></i>
+                            </button>
+                            <div class="dropdown-menu animated fast fadeIn pull-right" role="menu" aria-labelledby="dropDownMenuLang">
+                                <input type="text" class="form-control noBorder dropDownMenuInp" ng-show="config.searchForm" placeholder="{{'search' | translate}}..." ng-model="$parent.query"/>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-flat btn-sm" ng-click="$parent.setTemplate('main-icons.html')" ng-show="$parent.viewTemplate !=='main-icons.html'"
+                            title="{{'icons' | translate}}">
+                            <i class="glyphicon glyphicon-th-large"></i>
+                        </button>
+
+                        <button class="btn btn-flat btn-sm" ng-click="$parent.setTemplate('main-table.html')" ng-show="$parent.viewTemplate !=='main-table.html'"
+                            title="{{'list' | translate}}">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                        </button>
+
+
+                        <button class="btn btn-flat btn-sm" ng-click="modal('newfolder') && prepareNewFolder()" ng-show="config.allowedActions.createFolder"
+                            title="{{'new_folder' | translate}}">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </button>
+
+                        <button class="btn btn-flat btn-sm" ng-click="modal('uploadfile')" ng-show="config.allowedActions.upload && !isOutput" title="{{'upload_files' | translate}}">
+                            <i class="glyphicon glyphicon-cloud-upload"></i>
+                        </button>
+                        <button class="btn btn-flat btn-sm" ng-click="goCodeBrowser()" ng-show="$parent.getFromPage==='INDEX'" title="CodeBrowser">
+                            <i class="glyphicon glyphicon-share"></i>
+                        </button>
+                        <button class="btn btn-flat btn-sm" ng-click="history()" ng-show="config.isCustom && !isOutput" title="History">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                        </button>
+                        <button class="btn btn-flat btn-sm" ng-click="download('output')" ng-show="isOutput" title="Download {{temps.length > 0 && 'The Selected'  || 'All'}} Output">
+                            <i class="glyphicon glyphicon-cloud-download"></i>
+                        </button>
+                        <button class="btn btn-flat btn-sm" ng-click="goBackScript()" ng-show="isOutput" title="Go Back Script">
+                            <i class="glyphicon glyphicon-share"></i>
+                        </button>
+                        <button class="btn btn-flat btn-sm" ng-click="close()" ng-show="!config.isCustom" title="Close">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

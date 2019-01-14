@@ -1,0 +1,208 @@
+ul,ol,li{
+	list-style: none;
+}
+body{
+	overflow: hidden;
+	background: #EAEEF2 !important;
+} 
+#wrap{
+	position: absolute;
+	top: 54px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.wap_li{
+	width: 50%;
+	float: left;
+	height: 100%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 50px;
+	border: 0;
+}
+.vertical_label{
+	float: left;
+	width: 10px;
+	height: 100%;
+	position: absolute;
+	cursor: e-resize;
+	margin: 0;
+}
+.horizontal{
+	height: 10px;
+	position: absolute;
+	cursor: n-resize;
+}
+#lab1{
+	width: calc(50% - 10px);
+	left:0; 
+	top: calc(50% - 10px); 
+	background: #D1D1D1;
+	margin-bottom: 0px;
+}
+#lab2{
+	left: calc(50% - 10px);
+	background: #D1D1D1;
+}
+#lab3{
+	width: 50%;
+	left: 50%;
+	top: calc(40% - 10px);
+	background: #D1D1D1;
+}
+#lab4{
+	width: 50%; 
+	left: 50%;
+	top: calc(80% - 10px);
+	background: #D1D1D1;
+}
+#div1 {
+	width: 100%;
+	height: 50%;
+	/*background: #FFEC8B;*/
+	border: 0px;
+	/*overflow: auto;*/
+}
+#div2 {
+	width: 100%;
+	height: 100%;
+	/*background: #BCD2EE;*/
+	border: 0px;
+	/*overflow: auto;*/
+}
+#div3 {
+	width: 100%;
+	height: 100%;
+	/*background: #9BCD9B;*/
+	border: 0px;
+	/*overflow: auto;*/
+}
+#div4 {
+	width: 100%;
+	height: 40%;
+	/*background: #CDB5CD;*/
+	border: 0px;
+	/*overflow: auto;*/
+}
+#div5 {
+	width: 100%;
+	height: 20%;
+	/*background: #CDB7B5;*/
+	border: 0px;
+	/*overflow: auto;*/
+}
+/*鼠标移到窗口不变色*/
+.dragable:hover {
+	background-color: initial;
+}
+.switch_button {
+	float: right;
+	height: 24px;
+	margin: 3px 15px;
+	line-height: 12px;
+}
+p {
+	text-align: center;
+}
+/*首页布局*/
+#mainBox{
+	width:100%;
+	height:99%;
+	overflow:auto;
+	margin-bottom:5px;
+}
+#leftBox{
+	background-color:#EAEEF2;
+	height:100%;
+	margin:0 5px;
+}
+.topTable, .rightTable{
+	float:left;
+	width:48.5%;
+	height:400px;
+	overflow:hidden;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: 0px 2px 10px #E0E7EF;
+	position: relative;
+}
+.topTable{
+	margin: 15px 0.5% 5px 1%;
+}
+.rightTable{
+	overflow: hidden;
+	margin: 15px 1% 5px 0.5%;
+}
+.bottomTable{
+	width:98%;
+	height:445px;
+	overflow:auto;
+  	margin: 15px 1% 0;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: 0px 2px 10px #E0E7EF;
+	position: relative;
+	display: inline-block;
+}
+#rightBox{
+	height:100%;
+	overflow:auto;
+  	padding:5px;
+	border:1px solid #a3a3a3;
+	background-color:#fff;
+}
+
+#bottomBox{
+	width:100%;
+	height:29%;
+	overflow:auto;
+  	padding:5px;
+	border:1px solid #a3a3a3;
+}
+#bottomBox iframe{
+	width:100%;
+	height:90%;
+	border:none;
+}
+.fullframeBox{
+	height:100% !important;
+	border:none !important;
+}
+.fullframeBox iframe{
+	height:99% !important;
+}
+.halfWidth{
+	float:left;
+	width:49%;
+}
+.bigPartWidth{
+	float:left;
+	width:65%;
+}
+.smallPartWidth{
+	float:left;
+	width:34%;
+}
+.fullWidth{
+	width:100%;
+}
+.height70{
+	height:70% !important;
+}
+/* 最大化窗口 */
+.maxWindow{
+	position: absolute!important;
+	top:0;
+	right:0;
+	bottom: 0;
+	left: 0;
+	width:98% !important;
+	height:98% !important;
+	z-index:99;
+	background-color:#f8fdff;
+	margin:15px auto!important;
+}
+.over{
+	overflow: hidden!important;
+}

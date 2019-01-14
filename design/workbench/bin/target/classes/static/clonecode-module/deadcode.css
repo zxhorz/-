@@ -1,0 +1,458 @@
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+    background: none;
+}
+::-webkit-scrollbar-thumb {
+    border: solid 0 transparent;
+    border-right-width: 4px;
+    border-left-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    -webkit-border-radius: 40px 40px;
+    min-height: 100px;
+    min-width: 100px;
+    -webkit-box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.2), inset 0 0 0 4px rgba(128, 128, 128, 0.2);
+}
+.deadcodeResultText1{
+    width: 100%;
+}
+.deadcodeResultText2{
+    width: 100%;
+    height: 70%;
+    overflow:auto;
+}
+.deadcodeResultText3{
+    margin-left: 20px;
+}
+.deadcode_detail{
+    text-indent:50px;
+}
+.title{
+    font-size: 16px;
+    margin-top: 30px;
+    padding-left: 40px;        
+}
+.mainPage{
+    height: 90%;
+    margin: 18px;
+    background: #e6e9ed;
+}
+.deadcodeBox{
+    display: inline-block;
+    width: 75%;
+    margin: 10px auto;
+    height: 100%;
+}
+.code_table{
+    width: 100%;
+}
+.clonecode_table thead{
+    background: #eff4fb;
+    width: 100%;
+}
+.clonecode_table tbody{
+    background: #fff;
+}
+.clonecode_table tr{
+    width: 100%;
+}
+.clonecode_table td{
+    padding: 10px 0!important;
+    width: 120px;
+    text-align: center;
+    border: 1px solid #ddd;
+    height: 45px;
+}
+caption{
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+    padding-left: 5px;
+}
+.code_btn{
+    width: 125px;
+    height: 40px;
+    background: #1580FF;
+    box-shadow: 0px 0px 7px #CDDCEE;
+    border: none;
+    display: inline-block;
+    color: #fff;
+    font-size: 22px;
+    border-radius: 5px;
+}
+.deadcode{
+    margin: 20px 0 0 80%;
+}
+h5{
+    padding-left: 5px;
+}
+.code_btn:hover{
+    background: #1067cf
+}
+.loading{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+.loadcontent{
+    width: 300px;
+    height: 150px;
+    margin: 15% auto;
+    background: #fff ;
+    padding-top: 50px;
+    border-radius: 5px;
+}
+.bTable{
+    background: #fff;
+    width: 98%;
+    height: 90%;
+    margin: 2% auto;
+    text-align: left;
+}
+.conBox {
+    display: inline-block;
+    vertical-align: top;
+    width: 47%;
+    height: 97%;
+    padding: 1%;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    margin: 1%;
+    overflow: auto;
+}
+.conBox svg{
+    max-width: 100%!important;
+}
+.conBox svg .node{
+    cursor: pointer;
+}
+.one{
+    width: 95%!important;
+}
+.one svg{
+    width: 150%!important;
+}
+.deadcode_table_head td{
+    border: none;
+}
+.deadcode_table_body{
+    margin-bottom: 10px;
+    max-height: 55%;
+    overflow: auto;
+}
+/*clonedead*/
+.clonecode_table_head{
+    width: 100%;
+}
+.clonecode_table_head td{
+    border: none;
+}
+.clonecode_table_body{
+    max-height: 77%;
+    overflow: auto;
+}
+.clonecodeBox{
+    display: inline-block;
+    width: 84%;
+    margin: 10px auto;
+    height: 100%;
+}
+.clonecode_table{
+    height: 77%;
+    width: 75%;
+    display: inline-block;
+}
+.clone_check{
+    width: 100%;
+    height: 25%;
+    overflow: auto;
+    margin-bottom: 1%;
+    position: relative;
+}
+.clonecode{
+    position: absolute;
+    right: 20px;
+}
+.clone_check p{
+    width: 90%;
+}
+.clone_check label{
+    padding-left: 10px;
+    font-weight: normal;
+    font-size: 14px; 
+    width: 92%;
+    vertical-align: top;
+}
+.clone_check input[type=checkbox]  {  
+    display: inline-block;  
+    vertical-align: middle;  
+    width: 20px;  
+    height: 20px;  
+    margin:0;  
+    -webkit-appearance: none;  
+    background-color: transparent;  
+    border: 0;  
+    outline: 0 !important;  
+    line-height: 20px;  
+    color: #d8d8d8;  
+}
+.clone_check input[type=checkbox]:after  {  
+    content: "";  
+    display:block;  
+    width: 20px;  
+    height: 20px;  
+    text-align: center;  
+    line-height: 14px;  
+    font-size: 16px;  
+    color: #fff;  
+    border: 1px solid #6FACF4;  
+    background-color: #fff;  
+    box-sizing:border-box;  
+}  
+.clone_check input[type=checkbox]:checked:after  {  
+    content: "\2713";
+    color:#6FACF4;
+    font-size: 20px;
+    font-weight: 600x;
+}
+.clonecode_table2 td{
+    height: 35px;;
+    padding: 0!important;
+}
+.clonedead_chart{
+    width: 500px;
+    display: inline-block;
+    height: 500px;
+    background: #fff;
+    float: right;
+    margin-top: 3%;
+}
+.chartsContainer canvas{
+	width: 100% ! important;
+	height: 100% ! important;
+	margin: auto auto;
+}
+.chartTitle{
+	color: #898989;
+	font-size: 18px;
+}
+.diffmodal{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    background: rgba(0, 0, 0, 0.8);
+}
+.diffContent{
+    width:90%;
+    height: 90%;
+    margin: 2% auto;
+    background: #fff;
+    padding: 10px;
+}
+.diffContent pre{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 5px;
+}
+.diffContent textarea{
+    resize: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    overflow: auto;
+}
+.diffContent div{
+    display: inline-block;
+    
+}
+.diffList{
+    width: 28%;
+    vertical-align: top;
+    height: 100%;
+    position: relative;
+}
+.diffList ul{
+    padding: 0;
+    width: 80%;
+    /*height: 100%;*/
+}
+.diffList li{
+    list-style: none;
+    border-bottom: 1px  solid #eee;
+}
+.next_list{
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    background: #eff4fb;
+    left: 40%;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    z-index: 9;
+    box-shadow: 2px 4px 10px 1px #ccc;
+    padding-left: 5px!important;
+}
+.thumbnail{
+    position: absolute;
+    right: 0;
+    background: #dce7f7;
+    box-shadow: 2px 4px 10px 1px #ccc;
+    border: 1px solid #aaa;
+    z-index: 1;
+}   
+.first_list{
+    overflow: auto;
+}
+.first_list li:hover{
+    cursor: pointer;
+    background: #e5e5e5;
+}
+.TList_li{
+    height: 25%;
+    overflow: auto;
+}
+.cloneCode .T1List{
+    width: 100%;
+}
+.ttlist{
+    height: 100%;
+    overflow: auto;
+}
+.ttlist li{
+    padding-left: 10px;
+    cursor: pointer;
+}
+.ttlist li:hover{
+    cursor: pointer;
+    background: #e5e5e5;
+}
+.compareContent{
+    width: 70%;
+    height: 90%;
+}
+.compareContent div{
+    width: 49%;
+    vertical-align: top;
+    height: 95%;
+}
+.compareContent .diff_result{
+    margin: 10px 40px;
+    font-size: 16px;
+    font-weight: 500;
+    background: #fff;
+    text-align: left;
+    position: absolute;
+    top:5px;
+    left: 27.4%;
+}
+.compareContent .cloneCodeTxt{
+    margin-top: 0;
+}
+.clicked{
+    background: #c1dbff;
+}
+body md-content {
+      background-color: #f7f7f7;
+    }
+
+    md-card-content pre {
+      overflow: auto
+    }
+
+    .inputBox {
+      min-height: 100px;
+      width: 100%;
+      background-color: #fff;
+      border-color: #ccc;
+      box-shadow: none;
+      color: #000;
+      resize: none;
+      padding: 5px;
+    }
+
+    .match,
+.textdiff span {
+      color: gray;
+}
+    .ins,
+    ins {
+      color: black;
+      background: #bbffbb;
+    }
+
+    .del,
+    del {
+      color: black;
+      background: #ffbbbb;
+    }
+
+    .noselect {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+.nodes circle:hover{
+  cursor: pointer;
+}
+.group{
+    cursor: pointer;
+}
+.under_line{
+    text-decoration: underline;
+}
+.diff_btn{
+    width: 100px;
+    height: 45px;
+    line-height: 45px;
+    margin: 10px 0;
+    font-size: 34px;
+    border: 1px solid #999;
+    font-weight: 500;
+    border-radius: 3px;
+    background: #fff;
+}
+.diff_btn:hover{
+    background: #eee;
+}
+.hover:hover{
+    cursor: pointer;
+}
+.c-ul {
+    /* border-left: 1px solid #abcdef;  */
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+/* .c-li {
+    background-color: #dee9f4
+} */
+.c-liSelected {
+    background-color: #c0ddfc
+}
+/*.c-iExpanded {border: 1px solid #77a}*/
+/*.c-iCollapsed {border: 1px solid #7c7}*/
+/*.c-iLeaf {border: 1px solid #a77}*/
+treecontrol.tree-classic li .tree-label.c-label {color: #44c}
+treecontrol.tree-classic li .tree-selected.c-labelSelected {background-color: yellow}

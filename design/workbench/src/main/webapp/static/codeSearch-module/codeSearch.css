@@ -1,0 +1,209 @@
+.content .codeSearchBox{
+    height: 100%;
+    width: 95%;
+    margin: 0 auto;
+}
+.codeSearch .nav{
+    padding-left: 2%;
+}
+.codeSearch .nav a{
+    color:black;
+    display: inline-block;
+    height: 2%;
+}
+.codeSearch .TabCon .TabConItem{
+    height: 100%;
+}
+.codeSearch .TabCon .searchTop{
+    /* height: 12%; */
+    width: 100%;
+    /*border-bottom: 1px solid #ddd;*/
+    padding-top: 2%;
+    margin-bottom: 2%;
+}
+.codeSearch .TabCon .text{
+    margin-left: 6%;
+    margin-right: 1%
+}
+.codeSearch .searchInp{
+    width: 24%;
+    height: 30px;
+}
+.codeSearch .searchBtn{
+    margin-left: 1%
+}
+.codeSearch .keyWordAndTagsContent{
+    height: 68%;
+}
+.codeSearch .searchSimCodeContent{
+    height: 58%;
+}
+.codeSearch .searchContent .searchContentLeft{
+    height: 100%;
+}
+.codeSearch .searchContent .searchContentTags{
+    width: 100%;    
+}
+.codeSearch .selectAll{
+    vertical-align: middle;
+}
+.codeSearch  .searchTab{
+    height: 100%;
+    border: 1px solid #ddd;
+    padding-bottom: 4px;
+}
+.codeSearch  .searchTab .noData{
+    font-size: 18px;
+}
+.codeSearch .headth1{
+    padding: 8px;
+    width: 20px;
+}
+.codeSearch .headth2{
+    width:40%;
+    white-space: nowrap;
+    text-align: left;
+    padding-left: 5px;
+}
+.codeSearch .headth3{
+    white-space: nowrap;
+    text-align: left;
+}
+#headTable .headtr{
+    background-color:#EFF4FB;
+}
+#searchTable .focus{
+    background-color: #76A5E9;
+}
+#searchTable .resuName{
+    color: black;
+    text-decoration: underline;
+}
+#searchTable span{
+    display: inline-block;
+}
+#searchTable .headth1{
+    width: 32px;
+}
+#searchTable .headth3{
+    /* text-align: left; */
+    display: inline-block;
+    width: 29%;
+}
+#searchTable .searchRes{
+    background-color: #f5f5f5;
+    color: gray;
+}
+#searchTable .searchRes td{
+    text-align: left;
+    padding: 5px 1.5%;
+}
+/* #headTable th{
+    color:#7D8793
+} */
+.codeSearch .searchContent table{
+    width: 100%;
+}
+.searchContent .page{
+    text-align: center;
+    float: right;
+}
+.searchContent .pagesBtn{
+    float: left;
+    margin: 20px 8px;
+}
+.searchContent .pageCount{
+    width: 70px;
+}
+.searchContent .pageCount .pageNum{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle; 
+    margin-top: 5px;
+}
+.searchContent .pageCount .pageNumber{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-top: 5px; 
+    display: inline-block;
+}
+.searchContent .pageCount .num{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle; 
+}
+.numAdd{
+    width: 0;
+    height: 0;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+    margin-bottom: 2px;
+}
+.numReduce{
+    width: 0;
+    height: 0;
+    border-width: 6px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.codeSearch .searchContent .codeinfo{
+    height: 100%;
+    background-color: white;
+    width: 100%;
+}
+.searchContentBottom{
+    margin-top: 2%;
+    height: 8%;
+}
+.searchContentBottom .TagsBtn{
+    margin-left:8px;
+}
+.searchContentBottom .TagsBtn .fa{
+    padding-right: 8px;
+}
+.searchContentBottom .form-control{
+    height: 50%;
+}
+.TabConItem .tags{
+    position: relative;
+}
+.TabConItem .tags .form-control{
+    height: 32px;
+    width: 28%;
+    position: absolute;
+    top: 21%;
+    left: 12%;
+}
+.TabConItem .tags .tagsSearch{
+    position: absolute;
+    left: 40%;
+    top: 21%;
+}
+.codeSearch .TabCon .snippet{
+    height: 25%;
+    padding-top: 10px;
+}
+.codeSearch .TabCon .snippet .text{
+    text-align: left;
+}
+.codeSearch .searchCodeTxt{
+    width: 48%;
+    height: 80px;
+    vertical-align: middle;
+    resize:none; 
+    padding-left: 1%;
+    font-size: 12px;
+}
+.codeSearch .snippetContent{
+    height: 58%;
+}
+em{
+    /* background-color: #ffd515; */
+    color: #2873e6;
+}
+.trColor{
+    background-color: #76A5E9;
+}

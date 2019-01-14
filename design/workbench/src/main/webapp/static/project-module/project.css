@@ -1,0 +1,226 @@
+.selectAndAdd{
+    margin: 50px;
+}
+.selectAddBox{
+    width: 40%; 
+    margin-left: 30%;
+    border: 1px solid #a9a9a9;
+}
+.selectAddBox .selectAddTxt{
+    height: 43px;
+}
+#delectProject .selectAddTxt{
+    margin-bottom: 0;
+}
+.selectAddBox .selectAddItem{
+    width:80%;
+    margin: 0 auto;
+}
+#selectPage .selectPageItem2Txt{
+    margin: 3% 3% 1% 10%;
+}
+#selectPage .selectPageItem2Box{
+    margin: 0% 3% 3% 30%;
+}
+#projectSelect{
+    width: 30%;
+}
+#selectPage .selectPageItem2Box .selectBtn{
+    margin-left: 2%;
+    background-color: #157FFF;
+}
+#selectPage .selectPageItem2Box .selectBtn:hover{
+    background-color: #0077D2;
+}
+.selectPageItem3{
+    border-top: 1px solid #a9a9a9;
+}
+.selectPageItem3 .selectPageItem3Or{
+    margin: 1%;
+    float: right;
+}
+.selectPageItem3 .selectPageItem3Creat{
+    color: black; 
+    text-decoration: underline;
+}
+.selectPageItem3 .selectPageItem3Creat:hover{
+    color: #157FFF; 
+    text-decoration: none;
+}
+#addPage fieldset{
+    margin-bottom: 15px;
+}
+#addPage .projectDsc{
+    background-color: white; 
+    color: black; 
+    width: 100%; 
+    height: 120px; 
+    resize: none;
+    border: 1px solid #ddd;
+    text-indent: 10px;
+}
+#addPage .projectDsc:focus {
+    border: 1px solid #1591f3;
+}
+#addPage .okOrCancel{
+    margin: 4% 0% 2% 64%;
+}
+#addPage .okOrCancel .cancelBtn{
+    margin-left: 10%;
+}
+#summaryPage{
+    width: 80%;
+    margin: 0 auto;
+}
+#summaryPage .summaryDescription{
+    width: 10%;
+    float: left;
+} 
+.txt{
+    font-size: 14px;
+    font-weight: bold;
+    background-color: white;
+    margin-bottom: 10px;
+}
+#summaryPage .editSaveBtn{
+    float: right;
+}
+#summaryPage .editSaveBtn button{
+    background-color: white;
+    border: 0;
+    color: #5CA6FF;
+}
+#summaryPage .editSaveBtn button:hover{
+    font-weight: bold;
+}
+#summaryPage .editSaveBtn button[disabled]{
+    cursor: not-allowed;
+}
+#summaryPage .editSaveBtn .editBtn{
+    margin-right: 15px;
+}
+#summaryPage .editSaveBtn .saveBtn{
+    margin-right: 12px;
+}
+#summaryPage .descriptionBox{
+    width: 100%;
+}
+#summaryPage .descriptionBox .descriptionTxt{
+    width: 98%;
+    background-color: white; 
+    color: #B6B6B6; 
+    resize: vertical;
+    min-height: 80px;
+    border: 1px solid #A9A9A9;
+    padding: 5px 1%;
+}
+#summaryPage .descriptionBox .descriptionTxt_false{
+    color: black; 
+}
+#summaryPage .descriptionBox .descriptionTxt_true{
+    color: #B6B6B6;  
+}
+#summaryPage .codePath{
+    width: 100%;
+    margin-top: 1%
+}
+#summaryPage .hr1{
+    width: 100%;
+    border-top: 1px solid #A9A9A9;
+}
+#summaryPage .lastSummary{
+    margin-top: 1%;
+}
+#soStatus .soStatusTxt{
+    font-size: 14px;
+    color: #9F9F9F;
+}
+#soStatus .lastSummaryBtn{
+    width: 100%;
+}
+#soStatus .SummaryBtnItem1{
+    background-color: #157FFF;
+    float: left;
+    font-size: 14px;
+    padding:4px 12px;
+    margin-right: 2%;
+    border-radius: 4px;
+}
+#soStatus .lastSummaryDiv{
+    float: left;
+}
+#summaryPage .result{
+    margin-top: 1%;
+}
+#summaryPage .result .resultBox{
+    float: left;
+}
+#summaryPage .result .missCode{
+    color: red;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-left: 8px;
+}
+#summaryPage .result li{
+    list-style: disc;
+    font-size: 24px;
+    float: left;
+    list-style-position: inside;
+    margin-right: 2%;
+}
+#summaryPage .result .resultItem1,#summaryPage .result .resultItem1 .resultNum{
+    color: #7ED321;
+}
+#summaryPage .result .resultItem1 .resultNum:hover{
+    color: #7DAB15
+}
+#summaryPage .result .resultItem2,#summaryPage .result .resultItem2 .resultNum{
+    color: #F43471;
+}
+#summaryPage .result .resultNum{ 
+    text-decoration:underline;
+    display: inline-block;
+}
+#summaryPage .result li .resultTxt{ 
+    color: #000;
+    font-size: 14px;
+}
+#summaryPage .result .analysis{
+    text-align: left;
+}
+#summaryPage .result strong{
+    font-size: 24px;
+    margin: 0 1%;
+    color: #CC0C0C;
+}
+#summaryPage .result strong.cloneCode{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#soSummary{
+    width: 80%
+}
+#soSummary > div{
+    width: 70%;
+    float: left
+}
+#basicalInfo .basicalInfoItem{
+    color: black; 
+    text-decoration: underline; 
+    margin-left: 10px;
+    font-size:large;
+}
+#basicalInfo .basicalInfoTxt{
+    margin-left: 4px;
+}
+.linkFlag{
+        cursor:pointer;
+}
+#delectProject .iconWidth{
+    width: 40px;
+}
+#delectProject h3{
+    margin-left: 30%;
+    background-color: #ffffff;
+}

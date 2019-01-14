@@ -1,0 +1,149 @@
+[
+    {
+        "abbr":"{'paragraphName':'COBOL/ADJTCOMP.ADJTCOMP.7000-REPORT-DETAILS'}",
+        "normal":"7000-report-details",
+        "AbbName":"report details",
+        "Value":"report details",
+        "Select":"true",
+        "Change":{
+            "radio":[
+                {"content":"123456","select":"1"},
+                 {"content":"123456","select":"0"},
+                  {"content":"123456","select":"0"},
+                   {"content":"123456","select":"0"},
+                    {"content":"123456","select":"0"},
+                     {"content":"123456","select":"0"}
+            ],
+            "name":"radio1"
+            
+        }
+    },{
+        "abbr":"{'paragraphName':'COBOL/ADJTCOMP.ADJTCOMP.7100-REPORT-DETAILS'}",
+        "normal":"7100-report-details",
+        "AbbName":"write report",
+        "Value":"write report",
+        "Select":"true",
+       "Change":{
+            "radio":[
+                {"content":"123456","select":"true"},
+                 {"content":"123456","select":"false"},
+                  {"content":"123456","select":"false"},
+                   {"content":"123456","select":"false"},
+                    {"content":"123456","select":"false"},
+                     {"content":"123456","select":"false"}
+            ],
+            "name":"radio2"
+            
+        }
+    },{
+        "abbr":"{'paragraphName':'COBOL/AR127614.AR127614.8700-WRITE-REPORT'}",
+        "normal":"8700-report-details",
+        "AbbName":"write report",
+        "Value":"write report",
+        "Select":"true",
+        "Change":{
+            "radio":[
+                {"content":"123456","select":"true"},
+                 {"content":"123456","select":"false"},
+                  {"content":"123456","select":"false"},
+                   {"content":"123456","select":"false"},
+                    {"content":"123456","select":"false"},
+                     {"content":"123456","select":"false"}
+            ],
+            "name":"radio3"
+            
+        }
+    },
+    {
+        "abbr":"{'paragraphName':'COBOL/ADJTCOMP.ADJTCOMP.7000-REPORT-DETAILS'}",
+        "normal":"7000-report-details",
+        "AbbName":"report details",
+        "Value":"report details",
+        "Select":"true",
+       "Change":{
+            "radio":[
+                {"content":"123456","select":"true"},
+                 {"content":"123456","select":"false"},
+                  {"content":"123456","select":"false"},
+                   {"content":"123456","select":"false"},
+                    {"content":"123456","select":"false"},
+                     {"content":"123456","select":"false"}
+            ],
+            "name":"radio4"
+            
+        }
+    },{
+        "abbr":"{'paragraphName':'COBOL/ADJTCOMP.ADJTCOMP.7100-REPORT-DETAILS'}",
+        "normal":"7100-report-details",
+        "AbbName":"write report",
+        "Value":"write report",
+        "Select":"true",
+       "Change":{
+            "radio":[
+                {"content":"123456","select":"true"},
+                 {"content":"123456","select":"false"},
+                  {"content":"123456","select":"false"},
+                   {"content":"123456","select":"false"},
+                    {"content":"123456","select":"false"},
+                     {"content":"123456","select":"false"}
+            ],
+            "name":"radio5"
+            
+        }
+    },{
+        "abbr":"{'paragraphName':'COBOL/AR127614.AR127614.8700-WRITE-REPORT'}",
+        "normal":"8700-report-details",
+        "AbbName":"write report",
+        "Value":"write report",
+        "Select":"true",
+        "Change":{
+            "radio":[
+                {"content":"123456","select":"true"},
+                 {"content":"123456","select":"false"},
+                  {"content":"123456","select":"false"},
+                   {"content":"123456","select":"false"},
+                    {"content":"123456","select":"false"},
+                     {"content":"123456","select":"false"}
+            ],
+            "name":"radio6"
+            
+        }
+    },{
+        "abbr":"{'paragraphName':'COBOL/ADJTCOMP.ADJTCOMP.7000-REPORT-DETAILS'}",
+        "normal":"7000-report-details",
+        "AbbName":"report details",
+        "Value":"report details",
+        "Select":"true",
+       "Change":{
+            "radio":[
+                {"content":"123456","select":"true"},
+                 {"content":"123456","select":"false"},
+                  {"content":"123456","select":"false"},
+                   {"content":"123456","select":"false"},
+                    {"content":"123456","select":"false"},
+                     {"content":"123456","select":"false"}
+            ],
+            "name":"radio7"
+            
+        }
+    },{
+        "abbr":"{'paragraphName':'COBOL/ADJTCOMP.ADJTCOMP.7100-REPORT-DETAILS'}",
+        "normal":"7100-report-details",
+        "AbbName":"write report",
+        "Value":"write report",
+        "Select":"true",
+        "Change":{
+            "radio":[
+                {"content":"12345611","select":"true"},
+                 {"content":"123456","select":"false"},
+                  {"content":"123456","select":"false"},
+                   {"content":"123456","select":"false"},
+                    {"content":"123456","select":"false"},
+                     {"content":"123456","select":"false"}
+            ],
+            "name":"radio8"
+            
+        }
+    }
+
+]

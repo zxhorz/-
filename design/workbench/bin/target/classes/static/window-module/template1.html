@@ -1,0 +1,34 @@
+<!--<div id='wrap'>
+    <div ng-show='$root.shiny_report_show' id='bottomBox'>
+        <p class="closeWindow">
+            <span ng-show="$root.min"><i ng-click="minWindow($event)" class="fa fa-window-restore" aria-hidden="true"></i></span>
+            <span ng-show="$root.max"><i ng-click="maxWindow($event)" class="fa fa-window-maximize" aria-hidden="true"></i></span>-->
+            <!--<span><i ng-click="hideWindow('shiny_report_show')" class="fa fa-times" aria-hidden="true"></i></span>-->
+        <!--</p>
+        <iframe ng-src='{{myURL}}'></iframe>
+    </div>
+    <div id='mainBox' class='mainBox'>
+        <div id='leftBox' class='leftBox' ng-show='leftBox_show' ng-style='leftBoxStyle'>
+            <uigrid-directive></uigrid-directive>
+        </div>
+        <div ng-show='$root.neo4j_window_show' id='rightBox' class='rightBox' ng-style='rightBoxStyle'>
+            <p class="closeWindow">
+                <span ng-show="$root.min"><i ng-click="minWindow($event)" class="fa fa-window-restore" aria-hidden="true"></i></span>
+                <span ng-show="$root.max"><i ng-click="maxWindow($event)" class="fa fa-window-maximize" aria-hidden="true"></i></span>
+                <span><i ng-click="hideWindow('neo4j_window_show')" class="fa fa-times" aria-hidden="true"></i></span>
+            </p>
+            <div id="neo4j_window">Graphical view、Query、 Console of the ontology </div>
+                <grid-directive includein="neo4j_window"></grid-directive>
+                <tab-directive includein="neo4j_window"></tab-directive>
+        </div>
+        <div style='clear:both;'></div>
+    </div>   
+</div>-->
+<div id='wrap'>
+    <div id='mainBox' class='mainBox'>      
+         <div id='leftBox' class='leftBox' ng-show='leftBox_show' ng-style='leftBoxStyle'>
+            <svg-directive3></svg-directive3>
+        </div>
+        <div style='clear:both;'></div>
+    </div>
+</div>

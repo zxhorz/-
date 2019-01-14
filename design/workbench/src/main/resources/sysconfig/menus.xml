@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menus>		
+			<!-- 一级菜单 -->
+			<menu name ="Project">
+			<!-- 二级菜单 -->
+				<submenu description ='codebrowser'>
+                Code Browser
+				</submenu>
+				<submenu description ='SO'>
+                Code Search
+				</submenu>
+				<submenu description ='SO'>
+                Prediction
+				</submenu>
+                <submenu description ='SO'>
+                SO Browser
+				</submenu>
+			</menu>
+			<menu name = "Reports">
+                <submenu description ='SO'>
+				System Documentation
+				</submenu>
+				<submenu description ='CLONE_CODE'>
+				Clone Code
+				</submenu>
+				<submenu description ='CLUSTERING'>
+				Clusters
+				</submenu>
+			</menu>
+			<menu name = "Solution">
+				<submenu description ='COST_ESTIMATION'>
+				Cost Estimation
+				</submenu>
+				<submenu description ='DATA_DEPENDENCY'>
+				Data Mapping
+				</submenu>
+			</menu>
+			<menu name = "Tool">
+				<submenu description ='CORPUS_MANAGER'>
+				Corpus Manager
+				</submenu>
+			</menu>
+</menus>

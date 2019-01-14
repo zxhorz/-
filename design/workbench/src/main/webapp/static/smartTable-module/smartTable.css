@@ -1,0 +1,31 @@
+.tableTitle{
+    display:none;
+    text-align:center;
+    border:1px solid #ddd;
+    line-height:25px;
+    font-size:14px;
+}
+/* .table > thead > tr > th, .table > tbody > tr > td{
+    border:1px solid #ddd !important;
+} */
+.table > thead > tr > th {
+    border-bottom: 0px solid #ddd;
+    border-bottom-width: 0px;
+}
+.table-striped > tbody > tr:nth-of-type(odd){
+    background-color:#2e3033;
+}
+ul .pagination {
+    float: right;
+}
+
+th {
+    text-align: center;
+    color: #fff;
+}
+.st-selected{
+    background-color:#37474F !important;
+}
+.detailBox{
+    overflow-y:auto;
+}

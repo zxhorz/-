@@ -1,0 +1,28 @@
+<div class="content clearfix">
+	<div id="selectPage" class="selectAndAdd">
+		<div class="selectAddBox">
+			<p class="selectAddTxt titleTxt">Choose Script</p>
+			<div class="selectPageItem2">
+				<div class="selectPageItem2Txt" ng-show="existScript">Please select an existing script to open :</div>
+				<br />
+				<div class="selectPageItem2Box" ng-show="existScript">
+					<select id="scriptSelect" ng-model="selectedScript" ng-options="t for t in scriptList"></select>
+					<button class="btn btn-primary selectBtn" ng-click="selectScript()">Choose Script</button>
+				</div>
+				<div class="selectPageItem3" ng-show="existArgs">
+					<ul>
+						<li ng-repeat="x in argList">
+						  {{ x }}:
+						  <input ng-model="x" class="kerWords searchInp ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched">
+						</li>
+						<li>
+							<button class="btn btn-primary selectBtn" ng-show="enableRun" ng-click="runScript()">Run</button>
+						</li>
+					  </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<modelshow-directive></modelshow-directive>

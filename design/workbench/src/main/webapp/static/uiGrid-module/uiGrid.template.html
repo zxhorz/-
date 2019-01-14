@@ -1,0 +1,85 @@
+<div class="topTable" ng-show='$root.ui_grid_summary'>
+    <p class="closeWindow1">
+        <span ng-show="$root.min"><i ng-click="minWindow($event,'ui_grid_summary')" class="fa fa-window-restore" aria-hidden="true"></i></span>
+        <span ng-show="$root.max"><i ng-click="maxWindow($event,'ui_grid_summary')" class="fa fa-window-maximize" aria-hidden="true"></i></span>
+        <!--<span ng-click="hideWindow('ui_grid_summary')"><img src='../image/close.png' /></span>-->
+    </p>
+    <!--<ul id="tabTitle" class="nav nav-tabs">
+        <li ng-repeat="tab in tabs"  ng-click="onClickTab(tab)" class="tab_title" title="{{tab.title}}"><span ng-class="{selected:isActiveTab(tab.title)}">{{tab.title}}</span></li>
+    </ul>-->
+    <!--<div ng-show='a' class='Problem_Statements'>
+        <h4>Business Scope</h4>&nbsp &nbsp DST COBOL applications (assuming TA2000) generate a number of reports everyday.  There is a corporate strategy to develop a Data Lake and centralize all the reporting and BI functions to acquire data from the Data Lake.  To cope with this strategy,  it is a preferred choice to identify all the reporting modules in the COBOL application and develop a strategy to migrate them.
+        <h4>Solutions & Deliverables</h4>&nbsp &nbsp This is also a Code Impact Analysis similar to previous case but is not tightly tied to business functions.  The analysis can purely be done on the system ontology without first to define the business modules.<br/>
+        &nbsp &nbsp There shall be multiple phases in this analysis.  As we are not clear what the end points and expectations yet,  our effort should be focus on effort analysis rather than providing an actual migration plan.  Consolidation of program modules, optimizing DB schema and rebuilding them in the Data Lake would require very intensive effort to study the strategic goals and business requirements.  Therefore, the deliverables will be confined to:-</br>
+        &nbsp &nbsp &nbsp &nbsp 	List of programming modules, databases / tables associated with those reporting functions</br>
+        &nbsp &nbsp &nbsp &nbsp 	A graphical visualization on reporting nodes and their associated programming modules, database and tables. This shall also point to the logic flow of the COBOL code segments, as well as DB schema</br>
+        &nbsp &nbsp &nbsp &nbsp 	An effort analysis to illustrate the dependencies and code level changes that may have to be spent in migrating those reports on a ONE to ONE scenario. This scenario shall be used as discussion point for next level of analysis. That is the actual migration effort with report consolidation and elimination etc. in the new Data Lake Platform.</br>
+    </div>-->
+    <!--<div class="Summary">
+        <!--<div class='filterBox'><input ng-model='filterValue' class='filterValue' /><button ng-click='filter()'  class='filterBtn'>Filter</button></div>-->
+        <!--<div ng-show='$root.ui_grid_summary' ng-if="gridOptions1.data" ui-grid='gridOptions1' class='summaryGrid' ui-grid-selection ui-grid-auto-resize></div>
+        <div class="summaryText">
+            <h4>Mission Statements</h4>
+            &nbsp &nbsp The system has a number of reporting modules spreading in different programming modules.  Corporate want to move some of the reports to an external Data Lakes, leveraging on the technologies of Big Data and a lower operating expense.<br/>
+            &nbsp &nbsp As there are hundreds of thousand programming modules, it is very time consuming and expensive just to manually look up those reporting modules and run an impact analysis. <br/>
+            &nbsp &nbsp A code impact analysis are required to discover:-<br/>
+            &nbsp &nbsp &nbsp &nbsp 1.       How many reporting modules exited in the system ?<br/>
+            &nbsp &nbsp &nbsp &nbsp 2.       Where are those reports located at ?<br/>
+            &nbsp &nbsp &nbsp &nbsp 3.       How many of them are similar and can be combined ?<br/>
+            &nbsp &nbsp &nbsp &nbsp 4.       What are the estimated cost saving in migrating those reports ?
+        </div>
+    </div>-->
+     <common-tab-directive showtype="table,text" tabdata="summary" tabname="Summary" includeIn="topTable" iselect="true" text=" <h4>Mission Statements</h4>
+            &nbsp &nbsp The system has a number of reporting modules spreading in different programming modules.  Corporate want to move some of the reports to an external Data Lakes, leveraging on the technologies of Big Data and a lower operating expense.<br/>
+            &nbsp &nbsp As there are hundreds of thousand programming modules, it is very time consuming and expensive just to manually look up those reporting modules and run an impact analysis. <br/>
+            &nbsp &nbsp A code impact analysis are required to discover:-<br/>
+            &nbsp &nbsp &nbsp &nbsp 1.       How many reporting modules exited in the system ?<br/>
+            &nbsp &nbsp &nbsp &nbsp 2.       Where are those reports located at ?<br/>
+            &nbsp &nbsp &nbsp &nbsp 3.       How many of them are similar and can be combined ?<br/>
+            &nbsp &nbsp &nbsp &nbsp 4.       What are the estimated cost saving in migrating those reports ?"></common-tab-directive>
+     <common-tab-directive showtype="table,table" tabdata="detail" tabname="Detail" includeIn="topTable" iselect="false"></common-tab-directive>
+</div>
+<div class="rightTable">
+    <p class="closeWindow1">
+        <span ng-show="$root.min"><i ng-click="minWindow($event,'ui_grid_graph')" class="fa fa-window-restore" aria-hidden="true"></i></span>
+        <span ng-show="$root.max"><i ng-click="maxWindow($event,'ui_grid_graph')" class="fa fa-window-maximize" aria-hidden="true"></i></span>
+    </p>
+    <!--<ul id="tabTitle" class="nav nav-tabs">
+        <li ng-repeat="tab in tabs4" ng-click="onClickTab4(tab)" class="tab_title" title="{{tab.title}}"><span ng-class="{selected:isActiveTab4(tab.title)}">{{tab.title}}</span></li>
+    </ul>
+    <div ng-show="$root.type=='line'" ui-grid='gridOptions4' class='summaryGrid' ui-grid-selection ui-grid-auto-resize></div>
+    <div ng-show="$root.type=='pie'" ui-grid='gridOptions5' class='summaryGrid' ui-grid-selection ui-grid-auto-resize></div>
+    <pie-chart-directive tabtitle={{currentTitle4}}></pie-chart-directive>-->
+    <!--<common-tab-directive showtype="table,table" tabdata="detail" tabname="Clone" includeIn="rightTable" iselect="true"></common-tab-directive>-->
+    <common-tab-directive showtype="table,linechart" tabdata="detail,Clone" tabname="Clore" includeIn="rightTable" iselect="true"></common-tab-directive>
+    <common-tab-directive showtype="table,piechart" tabdata="detail,Cluster" tabname="Cluster" includeIn="rightTable" iselect="false"></common-tab-directive>
+</div>
+<div class="bottomTable" ng-show='$root.ui_grid_detail'>
+    <p class="closeWindow1">
+        <span ng-show="$root.min"><i ng-click="minWindow($event,'ui_grid_detail')" class="fa fa-window-restore" aria-hidden="true"></i></span>
+        <span ng-show="$root.max"><i ng-click="maxWindow($event,'ui_grid_detail')" class="fa fa-window-maximize" aria-hidden="true"></i></span>
+        <!--<span ng-click="hideWindow('ui_grid_detail')"><img src='../image/close.png' /></span>-->
+    </p>
+    <!--<ul id="tabTitle" class="nav nav-tabs">
+        <li ng-repeat="dtab in dtabs" ng-click="onClickTab1(dtab)" class="tab_title" title="{{dtab.title}}"><span ng-class="{selected:isActiveTab1(dtab.title)}">{{dtab.title}}</span></li>
+    </ul>   
+    <div class='listGridBox'>
+        <div class='listGridStyle'><div ui-grid='gridOptions2' ui-grid-selection ui-grid-auto-resize class="listGrid"></div></div>
+        <div class='code'>
+            <h3>Code</h3>
+            <div class='codeBox'>
+                <pre ng-repeat="line in resultCodes track by $index">{{line}}</pre>
+            </div>
+        </div>
+        <div class='svg'>
+            <h3>Flow</h3>
+            <div class='svgBox'>
+                <div id="ide-code-controlflow" class="svgclass" ng-include="svgUrl"></div>
+            </div>
+        </div>
+        
+        
+        <div style='clear:both;'></div>
+    </div> -->
+    <common-tab-directive showtype="table,code,svg" tabdata="controlflow" tabname="controlflow" includein="bottomTable" iselect="true" selectable="0"></common-tab-directive>
+</div>

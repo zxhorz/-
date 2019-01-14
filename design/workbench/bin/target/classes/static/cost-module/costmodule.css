@@ -1,0 +1,233 @@
+.td{
+    width: 120px;
+    text-align: left;
+    border: 1px solid #ddd;
+    padding: 3px;
+}
+.td input{
+    width:100%;
+    border: none;
+    padding: 0 3px;
+    text-align: center;
+}
+.tr{
+    width: 100%;
+}
+.tableBox{
+    font-size: 16px;
+    margin:0 0.5%;
+    vertical-align: top;
+    display: inline-block;
+}
+.costtable{
+    width:100%;
+    border: 1px solid #ccc;
+}
+.childrenTable{
+    background: #f1fff0;
+}
+.childrenTable input{
+    background: none;
+    text-align: left;
+}
+.nborder td{
+    border:none!important;
+}
+.Btn{
+    float: right;
+    width: 125px;
+    height: 40px;
+    background: #1580FF;
+    box-shadow: 0px 0px 7px #CDDCEE;
+    border:none;
+    margin: 0 30px;
+    display: inline-block;
+    color: #fff;
+    font-size: 22px;
+    border-radius: 5px;
+}
+.paint{
+    width: 95px;
+    margin-top: 5px;
+}
+input[type=checkbox]  {  
+    display: inline-block;  
+    vertical-align: middle;  
+    width: 20px;  
+    height: 20px;  
+    margin:0;  
+    -webkit-appearance: none;  
+    background-color: transparent;  
+    border: 0;  
+    outline: 0 !important;  
+    line-height: 20px;  
+    color: #d8d8d8; 
+    cursor: pointer; 
+}
+input[type=checkbox]:after  {  
+    content: "";  
+    display:block;  
+    width: 20px;  
+    height: 20px;  
+    text-align: center;  
+    line-height: 14px;  
+    font-size: 16px;  
+    color: #fff;  
+    border: 1px solid #6FACF4;  
+    background-color: #fff;  
+    box-sizing:border-box;  
+}  
+input[type=checkbox]:checked:after  {  
+    content: "\2713";
+    color:#6FACF4;
+    font-size: 20px;
+    font-weight: 600x;
+}
+.checkBoxs p{
+    width: 150px;
+    float: left;
+}
+.checkBoxs{
+    width: 100%;
+    height: 100px;
+    padding: 20px;
+    font-size: 18px;
+}
+.chartsContainer{
+	/*height: 300px;*/
+	width: 60%; 
+	margin-left:15%; 	
+	float: left;
+}
+.chartsContainer canvas{
+	width: 100% ! important;
+	height: 100% ! important;
+	margin: auto auto;
+}
+.chartTitle{
+	color: #898989;
+	font-size: 18px;
+    text-align: center;
+}
+.multiselect{
+    display: inline-block;
+    width: 400px;
+    margin-left: 10px;
+}
+.multiselect .ng-binding{
+    padding-left: 5px;
+}
+.nodetext {
+fill: #000;
+font-size:12px;
+cursor:pointer;
+pointer-events:none;
+}
+.tableBody {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: text-top;
+    position: relative;
+}
+.tbody{
+    height: 96%;
+    overflow: auto;
+}
+thead{
+    background: #eff4fb;
+}
+.tHead{
+    width:100%;
+}
+.tHead td{
+    border: none;
+}
+.tBody{
+    height: 400px;
+    width: 100%;
+    overflow-y: auto;
+}
+.tBody td{
+    border:none;
+}
+.tBody tr{
+    border-top:1px solid #ccc;
+}
+.tablemix{
+    width: 49%;
+    display: inline-block;
+    height: 500px;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+}
+.costtableMix{width: 100%;}
+.chartBox{
+    display: inline-block;
+    width: 49%;
+    height: 500px;
+}
+/*滚动条*/
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+    background: none;
+}
+::-webkit-scrollbar-thumb {
+    border: solid 0 transparent;
+    border-right-width: 4px;
+    border-left-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    -webkit-border-radius: 40px 40px;
+    min-height: 100px;
+    min-width: 100px;
+    -webkit-box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.2), inset 0 0 0 4px rgba(128, 128, 128, 0.2);
+}
+
+.tableTitle{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+}
+.rate{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.rate input{width: 120px;}
+.trmore{
+    position: absolute;
+    z-index: 999;
+    height: 48%;
+    overflow: hidden;
+    width: 85%;
+    right: 0;
+    background: #f1fff0;
+    border: 1px solid #ccc;
+}
+.trmore .tbody{
+    overflow: auto;
+    height: 80%;
+}
+.disnone{
+    display: none;
+}
+.loading{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+.loadcontent{
+    width: 300px;
+    height: 150px;
+    margin: 15% auto;
+    background: #fff ;
+    padding-top: 50px;
+    border-radius: 5px;
+}

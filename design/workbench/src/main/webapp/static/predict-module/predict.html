@@ -1,0 +1,89 @@
+<div class="content predict">
+    <div class="title">Tools
+        <span style="font-weight:700">> Prediction</span>
+    </div>
+    <div style="height: 95%">
+        <treecontrol class="tree-light predictTree" tree-model="dataForTheTree" options="treeOptions" on-selection="showSelected(node)" selected-node="selected" expanded-nodes="expandedNodes">
+            <span ng-switch="" on="node.type">
+                <span ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true" style="color:#E0C556"></span>
+                <span ng-switch-default class="glyphicon glyphicon-file" aria-hidden="true" style="color:#fff"></span>
+            </span> {{node.name}}
+        </treecontrol>
+        <!--<div class="tip" ng-class="{success:suc,error:err}">{{tip}}</div>-->
+        <div class="tree_content">
+            <div class="codeBrowserItem">
+                <p class="codeBrowserMenu titleTxt">{{selectedProgram}}</p>
+                <div class="codeList" ng-mouseup="select_copy($event)" ui-ace="aceOptions" ng-model="aceModel">Ace here</div>
+                <!--<pre class="word1">{{sourceCodeAfter}}</pre>-->
+            </div>
+            <!--<div class="leftText">
+                <p class="text-title">Please enter your abbreviations：<br><span style="color:#777">(Use space to split multiple COBOL paragraph names )</span></p>
+                <textarea class="text" ng-model="text"></textarea>
+                <button class="print" ng-click="print()" ng-disabled="disable">Predict</button>
+            </div>-->
+            <h4 style="margin: 10px 3%;">Review and Feedback on the prediction of :
+                <input class="text" ng-model="text" ng-keyup="keydown($event)" placeholder="Press enter to predict">
+            </h4>
+            <div class="rightTable">
+                <div class="tableHead">
+                    <table class="table" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <!--<td class="t-name">Abbr. Name</td>-->
+                                <!--<td class="t-name2">Single Word</td>-->
+                                <td class="t-name3">Full Names</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tableBody">
+                    <table class="table" ng-show="show" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr class="hang">
+                                <!--<td class="h-name">{{t.funcName}}</td>-->
+                                <!--<td class="h-name2">
+                                    <p ng-repeat="abbCandidate in t.abbCandidates track by $index">
+                                        {{abbCandidate}}
+                                    </p>
+                                </td>-->
+                                <td class="lie">
+                                    <p ng-repeat="ra in table track by $index" title='{{ra}}'>
+                                        <input type="radio" name="radio" id="{{ra}}" value="{{ra}}" ng-click="change($event);" ng-checked="checkIndex($index)">
+                                        <label for="{{ra}}">{{ra}}</label>
+                                    </p>
+                                    <p>
+                                        <input type="radio" name="radio" ng-checked="count" value="{{radioTt}}">
+                                        <label>
+                                            <input type="text" class="tt" ng-model="radioTt" ng-focus="count = count + 1" ng-init="count=0">
+                                        </label>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <button class="btn btnColor submit print" ng-click="submit()" ng-disabled="disable" ng-class="{disable:disable}">Submit</button>
+            <!--<button class="clean print" ng-show="showClean" ng-click="clean()" ng-disabled="disable" ng-class="{disable:disable}">Clean</button>-->
+        </div>
+    </div>
+</div>
+
+<div class="model" ng-show="display" ng-switch="part">
+    <div class="part" ng-switch-when="error">
+        <img src="/predict-module/error.png">
+        <p>error</p>
+    </div>
+    <div class="part" ng-switch-when="error2">
+        <img src="/predict-module/error.png">
+        <p>{{errortip}}</p>
+    </div>
+    <div class="part" ng-switch-when="success">
+        <img src="/predict-module/success.png">
+        <p>success</p>
+    </div>
+    <div class="part" ng-switch-default>
+        <img src="/analysis-module/loading.gif">
+        <p>loading...</p>
+    </div>
+</div>

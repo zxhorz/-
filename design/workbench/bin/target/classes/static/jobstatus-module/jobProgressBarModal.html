@@ -1,0 +1,33 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" align="center">
+            Job Status List
+		</h3>
+		<div class="otherInfo versionInfo">
+			<span >user:{{pbs[0].userName}}</span>
+			<span class="versionInfo1">codeVersion:{{pbs[0].codeVersion}}</span>
+		</div>
+        <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    
+    <div id="progress-bars" ng-repeat="pb in pbs">
+		<div id="tips">
+			<div id="analysisName"><p>{{pb.analysisName}}</p></div>
+			<div id="progress-status">
+				<p class="txt">({{pb.status}})</p>
+			</div>
+			<div class="otherInfo txt"><span ng-show="pb.showStartTime">startTime:{{pb.startTime}}</span></div>
+		</div>
+		<div class="modal-body" id="progress-bar">
+			<div ng-class="{progress: true, 'progress-striped': pb.striped}">
+		        <div ng-class="['progress-bar', pb.style]" ng-style="{width: pb.value + '%'}">
+		        	<div ng-if="pb.showInfoLog">{{pb.infoLog}}</div>
+		            <div ng-if="pb.showLabel">{{pb.value}}%</div>
+		        </div>
+	    	</div>
+	    </div>
+    </div>
+    
+    <div class="modal-footer">
+    </div>
+</div>

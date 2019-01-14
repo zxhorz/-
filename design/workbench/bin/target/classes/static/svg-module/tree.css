@@ -1,0 +1,223 @@
+/* app css stylesheet */
+.menuTree{
+    border: 1px solid #ccc;
+    height: 360px;
+    position: absolute;
+    width: 5500px;
+    background: #fff;
+    top: 41px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.dropdown-menu > div > ul > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+.dropdown-menu > div > ul > li > a:hover {
+    color: white;
+    background-color: #3278b3;
+}
+
+.dropdown-menu > li > label {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+.dropdown-menu > li > label:hover {
+    color: white;
+    background-color: #3278b3;
+}
+.dropdown-menu li{
+    padding-right: 0!important;
+}
+.dropdown-menu li:hover{
+    background-color:#fff!important; 
+}
+.dropdown-menu > li > button {
+    margin: 5px;
+}
+
+.dropdown-menu.columns-2 {
+    min-width: 750px;
+}
+.dropdown-menu.columns-3 {
+    min-width: 750px;
+}
+.multi-column-dropdown {
+    margin: 10px 0px;
+    padding: 0px;
+    list-style: none;
+}
+.multi-column-dropdown > li > label {
+    display: block;
+    clear: both;
+    padding: 10px 20px;
+    margin: 1px 0px;
+    font-weight: normal;
+    line-height: 1.42657143;
+    white-space: normal;
+}
+
+.multi-column-dropdown > li.selected {
+    text-decoration: none;
+    margin: 1px 0px;
+    color: white;
+    background-color: #428bca;
+}
+
+.multi-column-dropdown > li > label:hover {
+    text-decoration: none;
+    color: white;
+    background-color: #3278b3;
+}
+
+.dropdown-menu.columns-2.column-sm {
+    min-width: 500px;
+}
+
+.multi-column-dropdown.dropdown-sm > li > label {
+    display: block;
+    clear: both;
+    padding: 7px 20px;
+    font-weight: normal;
+    line-height: 1.42657143;
+    color: #333;
+    white-space: nowrap;
+}
+
+.multi-column-dropdown.dropdown-sm > li > label:hover {
+    text-decoration: none;
+    color: white;
+    background-color: #3278b3;
+}
+
+.multi-column-dropdown.dropdown-sm > li > div {
+    display: block;
+    clear: both;
+    padding: 7px 20px;
+    font-weight: normal;
+    line-height: 1.42657143;
+    white-space: nowrap;
+}
+
+.multi-column-dropdown.dropdown-sm > li > div:hover {
+    text-decoration: none;
+    color: #333;
+    background-color: #eeeeee;
+}
+
+.hierarchy-dropdown {
+    list-style: none;
+    padding: 0px 10px 0px 26px;
+}
+.gropdown1{
+    height: 325px;
+    overflow: auto;
+}
+.hierarchy-dropdown >li{
+    height: auto!important;
+}
+.hierarchy-dropdown >li>a{
+    display: inline-block;
+    color:#123456;
+    height: auto!important;
+}
+.hierarchy-dropdown >li>a:hover{
+    color:#654321!important;;
+}
+.hierarchy-dropdown > li > label {
+    display: inline-block;
+    padding: 3px 10px;
+    margin: 1px 0px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42657143;
+    color: #333;
+    white-space: nowrap;
+    border-radius: 3px;
+}
+
+.hierarchy-dropdown > li > label:hover{
+    color: #ffffff;
+    background-color: #3278b3;
+}
+.primary{
+    float: right;
+    background-color: #1580FF;
+    margin-right: 4px;
+}
+.divider{
+    border-top:1px solid #999!important;
+    border-bottom: none!important;
+}
+.selectbtn{
+    height: 40px;
+    background-color: #fff!important;
+    border:1px solid #ccc!important;
+    border-radius: 5px;
+   
+}
+.btn-group.open .dropdown-toggle{
+ box-shadow: 0 0 0 0!important;
+}
+input[type=checkbox],input[type=radio]  {  
+    display: inline-block;  
+    vertical-align: middle;  
+    width: 20px;  
+    height: 20px;  
+    margin:0;  
+    -webkit-appearance: none;  
+    background-color: transparent;  
+    border: 0;  
+    outline: 0 !important;  
+    line-height: 20px;  
+    color: #d8d8d8;  
+}
+input[type=checkbox]:after  {  
+    content: "";  
+    display:block;  
+    width: 20px;  
+    height: 20px;  
+    text-align: center;  
+    line-height: 14px;  
+    font-size: 16px;  
+    color: #fff;  
+    border: 1px solid #6FACF4;  
+    background-color: #fff;  
+    box-sizing:border-box;  
+}  
+input[type=radio]:after  {  
+    content: "";  
+    display:block;  
+    width: 20px;  
+    height: 20px;  
+    text-align: center;  
+    line-height: 14px;  
+    font-size: 16px;  
+    color: #fff;  
+    border: 1px solid #6FACF4; 
+    background-color: #fff;  
+    box-sizing:border-box;  
+}  
+input[type=checkbox]:checked:after  {  
+    content: "\2713";
+    color:#6FACF4;
+    font-size: 20px;
+    font-weight: 600x;
+}
+input[type=radio]:checked:after  {  
+    content: "\2713";
+    color:#6FACF4;
+    font-size: 20px;
+    font-weight: 600x;
+}
+

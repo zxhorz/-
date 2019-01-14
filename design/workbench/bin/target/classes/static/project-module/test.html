@@ -1,0 +1,28 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" align="center">
+            Required Data Set
+        </h3>
+    </div>
+    <div class="modal-body">
+        <div align="center">
+           <table cellspacing="10">
+                <tbody >
+                    <tr ng-repeat="item in items">
+                        <td><input type="checkbox" id = '{{item.id}}' ng-checked="isSelected(item.id)" value = '{{item.analysisName}}' name='jobselect' ng-click="selectBox(item.id)"
+                        ng-disabled='isDisabled(item.id,item.analysisName)'/></td>
+                        <td>{{item.analysisName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btnColor" ng-click="ok()">
+            OK
+        </button>
+        <button class="btn btnColor" ng-click="cancel()">
+            Cancel
+        </button>
+    </div>
+</div>
