@@ -1,11 +1,11 @@
 (function(angular) {
     'use strict';
-    var app = angular.module('FileManagerApp');
+    var app = angular.module('DormManagerApp');
 
-    app.directive('angularFilemanager', ['$parse', 'fileManagerConfig', function($parse, fileManagerConfig) {
+    app.directive('angularDormManager', ['$parse', 'dromManagerConfig', function($parse, dromManagerConfig) {
         return {
             restrict: 'EA',
-            templateUrl: fileManagerConfig.tplPath + '/main.html'
+            templateUrl: dromManagerConfig.tplPath + '/main.html'
         };
     }]);
 

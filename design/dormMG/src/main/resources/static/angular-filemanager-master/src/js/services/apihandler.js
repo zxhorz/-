@@ -1,6 +1,6 @@
 (function(angular, $) {
     'use strict';
-    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 'Upload',
+    angular.module('DormManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 'Upload',
         function ($http, $q, $window, $translate, Upload) {
 
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

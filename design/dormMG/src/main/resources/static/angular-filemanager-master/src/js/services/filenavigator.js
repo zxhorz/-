@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
-    angular.module('FileManagerApp').service('fileNavigator', [
-        'apiMiddleware', 'fileManagerConfig', 'item', function (ApiMiddleware, fileManagerConfig, Item) {
+    angular.module('DormManagerApp').service('fileNavigator', [
+        'apiMiddleware', 'dromManagerConfig', 'item', function (ApiMiddleware, dromManagerConfig, Item) {
 
         var FileNavigator = function() {
             this.apiMiddleware = new ApiMiddleware();
@@ -43,7 +43,7 @@
         FileNavigator.prototype.refresh = function() {
             var self = this;
             if (! self.currentPath.length) {
-                self.currentPath = fileManagerConfig.basePath || [];
+                self.currentPath = dromManagerConfig.basePath || [];
             }
             var path = self.currentPath.join('/');
             self.requesting = true;
@@ -99,7 +99,7 @@
             }
 
             //!this.history.length && this.history.push({name: '', nodes: []});
-            !this.history.length && this.history.push({ name: fileManagerConfig.basePath ? fileManagerConfig.basePath[0] : '', nodes: [] });
+            !this.history.length && this.history.push({ name: dromManagerConfig.basePath ? dromManagerConfig.basePath[0] : '', nodes: [] });
             flatten(this.history[0], flatNodes);
             selectedNode = findNode(flatNodes, path);
             selectedNode && (selectedNode.nodes = []);

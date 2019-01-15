@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    var app = angular.module('FileManagerApp');
+    var app = angular.module('DormManagerApp');
 
     app.filter('strLimit', ['$filter', function($filter) {
         return function(input, limit, more) {
@@ -25,7 +25,7 @@
         };
     }]);
 
-    app.filter('humanReadableFileSize', ['$filter', 'fileManagerConfig', function($filter, fileManagerConfig) {
+    app.filter('humanReadableFileSize', ['$filter', 'dromManagerConfig', function($filter, dromManagerConfig) {
       // See https://en.wikipedia.org/wiki/Binary_prefix
       var decimalByteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
       var binaryByteUnits = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
@@ -39,7 +39,7 @@
           i++;
         } while (fileSizeInBytes > 1024);
 
-        var result = fileManagerConfig.useBinarySizePrefixes ? binaryByteUnits[i] : decimalByteUnits[i];
+        var result = dromManagerConfig.useBinarySizePrefixes ? binaryByteUnits[i] : decimalByteUnits[i];
         return Math.max(fileSizeInBytes, 0.1).toFixed(1) + ' ' + result;
       };
     }]);

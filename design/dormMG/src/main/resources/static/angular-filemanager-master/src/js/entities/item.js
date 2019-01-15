@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('FileManagerApp').factory('item', ['fileManagerConfig', 'chmod', function(fileManagerConfig, Chmod) {
+    angular.module('DormManagerApp').factory('item', ['dromManagerConfig', 'chmod', function(dromManagerConfig, Chmod) {
 
         var Item = function(model, path) {
             var rawModel = {
@@ -44,15 +44,15 @@
         };
 
         Item.prototype.isEditable = function() {
-            return !this.isFolder() && fileManagerConfig.isEditableFilePattern.test(this.model.name);
+            return !this.isFolder() && dromManagerConfig.isEditableFilePattern.test(this.model.name);
         };
 
         Item.prototype.isDocument = function() {
-            return !this.isFolder() && fileManagerConfig.isDocumentFilePattern.test(this.model.name);
+            return !this.isFolder() && dromManagerConfig.isDocumentFilePattern.test(this.model.name);
         };
 
         Item.prototype.isImage = function() {
-            return fileManagerConfig.isImageFilePattern.test(this.model.name);
+            return dromManagerConfig.isImageFilePattern.test(this.model.name);
         };
 
         Item.prototype.isCompressible = function() {
@@ -60,11 +60,11 @@
         };
 
         Item.prototype.isExtractable = function() {
-            return !this.isFolder() && fileManagerConfig.isExtractableFilePattern.test(this.model.name);
+            return !this.isFolder() && dromManagerConfig.isExtractableFilePattern.test(this.model.name);
         };
 
         Item.prototype.isSelectable = function() {
-            return (this.isFolder() && fileManagerConfig.allowedActions.pickFolders) || (!this.isFolder() && fileManagerConfig.allowedActions.pickFiles);
+            return (this.isFolder() && dromManagerConfig.allowedActions.pickFolders) || (!this.isFolder() && dromManagerConfig.allowedActions.pickFiles);
         };
 
         return Item;
