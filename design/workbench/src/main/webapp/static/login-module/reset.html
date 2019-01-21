@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" data-ng-app="loginApp" style="height: 100%; width:100%">
+
+<head>
+    <meta charset="utf-8" />
+    <title>WorkBench</title>
+    <link rel="stylesheet" type="text/css" href="login.css" />
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="login.controller.js"></script>
+</head>
+
+<body style="height: 100%; color:black; overflow:hidden; min-width:1280px">
+    <div class="container">
+        <div class="logo-area">
+            <img class="logo" src='images/logo.png' ng-click="index()" />
+        </div>
+        <div class="splitLine"></div>
+        
+        <div id="change" class="center-box center-change" ng-controller="loginController">
+            <h2 class="title">Enter your new password</h2>
+            <form id="form-change" modelAttribute="loginDto">
+                <div class="fields">
+                    <div class="field username">
+                        <input id="username" disabled="disabled" name="userName" type="text" placeholder="Email Address" maxlength="30" autofocus="autofocus" ng-model="userName">
+                    </div>
+                    <div class="field password">
+                        <!--<span class="icon icon-W32H32 icon-password"></span>-->
+                        <input name="password" type="password" placeholder="new password" maxlength="30" ng-model="newPassword1">
+                    </div>
+                    <div class="field password">
+                        <!--<span class="icon icon-W32H32 icon-password"></span>-->
+                        <input name="password" type="password" placeholder="new password again" maxlength="30" ng-model="newPassword2">
+                    </div>
+                </div>
+                <div class="notes-error" ng-show="showError">
+                    <span class="icon icon-W32H32 icon-noteError"></span>
+                    <p>{{msg}}</p>
+                </div>
+                <div class="notes-success" ng-show="showSuccess">
+                    <span class="icon icon-W32H32 icon-noteSuccess"></span>
+                    <p>{{msg}}</p>
+                </div>
+                <!-- <div class="notes">
+                                <h4>Note!</h4>
+                                <p>The email address will be used to send password change confirmation to you when you forget your password.</p>
+                            </div> -->
+                <div class="actions">
+                    <button class="btn btn-signUp" ng-click="changePassword()">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p class="trusted">Trusted Technology Solutions</p>
+            <p class="copyright">Copyright © 2006-2018 <a href="http://www.hengtiansoft.com/en" target="_blank">Insigma
+                    Hengtian Software Ltd</a>. All Rights Reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

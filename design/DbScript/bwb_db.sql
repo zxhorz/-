@@ -37,7 +37,8 @@ INSERT INTO `analysis_dependency` (`id`, `relier_id`, `reliered_id`) VALUES
 	(7, 7, 3),
 	(8, 7, 5),
 	(9, 8, 1),
-	(10, 9, 1);
+	(10, 9, 1),
+	(11, 10, 1);
 /*!40000 ALTER TABLE `analysis_dependency` ENABLE KEYS */;
 
 # Dumping structure for table bwb.analysis_type
@@ -194,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `activation_code` varchar(100) NOT NULL,
+  `activation_code` varchar(100) DEFAULT NULL,
   `state` varchar(50) NOT NULL,
   `send_time` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -204,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `password`, `activation_code`, `state`) VALUES
-	(1, 'Admin', '827ccb0eea8a706c4c34a16891f84e7b', 'a1b2', 'active');
+	(1, 'Admin', '09445d804166cb5fc9bc0907e32fd343', 'null', 'active');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
@@ -350,3 +351,24 @@ CREATE TABLE IF NOT EXISTS `custom_script_run_history` (
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+use bwb;
+delimiter //
+create procedure checkUser()
+begin
+update user SET send_time=send_time + 10;
+
+delete from user where user.id in 
+(select id from (SELECT user.id FROM user where send_time > 1440 and state = 'nonactive') as temp);
+end
+//
+delimiter ;
+
+create event ten_minute_event
+on schedule every 10 minute STARTS TIMESTAMP '2019-01-01 00:00:00'
+on completion preserve enable
+do call checkUser();
+
+set GLOBAL event_scheduler=1;
