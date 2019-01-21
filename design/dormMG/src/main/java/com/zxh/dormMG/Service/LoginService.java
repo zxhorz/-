@@ -319,8 +319,8 @@ public class LoginService {
                 }
             }
             logger.info("SMTPClient ReplyString:" + client.getReplyString());
-            String emailSuffix = "hengtiansoft.com";
-            String emailPrefix = "xihaozhou";
+            String emailSuffix = "163.com";
+            String emailPrefix = "15382327056";
             String fromEmail = emailPrefix + "@" + emailSuffix;
             // 尝试和SMTP服务器建立连接,发送一条消息给SMTP服务器
             client.login(emailPrefix);
