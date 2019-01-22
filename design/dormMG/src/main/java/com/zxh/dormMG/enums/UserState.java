@@ -14,7 +14,7 @@ public enum UserState {
 		this.state = state;
 	}
 
-	private UserState(String state) {
+	UserState(String state) {
 		this.state = state;
 	}
 	

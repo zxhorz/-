@@ -37,7 +37,7 @@ public class FilePathUtil {
         }
     }
     
-    public static void download(File file,HttpServletResponse response) throws FileNotFoundException, IOException {
+    public static void download(File file,HttpServletResponse response) throws IOException {
         if (!file.exists()) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Resource Not Found");
             return;

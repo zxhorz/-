@@ -11,8 +11,6 @@ public final class ResultDtoFactory {
     private ResultDtoFactory() {
     }
 
-    ;
-
     /**
      * Description: 返回ack结果
      */

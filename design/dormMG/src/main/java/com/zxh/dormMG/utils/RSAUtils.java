@@ -48,7 +48,7 @@ public class RSAUtils {
      * @return public key字符串
      */
     public static String generateBase64PublicKey() {
-        PublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+        PublicKey publicKey = keyPair.getPublic();
 
         //encodeBase64(): Encodes binary data using the base64
         //algorithm but does not chunk the output.

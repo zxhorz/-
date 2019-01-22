@@ -9,6 +9,6 @@ public interface UserRepository extends BaseRepository<User,Long>{
     User findUserByName(@Param("query") String name);
 
     @Query("select p from User p where p.activationCode = :query")
-    public User findUserByActivationCode(@Param("query") String activationCode);
+    User findUserByActivationCode(@Param("query") String activationCode);
 
 }
