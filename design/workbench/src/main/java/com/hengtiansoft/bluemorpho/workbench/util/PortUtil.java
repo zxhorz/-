@@ -5,10 +5,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.management.Query;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,6 +160,19 @@ public class PortUtil {
 			return "localhost";
 		}	
 	}
+	
+    public String getLocalPort(){
+        try{
+            MBeanServer beanServer = ManagementFactory.getPlatformMBeanServer();
+            Set<ObjectName> objectNames = beanServer.queryNames(new ObjectName("*:type=Connector,*"),
+                    Query.match(Query.attr("protocol"), Query.value("HTTP/1.1")));
+            String port = objectNames.iterator().next().getKeyProperty("port");
+            return port;
+        }catch(MalformedObjectNameException e){
+            LOGGER.error(e);
+            return "8080";
+        }
+    }
 
 	private synchronized void checkVirtualMap() {
 		File file = FilePathUtil.getVirtualMap();

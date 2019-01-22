@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hengtiansoft.bluemorpho.workbench.domain.User;
 import com.hengtiansoft.bluemorpho.workbench.dto.LoginDto;
 import com.hengtiansoft.bluemorpho.workbench.dto.ResultDto;
 import com.hengtiansoft.bluemorpho.workbench.dto.ResultDtoFactory;
 import com.hengtiansoft.bluemorpho.workbench.services.UserService;
 import com.hengtiansoft.bluemorpho.workbench.util.PasswordUtil;
+import com.hengtiansoft.bluemorpho.workbench.util.RSAUtils;
 import com.hengtiansoft.bluemorpho.workbench.util.ValidateCode;
 
 /**
@@ -40,6 +42,8 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> login(@Valid LoginDto loginDto, BindingResult result, HttpServletRequest request) {
+        userService.decryptLoginDto(loginDto);
+
         Subject currentUser = SecurityUtils.getSubject();
         String captcha = loginDto.getCaptcha();
         if(!userService.checkCaptcha(captcha, request))
@@ -63,6 +67,12 @@ public class LoginController {
         }
     }
 
+    @RequestMapping(value = "/forget", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDto<String> forget(@RequestParam("email") String email) {
+        return userService.forget(email);
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> register(@RequestParam("email") String email,@RequestParam("captcha") String captcha, HttpServletRequest request) {
@@ -75,26 +85,40 @@ public class LoginController {
         return userService.register(email);
     }
 
+    @RequestMapping(value = "/getKey", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultDto<String> getKey(){
+        String publicKey = RSAUtils.generateBase64PublicKey();
+        return ResultDtoFactory.toAck("S",publicKey);
+    }
+
+    @RequestMapping(value = "/getMessage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDto<User> getMessage(@RequestParam("token") String token) {
+        return userService.getMessage(token);
+    }
+
     @RequestMapping(value = "/activeAccount", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView activeAccount(@RequestParam("activationCode") String activationCode,
-            @RequestParam("account") String account) {
+            @RequestParam("account") String account,HttpServletResponse response) {
         return userService.activeAccount(activationCode, account);
     }
 
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> changePassword(@Valid LoginDto loginDto, BindingResult result) {
+        userService.decryptLoginDto(loginDto);
         Subject currentUser = SecurityUtils.getSubject();
         String userName = loginDto.getUserName();
         String password = loginDto.getPassword();
-        UsernamePasswordToken token = new UsernamePasswordToken(userName, PasswordUtil.MD5(password));
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
         token.setRememberMe(true);
         try {
             currentUser.login(token);
             String newPassword = loginDto.getNewPassword();
-            if (newPassword != null)
-                userService.changePassword(userName, PasswordUtil.MD5(newPassword));
+            if (password != null)
+                userService.changePassword(userName, newPassword);
             Session s = currentUser.getSession();
             s.setAttribute("signinId", userName);
             // ModelAndView modelAndView = new ModelAndView("redirect:/index.html");
@@ -106,25 +130,18 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value = "/forget", method = RequestMethod.POST)
-    @ResponseBody
-    public ResultDto<String> forget(@RequestParam("email") String email) {
-        return userService.forget(email);
-    }
+//    @RequestMapping(value = "/checkForgotActivationCode", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResultDto<String> checkForgotActivationCode(@RequestParam("email") String email,
+//            @RequestParam("activationCode") String activationCode) {
+//        return userService.checkForgotActivationCode(email, activationCode);
+//    }
 
-    @RequestMapping(value = "/checkForgotActivationCode", method = RequestMethod.POST)
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
     @ResponseBody
-    public ResultDto<String> checkForgotActivationCode(@RequestParam("email") String email,
-            @RequestParam("activationCode") String activationCode) {
-        return userService.checkForgotActivationCode(email, activationCode);
-    }
-
-    @RequestMapping(value = "/changeForgotPassword", method = RequestMethod.POST)
-    @ResponseBody
-    public ResultDto<String> changeForgotPassword(@Valid LoginDto loginDto, BindingResult result) {
-        String userName = loginDto.getUserName();
-        String password = loginDto.getPassword();
-        return userService.changePassword(userName, password);
+    public ModelAndView resetPassword(@RequestParam("activationCode") String activationCode,
+            @RequestParam("account") String account,HttpServletResponse response) {
+        return userService.activeAccount(activationCode, account);
     }
 
     @RequestMapping(value = "/validateCode", method = RequestMethod.GET)

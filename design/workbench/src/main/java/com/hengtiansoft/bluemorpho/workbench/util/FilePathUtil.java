@@ -158,8 +158,8 @@ public class FilePathUtil {
 		return getSystemDocPath(projectPath, codeVersion) + "/jcl.json";
 	}
 
-	public static String createDefaultPath(String projectName) {
-		File file = new File(PROJECT + projectName);
+	public static String createDefaultPath(String projectName,String userName) {
+		File file = new File(PROJECT + userName + "/" + projectName);
 		if (!file.exists()) {
 			file.mkdirs();
 		} else {

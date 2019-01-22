@@ -80,7 +80,7 @@ public class ProjectService {
 		//TODO
 		project.setFileMapping("DEFAULT");
 		project.setPath(FilePathUtil.createDefaultPath(projectInfo
-				.getProjectName()));
+				.getProjectName(),userUtil.getUserName()));
 		project = projectRepository.save(project);
 		operationLogger.saveCreateOperation(project.getId(),project.getName());
 		UserRoleInProject ur = new UserRoleInProject();

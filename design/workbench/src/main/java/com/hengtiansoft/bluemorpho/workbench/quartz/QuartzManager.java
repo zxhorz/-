@@ -792,6 +792,7 @@ public class QuartzManager {
 							.usingJobData("projectId", projectId)
 							.usingJobData("precursorJobName", precursorJobName)
 							.build();
+	                SystemDocumentationJob.webSocket = this.webSocket;
 					break;
 				}
 				if (!jobHasMultiParentsAndAdded(info)) {

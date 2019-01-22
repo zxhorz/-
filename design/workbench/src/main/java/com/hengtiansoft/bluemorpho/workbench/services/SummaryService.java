@@ -69,6 +69,7 @@ import com.hengtiansoft.bluemorpho.workbench.util.PictureUtil;
 import com.hengtiansoft.bluemorpho.workbench.util.PortUtil;
 import com.hengtiansoft.bluemorpho.workbench.util.TemplateUtil;
 import com.hengtiansoft.bluemorpho.workbench.util.WordUtil;
+import com.hengtiansoft.bluemorpho.workbench.websocket.ProgressBarWebSocket;
 
 /**
  * @Description: TODO
@@ -92,6 +93,8 @@ public class SummaryService {
 	private ProjectRepository projectRepository;
     @Autowired
 	private CodeBrowserService codeBrowserService;
+    @Autowired
+    private ProgressBarWebSocket webSocket; 
     
 	public List<SummaryDetailItem> getSummaryInfo(int projectId) {
         Project project = projectRepository.findOne(String.valueOf(projectId));
@@ -1660,7 +1663,9 @@ public class SummaryService {
         return pdfPath;
     }
 
-    public String generateSystemDocumentationDownloadHtml(String projectId) {
+    public String generateSystemDocumentationDownloadHtml(String... args) {
+//  public String generateSystemDocumentationDownloadHtml(String projectId,String jobName) {
+        String projectId = args[0];
         Project project = projectRepository.findOne(projectId);
         String projectPath = project.getPath();
         String codeVersion = FileStatusUtil.checkCode(projectPath);
@@ -1740,14 +1745,41 @@ public class SummaryService {
 
             List<ProgramInfo> programs = new ArrayList<ProgramInfo>();
             Map<String, List<String>> sourceCodeMap = new HashMap<String, List<String>>();
-            for (ProgramDetailItem programDetailItem : htmlData.getProgramDetails()) {
-                ProgramInfo program = new ProgramInfo();
-                String programName = programDetailItem.getName();
-                program = codeBrowserService.getProgramInfo(projectId, project.getName(), projectPath, codeVersion,
-                        programName);
-                sourceCodeMap.put(program.getProgramName(), program.getSourceCode());
-                program.setProgramDetailItem(programDetailItem);
-                programs.add(program);
+            
+            //分进度条
+            if (args.length > 1) {
+                String jobName = "";
+                jobName = args[1];
+                double perValue = 0;
+                DecimalFormat df = new DecimalFormat("#.00");
+                int length = htmlData.getProgramDetails().size();
+                for (ProgramDetailItem programDetailItem : htmlData.getProgramDetails()) {
+                    ProgramInfo program = new ProgramInfo();
+                    String programName = programDetailItem.getName();
+                    program = codeBrowserService.getProgramInfo(projectId, project.getName(), projectPath, codeVersion,
+                            programName);
+                    sourceCodeMap.put(program.getProgramName(), program.getSourceCode());
+                    program.setProgramDetailItem(programDetailItem);
+                    programs.add(program);
+                    // total 80% percents
+                    perValue = perValue + 80 / length;
+                    try {
+                        webSocket.sendMessageTo(jobName + "/" + df.format(perValue), projectId);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        LOGGER.error(e);
+                    }
+                }
+            } else {
+                for (ProgramDetailItem programDetailItem : htmlData.getProgramDetails()) {
+                    ProgramInfo program = new ProgramInfo();
+                    String programName = programDetailItem.getName();
+                    program = codeBrowserService.getProgramInfo(projectId, project.getName(), projectPath, codeVersion,
+                            programName);
+                    sourceCodeMap.put(program.getProgramName(), program.getSourceCode());
+                    program.setProgramDetailItem(programDetailItem);
+                    programs.add(program);
+                }
             }
 
             List<ParagraphUseTableInfo> sqlLogicItems = htmlData.getSqlLogicItems();

@@ -33,7 +33,7 @@ public class UserUtil {
 		return null;
 	}
 	
-	public static String getUserName() {
+	public String getUserName() {
 		// 目前存储的是username，后续同时保存username和userid
 		Subject currentUser = SecurityUtils.getSubject();
 		Session s = currentUser.getSession();

@@ -1,7 +1,9 @@
 package com.hengtiansoft.bluemorpho.workbench.util;  
 
 import javax.imageio.ImageIO;  
+
 import java.awt.*;  
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;  
 import java.io.FileOutputStream;  
 import java.io.IOException;  
@@ -99,6 +101,11 @@ public class ValidateCode {
         StringBuffer randomCode = new StringBuffer();  
         // 随机产生codeCount个字符的验证码。  
         for (int i = 0; i < codeCount; i++) {  
+            //每个字符随机角度(-22.5~22.5)旋转   
+            AffineTransform affineTransform = new AffineTransform();
+            affineTransform.rotate(Math.toRadians(random.nextDouble()*45-22.5), 0, 0);
+            Font rotatedFont = font.deriveFont(affineTransform);
+            g.setFont(rotatedFont);  
             String strRand = String.valueOf(codeSequence[random.nextInt(codeSequence.length)]);  
             // 产生随机的颜色值，让输出的每个字符的颜色值都将不同。  
             red = random.nextInt(255);  

@@ -15,7 +15,19 @@ angular.module('infoDataModule')
         infoData.handShakeWebSocket = function () {
             var hostUrl = window.location.host;
             progressBarWebSocket = $websocket('ws://' + hostUrl + '/websocket/' + info.id);
+            // progressBarWebSocket.onClose(function (message) {
+            //     console.log(message);
+            // });
+            // progressBarWebSocket.onError(function (message) {
+            //     console.log(message);
+            // });
             jobstatusWebSocket = $websocket('ws://' + hostUrl + '/websocket/jobstatus/' + info.id);
+            // jobstatusWebSocket.onClose(function (message) {
+            //     console.log(message);
+            // });
+            // jobstatusWebSocket.onError(function (message) {
+            //     console.log(message);
+            // });
         }
 
         infoData.pageSize = function () {

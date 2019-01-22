@@ -30,6 +30,9 @@ public class SystemConfigController extends AbstractController {
 
 	@Autowired
 	SystemConfigService systemConfigService;
+	
+	@Autowired
+	UserUtil userUtil;
 
 	@ApiOperation(value = "get menu list", nickname = "getMenuList", notes = "get menu list")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
@@ -53,7 +56,7 @@ public class SystemConfigController extends AbstractController {
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = { "application/json" })
     @ResponseBody
     public ResultDto<String> getCurrentUser() {
-        String userName = UserUtil.getUserName();
+        String userName = userUtil.getUserName();
         return ResultDtoFactory.toAck(userName);
     }
 	

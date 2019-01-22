@@ -15,9 +15,9 @@
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login-module/login2.html" />
+		<property name="loginUrl" value="/login-module/login.html" />
 		<property name="successUrl" value="/index.html"></property>
-	    <property name="unauthorizedUrl" value="/login-module/login2.html"></property>
+	    <property name="unauthorizedUrl" value="/login-module/login.html"></property>
 		<property name="filterChainDefinitions">
 			<value>
 				/**/websocket/** = anon
@@ -25,18 +25,18 @@
 				/**/*.css = anon
 				/**/*.js = anon
 				/**/*.png = anon
-				/logout = logout
 				/login/**=anon
 <!-- 				/login = anon
 				/register = anon
 				/activeAccount = anon
 				/changePassword = anon -->
-				/login-module/login1.html = anon
-				/login-module/login3.html = anon
-				/swagger-ui.html = anon
-				/webjars/** = anon
-				/v2/** = anon
-				/swagger-resources/** = anon
+				/login-module/login.html = anon
+				/login-module/reset.html = anon
+	            /swagger-ui.html = anon
+	            /webjars/** = anon
+	            /v2/** = anon
+	            /swagger-resources/** = anon
+				/logout = logout
 				/** = authc
 			</value>
 		</property>

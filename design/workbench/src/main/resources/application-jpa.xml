@@ -55,7 +55,7 @@
 		<property name="url"
 			value="jdbc:mysql://127.0.0.1:3306/bwb?useUnicode=true&amp;characterEncoding=utf-8" />
 		<property name="username" value="root" />
-		<property name="password" value="123456" />
+		<property name="password" value="blueMorpho_workbench" />
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

@@ -667,18 +667,18 @@ app.controller('codeBrowserController', function ($scope, $http, $timeout, infoD
     mouse.y = event.clientY;
   });
   //划词
-  editor.on('mouseup', function (event) {
-    if (event.clientX != mouse.x || event.clientY != mouse.y) {
-      var txt = '';
-      txt = $scope.editor.getSession().getTextRange($scope.editor.getSelectionRange());
-      var reg = new RegExp(/[A-Za-z].*/);
-      if (reg.test(txt) && $scope.selected.type === 'file') {
-        var line = $scope.editor.getSelectionRange().end.row - $scope.editor.getSelectionRange().start.row + 1
-        $scope.text = txt;
-        $scope.print(line);
-      }
-    }
-  });
+  // editor.on('mouseup', function (event) {
+  //   if (event.clientX != mouse.x || event.clientY != mouse.y) {
+  //     var txt = '';
+  //     txt = $scope.editor.getSession().getTextRange($scope.editor.getSelectionRange());
+  //     var reg = new RegExp(/[A-Za-z].*/);
+  //     if (reg.test(txt) && $scope.selected.type === 'file') {
+  //       var line = $scope.editor.getSelectionRange().end.row - $scope.editor.getSelectionRange().start.row + 1
+  //       $scope.text = txt;
+  //       $scope.print(line);
+  //     }
+  //   }
+  // });
 
   function convert(datas) {
     // var res = [];
