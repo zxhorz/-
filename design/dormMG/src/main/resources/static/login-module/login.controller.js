@@ -1,46 +1,120 @@
 'use strict';
-angular.module('loginApp', []).controller('loginController', function ($rootScope, $scope, $http, $timeout) {
+angular.module('loginApp', []).controller('loginController', function ($rootScope,$location, $scope, $http, $timeout) {
 	$rootScope.show_login = true;
 	$rootScope.show_register = false;
 	$rootScope.show_forget = false;
-	$rootScope.show_activationCode = false;
 	$rootScope.show_change = false;
 	$rootScope.showError = false;
 	$rootScope.showSuccess = false;
+	$rootScope.key = null;
+	getToken();
+	getKey();
 
-    $scope.signIn = function () {
-		var loginDto = {};
-        loginDto.userName = $scope.userName;
-		loginDto.password = $scope.password;
-		loginDto.captcha = $scope.captcha_login;
 
-        $http({
-            method: 'POST',
-            url: '/login/login',
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-			data:  $.param(loginDto)
-        }).success(function (data) {
+	function getKey() {
+		$http({
+			method: 'GET',
+			url: '/login/getKey',
+		}).success(function (data) {
 			// window.location.href = 'http://'+window.location.host + '/static/index.html';
-			if (data.message === 'S'){
-				$rootScope.showError = false;
-				window.location.href = 'http://' + window.location.host + '/index.html';
-			}
-			else {
-				$scope.changeImg("#imgCaptcha_login");
-				$rootScope.msg = data.data;
+			if (data.message === 'S') {
+				$rootScope.key = data.data;
+			} else {
+				$rootScope.msg = "Error";
 				$rootScope.showError = true;
 			}
-        }).error(function (data) {
-            console.info(data);
-        });
+		}).error(function (data) {
+			console.info(data);
+		});
 	}
+
+	function getToken(){
+		var token = $location.absUrl();
+		if(token){
+			$http({
+				method: 'POST',
+				url: '/login/getMessage',
+				params: {
+					'token': token
+				}
+			}).success(function (data) {
+				// window.location.href = 'http://'+window.location.host + '/static/index.html';
+				if (data.message === 'S'){
+					var user = data.data;
+					$rootScope.userName = user.username;
+					$rootScope.password = user.password;
+				}
+				else if (data.message === 'N'){
+				}
+				else {
+					$rootScope.msg = "Link wrong or overdue";
+					$rootScope.showError = true;
+					$timeout(function () {
+						window.location.href = 'http://' + window.location.host;
+					}, 3000);
+				}
+			}).error(function (data) {
+				console.info(data);
+			});
+		}
+	}
+
+    $scope.signIn = function () {
+    	var loginDto = {};
+    	loginDto.userName = $scope.userName;
+    	loginDto.password = $scope.password;
+    	loginDto.captcha = $scope.captcha_login;
+
+    	if (!loginDto.password && !loginDto.userName) {
+    		$rootScope.msg = "please enter username/password"
+    		$rootScope.showError = true;
+    	} else if (!loginDto.password) {
+    		$rootScope.msg = "please enter password"
+    		$rootScope.showError = true;
+    	} else if (!loginDto.userName) {
+    		$rootScope.msg = "please enter username"
+    		$rootScope.showError = true;
+    	} else {
+			var encrypt = new JSEncrypt();
+			encrypt.setPublicKey($rootScope.key);
+			loginDto.userName = encrypt.encrypt(loginDto.userName);
+			loginDto.password = encrypt.encrypt(loginDto.password);
+			loginDto.captcha = encrypt.encrypt(loginDto.captcha);
+    		$http({
+    			method: 'POST',
+    			url: '/login/login',
+    			headers: {
+    				'Content-Type': 'application/x-www-form-urlencoded'
+    			},
+    			data: $.param(loginDto)
+    		}).success(function (data) {
+    			// window.location.href = 'http://'+window.location.host + '/static/index.html';
+    			if (data.message === 'S') {
+    				$rootScope.showError = false;
+    				window.location.href = 'http://' + window.location.host + '/index.html';
+    			} else {
+    				$scope.changeImg("#imgCaptcha_login");
+    				$rootScope.msg = data.data;
+    				$rootScope.showError = true;
+    			}
+    		}).error(function (data) {
+    			console.info(data);
+    		});
+    	}
+    }
 	
 	$rootScope.changePassword = function () {
 		var loginDto = {};
-		if ($scope.newPassword1 === $scope.newPassword2) {
+		if (checkPassword()) {
 			loginDto.userName = $scope.userName;
-			loginDto.password = $scope.oldPassword;
+			loginDto.password = $rootScope.password;
 			loginDto.newPassword = $scope.newPassword1;
+
+			var encrypt = new JSEncrypt();
+			encrypt.setPublicKey($rootScope.key);
+			loginDto.userName = encrypt.encrypt(loginDto.userName);
+			loginDto.password = encrypt.encrypt(loginDto.password);
+			loginDto.newPassword = encrypt.encrypt(loginDto.newPassword);
 			$http({
 				method: 'POST',
 				url: '/login/changePassword',
@@ -59,7 +133,6 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 			});
 		} else {
 			$rootScope.showError = true;
-			$rootScope.msg = "different password";
 		}
     }
     
@@ -89,7 +162,7 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 	            	// $rootScope.userName = $scope.email;
 					// $rootScope.msg = "Activate your account in your email and login!";
 					window.location.href = 'http://' + window.location.host;
-				}, 2000);
+				}, 3000);
         	} else if (code === "E") {
 				$rootScope.changeImg("#imgCaptcha_register");
         		$rootScope.showSuccess = false;
@@ -126,43 +199,6 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
         });
     }
 
-	$rootScope.changeForgotPassword = function () {
-		var loginDto = {};
-		if ($scope.newPassword1 === $scope.newPassword2) {
-			loginDto.userName = $scope.email;
-			loginDto.password = $scope.newPassword1;
-			$http({
-				method: 'POST',
-				url: '/login/changeForgotPassword',
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				data:  $.param(loginDto)
-			}).success(function (data) {
-				$rootScope.msg = data.data;
-				if (data.message === 'S'){
-					$rootScope.showSuccess = true;
-					$scope.userName = loginDto.userName;
-					// $scope.password = "";
-					$timeout(function () {
-						// $rootScope.show_login = !$rootScope.show_login;
-						// $rootScope.show_change = !$rootScope.show_change;
-						// $rootScope.userName = $scope.email;
-						// $rootScope.showError = false;
-						// $rootScope.showSuccess = false;
-						window.location.href = 'http://' + window.location.host;
-					}, 2000);
-				}
-				else {
-					$rootScope.showError = true;
-				}
-			}).error(function (data) {
-				console.info(data);
-			});
-		} else {
-			$rootScope.showError = true;
-			$rootScope.msg = "different password";
-		}
-    }
-
     $rootScope.forget = function() {
         $http({
             method: 'POST',
@@ -176,7 +212,9 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
         	if (code === "S") {
         		$rootScope.showSuccess = true;
         		$rootScope.showError = false;
-				$rootScope.show_activationCode = true;
+        		$timeout(function () {
+					window.location.href = 'http://' + window.location.host;
+				}, 3000);
         	} else if (code === "E") {
         		$rootScope.showSuccess = false;
         		$rootScope.showError = true;
@@ -185,6 +223,10 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
             console.info(data);
         });
     }
+
+	$rootScope.index = function(){
+		window.location.href = 'http://' + window.location.host;
+	}
 
 	$rootScope.changeImg = function(id) {  
         var imgSrc = $(id);  
@@ -207,6 +249,53 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
         return url;  
     } 
 	
+	function checkPassword() {
+
+		if ($scope.newPassword1 !== $scope.newPassword2) {
+			$rootScope.msg = "Different password";
+			return false;
+		}
+
+		if (!$scope.newPassword1 || !$scope.newPassword2) {
+			$rootScope.msg = "Please enter password";
+			return false;
+		}
+
+		if (!$scope.newPassword1 || $scope.newPassword1.length < 6) {
+			$rootScope.msg = "Password length should be greater than 6";
+			return false;
+		}
+
+		if (!$scope.newPassword1.match(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/)) {
+			$rootScope.msg = "Password needs to contain upper and lower case letters and numbers!";
+			return false;
+		}
+
+		return true;
+	}
+
+	$scope.$watch('newPassword1', function () {
+		if (!$scope.newPassword1 && !$scope.newPassword2) {
+			$rootScope.showError = false;
+			return;
+		}
+		if (!checkPassword())
+			$rootScope.showError = true;
+		else
+			$rootScope.showError = false;
+	});
+
+	$scope.$watch('newPassword2', function () {
+		if (!$scope.newPassword1 && !$scope.newPassword2) {
+			$rootScope.showError = false;
+			return;
+		}
+		if (!checkPassword())
+			$rootScope.showError = true;
+		else
+			$rootScope.showError = false;
+	});
+
 	$rootScope.toggleLogin = function() {
 		$rootScope.changeImg("#imgCaptcha_login");
 		$scope.userName = "";
@@ -220,7 +309,6 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 		$rootScope.show_login = true;
 		$rootScope.show_register = false;
 		$rootScope.show_forget = false;
-		$rootScope.show_activationCode = false;
 		$rootScope.show_change = false;
 		$rootScope.showError = false;
 		$rootScope.showSuccess = false;
@@ -230,7 +318,6 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 		$rootScope.show_login = false;
 		$rootScope.show_register = false;
 		$rootScope.show_forget = true;
-		$rootScope.show_activationCode = false;
 		$rootScope.show_change = false;
 		$rootScope.showError = false;
 		$rootScope.showSuccess = false;
@@ -242,7 +329,6 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 		$rootScope.show_login = false;
 		$rootScope.show_register = true;
 		$rootScope.show_forget = false;
-		$rootScope.show_activationCode = false;
 		$rootScope.show_change = false;
 		$rootScope.showError = false;
 		$rootScope.showSuccess = false;
@@ -252,7 +338,6 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 		$rootScope.show_login = false;
 		$rootScope.show_register = false;
 		$rootScope.show_forget = false;
-		$rootScope.show_activationCode = false;
 		$rootScope.show_change = true;
 		$rootScope.showError = false;
 		$rootScope.showSuccess = false;

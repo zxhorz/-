@@ -27,13 +27,13 @@ public class FilePathUtil {
 	private static final String SYSTEMCONFIG = "systemconfig/";
 	private static final String SMTP = "/smtp.properties";
 
-    public static File getSmtpConfigPath() {
+    public static File getSmtpConfigPath() throws Exception{
         String filePath = SYSTEMCONFIG + SMTP;
         File file = new File(filePath);
         if (file.exists()) {
             return file;
         } else {
-            return null;
+            throw new Exception("Cant't find smtp config");
         }
     }
     

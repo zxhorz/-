@@ -6,13 +6,11 @@ import com.zxh.dormMG.domain.Authentication;
 import com.zxh.dormMG.domain.Permission;
 import com.zxh.dormMG.domain.Role;
 import com.zxh.dormMG.domain.User;
-import com.zxh.dormMG.dto.RegisterDto;
+import com.zxh.dormMG.dto.LoginDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.enums.UserState;
-import com.zxh.dormMG.utils.FilePathUtil;
-import com.zxh.dormMG.utils.OperationLogger;
-import com.zxh.dormMG.utils.PasswordUtil;
+import com.zxh.dormMG.utils.*;
 import org.apache.commons.net.smtp.SMTPClient;
 import org.apache.commons.net.smtp.SMTPReply;
 import org.apache.log4j.Logger;
@@ -41,18 +39,18 @@ import javax.mail.internet.MimeMessage;
 @Transactional
 public class LoginService {
     private static final Logger logger = Logger.getLogger(LoginService.class);
+    private static final String LOCALPORT = ":8888";
 
+    @Autowired
+    private PortUtil portUtil;
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
 
-    public boolean checkUserExists(String userName) {
+    private boolean checkUserExists(String userName) {
         User find = userRepository.findUserByName(userName);
-        if (find != null) {
-            return true;
-        }
-        return false;
+        return find != null;
     }
 
     //添加用户
@@ -65,13 +63,10 @@ public class LoginService {
     }
 
     //验证码校验
-    public boolean checkCaptcha(String captcha,HttpServletRequest request){
+    public boolean checkCaptcha(String captcha, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String sessionCode = (String) session.getAttribute("captcha");
-        if (!sessionCode.equalsIgnoreCase(captcha)) {
-            return false;
-        }
-        return true;
+        return captcha != null && sessionCode.equalsIgnoreCase(captcha);
     }
 
     //添加角色
@@ -86,7 +81,7 @@ public class LoginService {
         Permission permission2 = new Permission();
         permission2.setPermission("update");
         permission2.setRole(role);
-        List<Permission> permissions = new ArrayList<Permission>();
+        List<Permission> permissions = new ArrayList<>();
         permissions.add(permission1);
         permissions.add(permission2);
         role.setPermissions(permissions);
@@ -101,16 +96,39 @@ public class LoginService {
 
 
     public ModelAndView activeAccount(String activationCode, String account) {
-        User user = userRepository.findUserByActivationCode(activationCode);
+
+        User user = checkActivationCode(account, activationCode);
+        String token = PasswordUtil.generateRandomString(16);
         if (user != null) {
             user.setState(UserState.ACTIVE.getState());
+            user.setActivationCode(PasswordUtil.MD5(token));
             userRepository.save(user);
         }
-        return new ModelAndView("redirect:/static/login-module/login.html");
+        return new ModelAndView("redirect:/login-module/reset.html?token=" + token);
+    }
+
+    private User checkActivationCode(String email, String activationCode) {
+        User user = userRepository.findUserByName(email);
+        if (user == null)
+            return null;
+        String time = user.getTime();
+        if (time == null)
+            return null;
+        if (user.getState().equals(UserState.ACTIVE.getState()) && Integer.valueOf(time) > 30) {
+            user.setActivationCode(null);
+            user.setTime(null);
+            userRepository.save(user);
+            return null;
+        }
+        if (user.getActivationCode().equals(PasswordUtil.MD5(activationCode)))
+            return user;
+        else
+            return null;
+
     }
 
     public ResultDto<String> forget(String userName) {
-        ResultDto<String> resultDto = new ResultDto<String>();
+        ResultDto<String> resultDto = new ResultDto<>();
         boolean exists = checkUserExists(userName);
         if (!exists) {
             resultDto.setCode("E");
@@ -140,41 +158,47 @@ public class LoginService {
 
     public ResultDto<String> register(String userName) {
         ResultDto<String> resultDto = new ResultDto<String>();
-        boolean exists = checkEmail(userName);
-        if (exists) {
+        User user = userRepository.findUserByName(userName);
+        boolean exists = (user != null);
+        if (!checkEmail(userName)) {
             resultDto.setCode("E");
-            resultDto.setData("Invalid Email.");
+            resultDto.setData("Invalid Email");
             return resultDto;
+        }
+        if (exists && user.getState().equals(UserState.ACTIVE.getState())) {
+            resultDto.setCode("E");
+            resultDto.setData("The user already exists.");
         } else {
-            if (userRepository.findUserByName(userName) != null) {
+            resultDto.setData(null);
+            if (exists)
+                ;
+            else
+                user = new User();
+            String activationCode = PasswordUtil.generateRandomString(4);
+            // 8位密码
+            String password = PasswordUtil.generateRandomString(8);
+            user.setUsername(userName);
+            user.setPassword(PasswordUtil.MD5(password));
+            user.setActivationCode(PasswordUtil.MD5(activationCode));
+            user.setState(UserState.NON_ACTIVE.getState());
+            // 设置初始时间为0，时间超过24后删除数据
+            user.setTime("0");
+            userRepository.save(user);
+            try {
+                sendPasswordAndActivationCode(activationCode, userName);
+            } catch (Exception e) {
                 resultDto.setCode("E");
-                resultDto.setData("The Email has been registered.");
-                return resultDto;
-            } else {
-                resultDto.setData(null);
-                // 4位激活码
-                String activationCode = PasswordUtil.generateRandomString(4);
-                // 6位密码
-                String password = PasswordUtil.generateRandomString(6);
-                User user = new User();
-                user.setUsername(userName);
-                user.setPassword(PasswordUtil.MD5(password));
-                user.setActivationCode(activationCode);
-                user.setState(UserState.NON_ACTIVE.getState());
-                userRepository.save(user);
-                // 发送密码和激活码到注册邮箱
-                try {
-                    sendPasswordAndActivationCode(activationCode, password, userName);
-                } catch (Exception e) {
-                    resultDto.setCode("E");
-                    resultDto.setData("Send activation email exception!");
-                    return resultDto;
-                }
-                resultDto.setCode("S");
-                resultDto.setData("The user was successfully registered, please activate your account in your email!");
+                resultDto.setData("Send activation email exception!");
                 return resultDto;
             }
+            // 发送密码和激活码到注册邮箱
+            resultDto.setCode("S");
+            if (exists)
+                resultDto.setData("The user has been registered, please activate your account in your email!");
+            else
+                resultDto.setData("The user was successfully registered, please activate your account in your email!");
         }
+        return resultDto;
     }
 
     public ResultDto<String> changePassword(String userName, String newPassword) {
@@ -182,11 +206,12 @@ public class LoginService {
         if (user != null) {
             user.setPassword(PasswordUtil.MD5(newPassword));
             user.setState(UserState.ACTIVE.getState());
+            user.setActivationCode(null);
+            user.setTime(null);
             userRepository.save(user);
-            return ResultDtoFactory.toAck("S","Password successfully changed");
-        }
-        else{
-            return ResultDtoFactory.toAck("F","Password failed to change");
+            return ResultDtoFactory.toAck("S", "Password successfully changed");
+        } else {
+            return ResultDtoFactory.toAck("F", "Password failed to change");
         }
     }
 
@@ -199,25 +224,44 @@ public class LoginService {
             Date date = sdf.parse(time);
             Date currentDate = new Date();
             long diff = currentDate.getTime() - date.getTime();
-            long min = diff /(60*1000);
-            if(min > 15)
-                return ResultDtoFactory.toAck("F","Activation code is overdue");
-            if(user.getActivationCode().equals(PasswordUtil.MD5(activationCode)))
+            long min = diff / (60 * 1000);
+            if (min > 15)
+                return ResultDtoFactory.toAck("F", "Activation code is overdue");
+            if (user.getActivationCode().equals(PasswordUtil.MD5(activationCode)))
                 return ResultDtoFactory.toAck("S");
             else
-                return ResultDtoFactory.toAck("F","Activation code not correct");
+                return ResultDtoFactory.toAck("F", "Activation code not correct");
         } catch (ParseException e) {
             // TODO Auto-generated catch block
-            return ResultDtoFactory.toAck("F","Record time error");
+            return ResultDtoFactory.toAck("F", "Record time error");
         }
     }
 
-    private void sendPasswordAndActivationCode(String activationCode, String password, String toEmail) throws MessagingException {
+    public ResultDto<User> getMessage(String token) {
+        try {
+            if (token.split("[?]").length != 2)
+                return ResultDtoFactory.toAck("N");
+            token = token.split("[?]")[1];
+            token = token.split("=")[1];
+            User user = userRepository.findUserByActivationCode(PasswordUtil.MD5(token));
+            if (user != null) {
+                user.setActivationCode(null);
+                user.setTime(null);
+                return ResultDtoFactory.toAck("S", user);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            logger.error(e);
+        }
+        return ResultDtoFactory.toAck("F");
+    }
+
+    private void sendPasswordAndActivationCode(String activationCode, String toEmail) throws MessagingException {
         Properties props = new Properties();
         try {
             BufferedReader br = new BufferedReader(new FileReader(FilePathUtil.getSmtpConfigPath()));
             props.load(br);
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.error("read smtp properties file error.");
         }
 
@@ -233,14 +277,23 @@ public class LoginService {
         msg.setFrom(new InternetAddress(fromUserName));
         msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
         msg.setSubject("BlueMorpho Workbench Activation Email");
-        msg.setContent("<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply. "
-                + "<br/>password : "
-                + password
-                + ".<br/> Please click on the link below to complete activation and set your own password!</h1><h3><a href='http://localhost:8888/login/activeAccount?activationCode="
-                + activationCode
-                + "&account="
-                + toEmail
-                + "'>http://localhost:8888/activeAccount</a></h3>", "text/html;charset=UTF-8");
+        String content = "<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply. " +
+                "<br/> Please click on the link below to complete activation and set your own password!</h1><h3><a href='http://" +
+                portUtil.getWbServerIp() + LOCALPORT +
+                "/login/activeAccount?activationCode=" +
+                activationCode +
+                "&account=" +
+                toEmail +
+                "'>http://" +
+                portUtil.getWbServerIp() + LOCALPORT +
+                "/activeAccount</a></h3>";
+        //        "<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply. "
+//        + "<br/> Please click on the link below to complete activation and set your own password!</h1><h3><a href='http://"+portUtil.getWbServerIp() + LOCALPORT + "/login/activeAccount?activationCode="
+//        + activationCode
+//        + "&account="
+//        + toEmail
+//        + "'>http://"+ portUtil.getWbServerIp() + LOCALPORT + "/activeAccount</a></h3>"
+        msg.setContent(content, "text/html;charset=UTF-8");
         msg.saveChanges();
         Transport transport = mailSession.getTransport(transportProtocol);
         transport.connect(smtpHost, fromUserName, fromPassword);
@@ -269,9 +322,23 @@ public class LoginService {
         msg.setFrom(new InternetAddress(fromUserName));
         msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
         msg.setSubject("BlueMorpho Workbench Activation Email");
-        msg.setContent("<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply."
-                + "<br/>Activation code is ："
-                + activationCode + "</h1>", "text/html;charset=UTF-8");
+        String content = "<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply." +
+                "<br/> Please click on the link below to reset your own password!</h1><h3><a href='http://" +
+                portUtil.getWbServerIp() + LOCALPORT +
+                "/login/resetPassword?activationCode=" +
+                activationCode +
+                "&account=" +
+                toEmail +
+                "'>http://" +
+                portUtil.getWbServerIp() + LOCALPORT +
+                "/resetPassword</a></h3>";
+        //        "<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply."
+//        + "<br/> Please click on the link below to reset your own password!</h1><h3><a href='http://"+portUtil.getWbServerIp() + LOCALPORT + "/login/resetPassword?activationCode="
+//        + activationCode
+//        + "&account="
+//        + toEmail
+//        + "'>http://"+ portUtil.getWbServerIp() + LOCALPORT + "/resetPassword</a></h3>"
+        msg.setContent(content, "text/html;charset=UTF-8");
         msg.saveChanges();
 
         Transport transport = mailSession.getTransport(transportProtocol);
@@ -280,14 +347,14 @@ public class LoginService {
         transport.close();
     }
 
-    public static boolean checkEmail(String email) {
-        if (!email.matches("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+")) {
-            logger.error("邮箱（" + email + "）校验未通过，格式不对!");
-            return false;
-        }
-        String host = "";
+    private static boolean checkEmail(String email) {
+//        if (!email.matches("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+")) {
+//            logger.error("邮箱（" + email + "）校验未通过，格式不对!");
+//            return false;
+//        }
+        String host;
         String hostName = email.split("@")[1];
-        Record[] result = null;
+        Record[] result;
         SMTPClient client = new SMTPClient();
         try {
             // 查找DNS缓存服务器上为MX类型的缓存域名信息
@@ -300,8 +367,8 @@ public class LoginService {
                 result = lookup.getAnswers();
             }
             // 尝试和SMTP邮箱服务器建立Socket连接
-            for (int i = 0; i < result.length; i++) {
-                host = result[i].getAdditionalName().toString();
+            for (Record aResult : result) {
+                host = aResult.getAdditionalName().toString();
                 logger.info("SMTPClient try connect to host:" + host);
 
                 // 尝试Socket连接到SMTP服务器
@@ -311,7 +378,6 @@ public class LoginService {
                 if (!SMTPReply.isPositiveCompletion(client.getReplyCode())) {
                     // 断开socket连接
                     client.disconnect();
-                    continue;
                 } else {
                     logger.info("找到MX记录:" + hostName);
                     logger.info("建立链接成功：" + hostName);
@@ -346,8 +412,16 @@ public class LoginService {
             try {
                 client.disconnect();
             } catch (IOException e) {
+                logger.error(e);
             }
         }
         return false;
+    }
+
+    public void decryptLoginDto(LoginDto loginDto) {
+        loginDto.setUserName(RSAUtils.decryptBase64(loginDto.getUserName()));
+        loginDto.setPassword(RSAUtils.decryptBase64(loginDto.getPassword()));
+        loginDto.setCaptcha(RSAUtils.decryptBase64(loginDto.getCaptcha()));
+        loginDto.setNewPassword(RSAUtils.decryptBase64(loginDto.getNewPassword()));
     }
 }

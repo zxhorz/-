@@ -259,3 +259,6 @@ input.captcha {
 img.captcha {
     cursor: pointer;
 }
+img.logo {
+    cursor: pointer;
+}

@@ -7,6 +7,7 @@ import com.zxh.dormMG.dto.LoginDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.utils.PasswordUtil;
+import com.zxh.dormMG.utils.RSAUtils;
 import com.zxh.dormMG.utils.ValidateCode;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -36,9 +37,11 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> login(@Valid LoginDto loginDto, BindingResult result, HttpServletRequest request) {
+        loginService.decryptLoginDto(loginDto);
+
         Subject currentUser = SecurityUtils.getSubject();
         String captcha = loginDto.getCaptcha();
-        if(!loginService.checkCaptcha(captcha, request))
+        if (!loginService.checkCaptcha(captcha, request))
             return ResultDtoFactory.toAck("F", "Captcha wrong");
         String userName = loginDto.getUserName();
         String password = loginDto.getPassword();
@@ -61,38 +64,38 @@ public class LoginController {
 
 
     //退出的时候是get请求，主要是用于退出
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String login(){
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
         return "login";
     }
 
     @RequestMapping(value = "/index")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     //登出
     @RequestMapping(value = "/logout")
-    public String logout(){
+    public String logout() {
         return "logout";
     }
 
     //错误页面展示
-    @RequestMapping(value = "/error",method = RequestMethod.POST)
-    public String error(){
+    @RequestMapping(value = "/error", method = RequestMethod.POST)
+    public String error() {
         return "error ok!";
     }
 
     //数据初始化
     @RequestMapping(value = "/addUser")
-    public String addUser(@RequestBody Map<String,Object> map){
+    public String addUser(@RequestBody Map<String, Object> map) {
         User user = loginService.addUser(map);
         return "addUser is ok! \n" + user;
     }
 
     //角色初始化
     @RequestMapping(value = "/addRole")
-    public String addRole(@RequestBody Map<String,Object> map){
+    public String addRole(@RequestBody Map<String, Object> map) {
         Role role = loginService.addRole(map);
         return "addRole is ok! \n" + role;
     }
@@ -113,7 +116,7 @@ public class LoginController {
     @RequiresRoles("admin")
     @RequiresPermissions("create")
     @RequestMapping(value = "/create")
-    public String create(){
+    public String create() {
         return "Create success!";
     }
 
@@ -124,19 +127,42 @@ public class LoginController {
         return loginService.forget(email);
     }
 
-    @RequestMapping(value = "/checkForgotActivationCode", method = RequestMethod.POST)
+    @RequestMapping(value = "/getKey", method = RequestMethod.GET)
     @ResponseBody
-    public ResultDto<String> checkForgotActivationCode(@RequestParam("email") String email,
-                                                       @RequestParam("activationCode") String activationCode) {
-        return loginService.checkForgotActivationCode(email, activationCode);
+    public ResultDto<String> getKey() {
+        String publicKey = RSAUtils.generateBase64PublicKey();
+        return ResultDtoFactory.toAck("S", publicKey);
     }
 
-    @RequestMapping(value = "/changeForgotPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/getMessage", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDto<String> changeForgotPassword(@Valid LoginDto loginDto, BindingResult result) {
+    public ResultDto<User> getMessage(@RequestParam("token") String token) {
+        return loginService.getMessage(token);
+    }
+
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDto<String> changePassword(@Valid LoginDto loginDto, BindingResult result) {
+        loginService.decryptLoginDto(loginDto);
+        Subject currentUser = SecurityUtils.getSubject();
         String userName = loginDto.getUserName();
         String password = loginDto.getPassword();
-        return loginService.changePassword(userName, password);
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
+        token.setRememberMe(true);
+        try {
+            currentUser.login(token);
+            String newPassword = loginDto.getNewPassword();
+            if (password != null)
+                loginService.changePassword(userName, newPassword);
+            Session s = currentUser.getSession();
+            s.setAttribute("signinId", userName);
+            // ModelAndView modelAndView = new ModelAndView("redirect:/index.html");
+            return ResultDtoFactory.toAck("S", userName);
+        } catch (Exception e) {
+            token.clear();
+            // ModelAndView modelAndView = new ModelAndView("redirect:/static/login-module/login1.html");
+            return ResultDtoFactory.toAck("F", e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/validateCode", method = RequestMethod.GET)
