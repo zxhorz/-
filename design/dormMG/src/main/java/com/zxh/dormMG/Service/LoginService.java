@@ -40,7 +40,7 @@ import javax.mail.internet.MimeMessage;
 public class LoginService {
     private static final Logger logger = Logger.getLogger(LoginService.class);
     private static final String LOCALPORT = ":8888";
-
+    private static final String EMAIL_SUFFIX = "@stu.zucc.edu.cn";
     @Autowired
     private PortUtil portUtil;
     @Autowired
@@ -128,30 +128,30 @@ public class LoginService {
     }
 
     public ResultDto<String> forget(String userName) {
-        ResultDto<String> resultDto = new ResultDto<>();
+        ResultDto<String> resultDto = new ResultDto<String>();
         boolean exists = checkUserExists(userName);
         if (!exists) {
             resultDto.setCode("E");
-            resultDto.setData("The user is non-existent.");
+            resultDto.setData("用户不存在");
             return resultDto;
         } else {
             resultDto.setData(null);
-            // 4位激活码
-            String activationCode = PasswordUtil.generateRandomString(4);
-            User user = userRepository.findUserByName(userName);
-            user.setActivationCode(PasswordUtil.MD5(activationCode));
-            user.setTime(OperationLogger.getCurrentTime());
-            userRepository.save(user);
+            // 6位激活码
+            String activationCode = PasswordUtil.generateRandomString(6);
             // 发送密码和激活码到注册邮箱
             try {
-                sendChangePassword(activationCode, userName);
+                sendChangePassword(activationCode, userName + EMAIL_SUFFIX);
             } catch (Exception e) {
                 resultDto.setCode("E");
-                resultDto.setData("Send activation email exception!");
+                resultDto.setData("邮件发送失败");
                 return resultDto;
             }
+            User user = userRepository.findUserByName(userName);
+            user.setActivationCode(PasswordUtil.MD5(activationCode));
+            user.setTime("0");
+            userRepository.save(user);
             resultDto.setCode("S");
-            resultDto.setData("Activation email was successfully sended, please check in your email in 15 minutes!");
+            resultDto.setData("邮件发送成功，请在15分钟内输入验证码");
             return resultDto;
         }
     }
@@ -160,14 +160,14 @@ public class LoginService {
         ResultDto<String> resultDto = new ResultDto<String>();
         User user = userRepository.findUserByName(userName);
         boolean exists = (user != null);
-        if (!checkEmail(userName)) {
+        if (!checkEmail(userName + EMAIL_SUFFIX)) {
             resultDto.setCode("E");
-            resultDto.setData("Invalid Email");
+            resultDto.setData("非法用户");
             return resultDto;
         }
         if (exists && user.getState().equals(UserState.ACTIVE.getState())) {
             resultDto.setCode("E");
-            resultDto.setData("The user already exists.");
+            resultDto.setData("用户已存在");
         } else {
             resultDto.setData(null);
             if (exists)
@@ -188,7 +188,7 @@ public class LoginService {
                 sendPasswordAndActivationCode(activationCode, userName);
             } catch (Exception e) {
                 resultDto.setCode("E");
-                resultDto.setData("Send activation email exception!");
+                resultDto.setData("邮件发送失败");
                 return resultDto;
             }
             // 发送密码和激活码到注册邮箱
@@ -209,32 +209,30 @@ public class LoginService {
             user.setActivationCode(null);
             user.setTime(null);
             userRepository.save(user);
-            return ResultDtoFactory.toAck("S", "Password successfully changed");
+            return ResultDtoFactory.toAck("S", "密码修改成功");
         } else {
-            return ResultDtoFactory.toAck("F", "Password failed to change");
+            return ResultDtoFactory.toAck("F", "密码修改失败");
         }
     }
 
     public ResultDto<String> checkForgotActivationCode(String email, String activationCode) {
         // TODO Auto-generated method stub
         User user = userRepository.findUserByName(email);
+        if (user == null)
+            return ResultDtoFactory.toAck("F", "无此用户");
         String time = user.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            Date date = sdf.parse(time);
-            Date currentDate = new Date();
-            long diff = currentDate.getTime() - date.getTime();
-            long min = diff / (60 * 1000);
-            if (min > 15)
-                return ResultDtoFactory.toAck("F", "Activation code is overdue");
-            if (user.getActivationCode().equals(PasswordUtil.MD5(activationCode)))
-                return ResultDtoFactory.toAck("S");
-            else
-                return ResultDtoFactory.toAck("F", "Activation code not correct");
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            return ResultDtoFactory.toAck("F", "Record time error");
+        if (time == null)
+            return ResultDtoFactory.toAck("F", "验证码错误");
+        if (user.getState().equals(UserState.ACTIVE.getState()) && Integer.valueOf(time) > 15) {
+            user.setActivationCode(null);
+            user.setTime(null);
+            userRepository.save(user);
+            return ResultDtoFactory.toAck("F", "验证码过期");
         }
+        if (user.getActivationCode().equals(PasswordUtil.MD5(activationCode)))
+            return ResultDtoFactory.toAck("S");
+        else
+            return ResultDtoFactory.toAck("F", "验证码错误");
     }
 
     public ResultDto<User> getMessage(String token) {
@@ -276,8 +274,8 @@ public class LoginService {
         Message msg = new MimeMessage(mailSession);
         msg.setFrom(new InternetAddress(fromUserName));
         msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-        msg.setSubject("BlueMorpho Workbench Activation Email");
-        String content = "<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply. " +
+        msg.setSubject("Dorm Manager Activation Email");
+        String content = "<h1>This is an official activation email from Dorm Manager,please dont't reply. " +
                 "<br/> Please click on the link below to complete activation and set your own password!</h1><h3><a href='http://" +
                 portUtil.getWbServerIp() + LOCALPORT +
                 "/login/activeAccount?activationCode=" +
@@ -287,7 +285,7 @@ public class LoginService {
                 "'>http://" +
                 portUtil.getWbServerIp() + LOCALPORT +
                 "/activeAccount</a></h3>";
-        //        "<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply. "
+        //        "<h1>This is an official activation email from Dorm Manager,please dont't reply. "
 //        + "<br/> Please click on the link below to complete activation and set your own password!</h1><h3><a href='http://"+portUtil.getWbServerIp() + LOCALPORT + "/login/activeAccount?activationCode="
 //        + activationCode
 //        + "&account="
@@ -321,18 +319,10 @@ public class LoginService {
         Message msg = new MimeMessage(mailSession);
         msg.setFrom(new InternetAddress(fromUserName));
         msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-        msg.setSubject("BlueMorpho Workbench Activation Email");
-        String content = "<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply." +
-                "<br/> Please click on the link below to reset your own password!</h1><h3><a href='http://" +
-                portUtil.getWbServerIp() + LOCALPORT +
-                "/login/resetPassword?activationCode=" +
-                activationCode +
-                "&account=" +
-                toEmail +
-                "'>http://" +
-                portUtil.getWbServerIp() + LOCALPORT +
-                "/resetPassword</a></h3>";
-        //        "<h1>This is an official activation email from BlueMorpho Workbench,please dont't reply."
+        msg.setSubject("Dorm Manager Activation Email");
+        String content = "<h1>您的邮箱绑定的用户正在找回密码，请不要回复本邮件，如非本人操作，请勿理会。</h1>" +
+                "<h3>验证码为 " + activationCode + " </h3>";
+        //        "<h1>This is an official activation email from Dorm Manager,please dont't reply."
 //        + "<br/> Please click on the link below to reset your own password!</h1><h3><a href='http://"+portUtil.getWbServerIp() + LOCALPORT + "/login/resetPassword?activationCode="
 //        + activationCode
 //        + "&account="

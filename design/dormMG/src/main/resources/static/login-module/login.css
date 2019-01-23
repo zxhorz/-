@@ -64,9 +64,7 @@ form {
     margin: 9px;
     position: absolute;
 }
-.icon, .btn {
-    background: url("images/icon.png") no-repeat;
-}
+
 .icon-username {
     background-position: 0 0;
 }

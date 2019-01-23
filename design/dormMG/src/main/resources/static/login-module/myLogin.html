@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" data-ng-app="loginApp" style="height: 100%; width:100%">
+
+<head>
+    <meta charset="utf-8" />
+    <title>WorkBench</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/overrides.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="login.css" />
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/jsencrypt/jsencrypt.min.js"></script>
+    <script type="text/javascript" src="login.controller.js"></script>
+</head>
+
+<body class="login" style="height: 100%; color:black; overflow:hidden; min-width:1280px">
+    <div class="logo-area">
+        <img class="logo" src='images/logo.png' ng-click="index()" />
+    </div>
+    <div class="splitLine"></div>
+    <div class="loginform" ng-controller="loginController">
+        <div class="logincontainer col-sm-12 ">
+        <div id="login" class="center-box center-login" style="display: block;" ng-show="show_login">
+            <h2 class="title">Sign in with BlueMorpho Account</h2>
+            <form id="form-login" modelAttribute="loginDto">
+                <div class="fields">
+                    <div class="field username">
+                        <!--<span class="icon icon-W32H32 icon-email"></span>-->
+                        <input id="username" class="form-control" cname="userName" type="text" placeholder="Email Address" maxlength="30"
+                            autofocus="autofocus" ng-model="userName">
+                    </div>
+                    <div class="field password">
+                        <!--<span class="icon icon-W32H32 icon-password"></span>-->
+                        <input id="password" class="form-control" name="password" type="password" placeholder="Password" maxlength="30"
+                            ng-model="password">
+                    </div>
+                    <div class="field captcha">
+                        <input class="captcha" class="form-control" name="captcha_login" type="text" placeholder="Captcha" maxlength="30"
+                            autocomplete="off" ng-model="captcha_login">
+                        <img id="imgCaptcha_login" class="captcha" href="#" alt="验证码" src="/login/validateCode"
+                            ng-click="changeImg('#imgCaptcha_login')" />
+                    </div>
+                </div>
+                <div class="actions">
+                    <div class="notes-error" ng-show="showError">
+                        <span class="icon icon-W32H32 icon-noteError"></span>
+                        <p>{{msg}}</p>
+                    </div>
+                    <div class="notes-success" ng-show="showSuccess">
+                        <span class="icon icon-W32H32 icon-noteSuccess"></span>
+                        <p>{{msg}}</p>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="notes-error" ng-show="showError">
+	                    	<span class="icon icon-W32H32 icon-noteError"></span>
+							<p>userName/password not correct or the account is not activated!</p>
+               	 		</div> -->
+                        <a id="link-forgotPassword" class="btn link-forgotPassword float-right" ng-click="toggleForget()">忘记密码</a>
+                    </div>
+                    <button id="btn-login" class="btn btn-login" ng-click="signIn()">Sign In</button>
+                </div>
+            </form>
+        </div>
+        <div id="forget" class="center-box center-forget" ng-show="show_forget">
+            <h2 class="title">Enter your email</h2>
+            <form id="form-forget" modelAttribute="registerDto">
+                <div class="fields">
+                    <div class="field forget-email">
+                        <!--<span class="icon icon-W32H32 icon-email"></span>-->
+                        <input id="forget-email" name="email" type="text" placeholder="Email Address" ng-model="email">
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field forget-activationCode">
+                        <!--<span class="icon icon-W32H32 icon-email"></span>-->
+                        <input id="forget-activationCode" name="email" type="text" placeholder="Activation Code" ng-model="activationCode">
+                    </div>
+                    <button id="btn-send-mail" class="btn btn-signUp" ng-click="forget()">Submit</button>
+                </div>
+                <div class="notes-error" ng-show="showError">
+                    <span class="icon icon-W32H32 icon-noteError"></span>
+                    <p>{{msg}}</p>
+                </div>
+                <div class="notes-success" ng-show="showSuccess">
+                    <span class="icon icon-W32H32 icon-noteSuccess"></span>
+                    <p>{{msg}}</p>
+                </div>
+                <!-- <div class="notes">
+                        <h4>Note!</h4>
+                        <p>The email address will be used to send password change confirmation to you when you forget your password.</p>
+                    </div> -->
+                <div class="actions">
+                    <button id="btn-forget-signUp" class="btn btn-signUp" ng-click="checkForgotActivationCode()">Submit</button>
+                    <a class="link-login" ng-click="toggleLogin()">
+                        <span class="icon icon-W32H32 icon-goLeft"></span>
+                        <span>返回</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div id="change" class="center-box center-forget" ng-show="show_change">
+            <h2 class="title">Enter your email</h2>
+            <form id="form-change">
+                <div class="field password">
+                    <!--<span class="icon icon-W32H32 icon-password"></span>-->
+                    <input name="password" type="password" placeholder="new password" maxlength="30" ng-model="newPassword1">
+                </div>
+                <div class="field password">
+                    <!--<span class="icon icon-W32H32 icon-password"></span>-->
+                    <input name="password" type="password" placeholder="new password again" maxlength="30" ng-model="newPassword2">
+                </div>
+                <div class="notes-error" ng-show="showError">
+                    <span class="icon icon-W32H32 icon-noteError"></span>
+                    <p>{{msg}}</p>
+                </div>
+                <div class="notes-success" ng-show="showSuccess">
+                    <span class="icon icon-W32H32 icon-noteSuccess"></span>
+                    <p>{{msg}}</p>
+                </div>
+                <!-- <div class="notes">
+                        <h4>Note!</h4>
+                        <p>The email address will be used to send password change confirmation to you when you forget your password.</p>
+                    </div> -->
+                <div class="actions">
+                    <button class="btn btn-signUp" ng-click="changePassword()">修改</button>
+                    <a class="link-login" ng-click="toggleLogin()">
+                        <span class="icon icon-W32H32 icon-goLeft"></span>
+                        <span>返回</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div class="footer">
+            <p class="trusted">Trusted Technology Solutions</p>
+            <p class="copyright"></p>
+        </div>
+    </div>
+</body>
+
+</html>

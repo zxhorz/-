@@ -62,6 +62,13 @@ public class LoginController {
         }
     }
 
+    @RequestMapping(value = "/checkForgotActivationCode", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDto<String> checkForgotActivationCode(@RequestParam("email") String email,
+                                                       @RequestParam("activationCode") String activationCode) {
+        return loginService.checkForgotActivationCode(email, activationCode);
+    }
+
 
     //退出的时候是get请求，主要是用于退出
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -144,25 +151,7 @@ public class LoginController {
     @ResponseBody
     public ResultDto<String> changePassword(@Valid LoginDto loginDto, BindingResult result) {
         loginService.decryptLoginDto(loginDto);
-        Subject currentUser = SecurityUtils.getSubject();
-        String userName = loginDto.getUserName();
-        String password = loginDto.getPassword();
-        UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-        token.setRememberMe(true);
-        try {
-            currentUser.login(token);
-            String newPassword = loginDto.getNewPassword();
-            if (password != null)
-                loginService.changePassword(userName, newPassword);
-            Session s = currentUser.getSession();
-            s.setAttribute("signinId", userName);
-            // ModelAndView modelAndView = new ModelAndView("redirect:/index.html");
-            return ResultDtoFactory.toAck("S", userName);
-        } catch (Exception e) {
-            token.clear();
-            // ModelAndView modelAndView = new ModelAndView("redirect:/static/login-module/login1.html");
-            return ResultDtoFactory.toAck("F", e.getMessage());
-        }
+        return loginService.changePassword(loginDto.getUserName(),loginDto.getNewPassword());
     }
 
     @RequestMapping(value = "/validateCode", method = RequestMethod.GET)

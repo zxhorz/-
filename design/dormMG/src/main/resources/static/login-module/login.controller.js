@@ -66,13 +66,13 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
     	loginDto.captcha = $scope.captcha_login;
 
     	if (!loginDto.password && !loginDto.userName) {
-    		$rootScope.msg = "please enter username/password"
+    		$rootScope.msg = "请输入用户名/密码"
     		$rootScope.showError = true;
     	} else if (!loginDto.password) {
-    		$rootScope.msg = "please enter password"
+    		$rootScope.msg = "请输入密码"
     		$rootScope.showError = true;
     	} else if (!loginDto.userName) {
-    		$rootScope.msg = "please enter username"
+    		$rootScope.msg = "请输入用户名"
     		$rootScope.showError = true;
     	} else {
 			var encrypt = new JSEncrypt();
@@ -106,14 +106,12 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 	$rootScope.changePassword = function () {
 		var loginDto = {};
 		if (checkPassword()) {
-			loginDto.userName = $scope.userName;
-			loginDto.password = $rootScope.password;
+			loginDto.userName = $scope.email;
 			loginDto.newPassword = $scope.newPassword1;
 
 			var encrypt = new JSEncrypt();
 			encrypt.setPublicKey($rootScope.key);
 			loginDto.userName = encrypt.encrypt(loginDto.userName);
-			loginDto.password = encrypt.encrypt(loginDto.password);
 			loginDto.newPassword = encrypt.encrypt(loginDto.newPassword);
 			$http({
 				method: 'POST',
@@ -122,10 +120,14 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 				data:  $.param(loginDto)
 			}).success(function (data) {
 				// window.location.href = 'http://'+window.location.host + '/static/index.html';
-				if (data.message === 'S')
-					window.location.href = 'http://' + window.location.host + '/index.html';
+			    $rootScope.msg = data.data;
+				if (data.message === 'S'){
+				    $rootScope.showSuccess = true;
+				    $timeout(function () {
+                        window.location.href = 'http://' + window.location.host;
+        			}, 3000);
+				}
 				else {
-					$rootScope.msg = "userName/password not correct or the account is not activated!";
 					$rootScope.showError = true;
 				}
 			}).error(function (data) {
@@ -185,7 +187,6 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
         	$rootScope.msg = data.data;
         	var message = data.message;
         	if (message === "S") {
-				$scope.activationCode = "";
         		$rootScope.showSuccess = false;
         		$rootScope.showError = false;
 				$rootScope.show_forget = false;
@@ -194,6 +195,7 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
         		$rootScope.showSuccess = false;
         		$rootScope.showError = true;
         	}
+            $scope.activationCode = "";
         }).error(function (data) {
             console.info(data);
         });
@@ -212,9 +214,6 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
         	if (code === "S") {
         		$rootScope.showSuccess = true;
         		$rootScope.showError = false;
-        		$timeout(function () {
-					window.location.href = 'http://' + window.location.host;
-				}, 3000);
         	} else if (code === "E") {
         		$rootScope.showSuccess = false;
         		$rootScope.showError = true;
@@ -252,22 +251,22 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 	function checkPassword() {
 
 		if ($scope.newPassword1 !== $scope.newPassword2) {
-			$rootScope.msg = "Different password";
+			$rootScope.msg = "密码不一致";
 			return false;
 		}
 
 		if (!$scope.newPassword1 || !$scope.newPassword2) {
-			$rootScope.msg = "Please enter password";
+			$rootScope.msg = "请输入密码";
 			return false;
 		}
 
 		if (!$scope.newPassword1 || $scope.newPassword1.length < 6) {
-			$rootScope.msg = "Password length should be greater than 6";
+			$rootScope.msg = "密码长度不可以小于6";
 			return false;
 		}
 
 		if (!$scope.newPassword1.match(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/)) {
-			$rootScope.msg = "Password needs to contain upper and lower case letters and numbers!";
+			$rootScope.msg = "密码过于简单(需包含大小写、数字)";
 			return false;
 		}
 
