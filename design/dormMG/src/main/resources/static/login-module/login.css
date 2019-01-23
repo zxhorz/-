@@ -32,12 +32,12 @@
     text-align: center;
     margin: 0;
 }
-form {
+/*form {
     clear: both;
     float: left;
     width: 100%;
     margin-top: 34px;
-}
+}*/
 .fields {
     width: 100%;
     margin-bottom: 16px;
@@ -252,10 +252,13 @@ a[class^=link-]:hover{
     display: inline-flex;
 }
 input.captcha {
-    width: 201px;
+    width: 122px;
+    display: inline;
 }
 img.captcha {
     cursor: pointer;
+    border-radius: 2px;
+    height: 100%;
 }
 img.logo {
     cursor: pointer;
