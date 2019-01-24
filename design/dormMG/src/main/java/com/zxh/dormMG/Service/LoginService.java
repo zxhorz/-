@@ -320,7 +320,7 @@ public class LoginService {
         Session mailSession = Session.getDefaultInstance(props, authentication);
 
         Message msg = new MimeMessage(mailSession);
-        msg.setFrom(new InternetAddress(fromUserName));
+        msg.setFrom(new InternetAddress("DormManager<"+fromUserName+">"));
         msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
         msg.setSubject("Dorm Manager Activation Email");
         String content = "<h1>您的邮箱绑定的用户正在找回密码，请不要回复本邮件，如非本人操作，请勿理会。</h1>" +
