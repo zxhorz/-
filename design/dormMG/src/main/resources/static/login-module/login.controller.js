@@ -1,5 +1,5 @@
 'use strict';
-angular.module('loginApp', []).controller('loginController', function ($rootScope,$location, $scope, $http, $timeout) {
+angular.module('loginApp', []).controller('loginController', function ($rootScope,$location, $scope, $http,$interval,$timeout) {
 	$rootScope.show_login = true;
 	$rootScope.show_register = false;
 	$rootScope.show_forget = false;
@@ -7,6 +7,8 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 	$rootScope.showError = false;
 	$rootScope.showSuccess = false;
 	$rootScope.key = null;
+	$rootScope.activation_button = "获取验证码";
+	var second = 60,timePromise = undefined;
 	getToken();
 	getKey();
 
@@ -159,10 +161,6 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
         		$rootScope.showSuccess = true;
         		$rootScope.showError = false;
         		$timeout(function () {
-        			// $rootScope.show_login = !$rootScope.show_login;
-	            	// $rootScope.show_register = !$rootScope.show_register;
-	            	// $rootScope.userName = $scope.email;
-					// $rootScope.msg = "Activate your account in your email and login!";
 					window.location.href = 'http://' + window.location.host;
 				}, 3000);
         	} else if (code === "E") {
@@ -175,52 +173,75 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
         });
 	}
 	
-    $rootScope.checkForgotActivationCode = function() {
-        $http({
-            method: 'POST',
-            url: '/login/checkForgotActivationCode',
-            params: {
-				'email': $scope.email,
-				'activationCode':$scope.activationCode
-            }
-        }).success(function (data) {
-        	$rootScope.msg = data.data;
-        	var message = data.message;
-        	if (message === "S") {
-        		$rootScope.showSuccess = false;
-        		$rootScope.showError = false;
-				$rootScope.show_forget = false;
-				$rootScope.show_change = true;
-        	} else if (message === "F") {
-        		$rootScope.showSuccess = false;
-        		$rootScope.showError = true;
-        	}
-            $scope.activationCode = "";
-        }).error(function (data) {
-            console.info(data);
-        });
-    }
+	$rootScope.checkForgotActivationCode = function () {
+		if ($scope.email) {
+			$http({
+				method: 'POST',
+				url: '/login/checkForgotActivationCode',
+				params: {
+					'email': $scope.email,
+					'activationCode': $scope.activationCode?$scope.activationCode:""
+				}
+			}).success(function (data) {
+				$rootScope.msg = data.data;
+				var message = data.message;
+				if (message === "S") {
+					$rootScope.showSuccess = false;
+					$rootScope.showError = false;
+					$rootScope.show_forget = false;
+					$rootScope.show_change = true;
+				} else if (message === "F") {
+					$rootScope.showSuccess = false;
+					$rootScope.showError = true;
+				}
+				$scope.activationCode = "";
+			}).error(function (data) {
+				console.info(data);
+			});
+		} else {
+			$rootScope.msg = "请输入用户名";
+			$rootScope.showError = true;
+		}
+	}
 
-    $rootScope.forget = function() {
-        $http({
-            method: 'POST',
-            url: '/login/forget',
-            params: {
-                'email': $scope.email
-            }
-        }).success(function (data) {
-        	$rootScope.msg = data.data;
-        	var code = data.code;
-        	if (code === "S") {
-        		$rootScope.showSuccess = true;
-        		$rootScope.showError = false;
-        	} else if (code === "E") {
-        		$rootScope.showSuccess = false;
-        		$rootScope.showError = true;
-        	}
-        }).error(function (data) {
-            console.info(data);
-        });
+    $rootScope.forget = function () {
+    	if ($scope.email) {
+    		timePromise = $interval(function () {
+    			if (second <= 0) {
+    				$interval.cancel(timePromise);
+    				timePromise = undefined;
+    				second = 60;
+    				$scope.activation_button = "重发验证码";
+    				$scope.canClick = false;
+    			} else {
+    				$scope.activation_button = second + "秒后可重发";
+    				$scope.canClick = true;
+    				second--;
+    			}
+    		}, 1000, 100);
+    		$http({
+    			method: 'POST',
+    			url: '/login/forget',
+    			params: {
+    				'email': $scope.email
+    			}
+    		}).success(function (data) {
+    			$rootScope.msg = data.data;
+    			var code = data.code;
+    			if (code === "S") {
+    				$rootScope.showSuccess = true;
+    				$rootScope.showError = false;
+    			} else if (code === "E") {
+    				$rootScope.showSuccess = false;
+    				$rootScope.showError = true;
+    			}
+    		}).error(function (data) {
+    			console.info(data);
+    		});
+    	} else {
+    		$rootScope.msg = "请输入用户名";
+    		$rootScope.showError = true;
+    	}
     }
 
 	$rootScope.index = function(){

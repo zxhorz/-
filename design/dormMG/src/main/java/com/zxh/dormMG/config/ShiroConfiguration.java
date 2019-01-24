@@ -38,6 +38,7 @@ public class ShiroConfiguration {
         map.put("/logout","logout");
 
         map.put("/**/*.css","anon");
+        map.put("/assets/fonts/**","anon");
         map.put("/**/*.js","anon");
         map.put("/**/*.png","anon");
         map.put("/login-module/**","anon");

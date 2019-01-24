@@ -138,7 +138,7 @@ public class LoginService {
             resultDto.setData(null);
             // 6位激活码
             String activationCode = PasswordUtil.generateRandomString(6);
-            // 发送密码和激活码到注册邮箱
+            // 发送激活码到注册邮箱
             try {
                 sendChangePassword(activationCode, userName + EMAIL_SUFFIX);
             } catch (Exception e) {
@@ -151,7 +151,7 @@ public class LoginService {
             user.setTime("0");
             userRepository.save(user);
             resultDto.setCode("S");
-            resultDto.setData("邮件发送成功，请在15分钟内输入验证码");
+            resultDto.setData("邮件发送成功，请在30分钟内输入验证码");
             return resultDto;
         }
     }
@@ -185,7 +185,7 @@ public class LoginService {
             user.setTime("0");
             userRepository.save(user);
             try {
-                sendPasswordAndActivationCode(activationCode, userName);
+                sendPasswordAndActivationCode(activationCode, userName+EMAIL_SUFFIX);
             } catch (Exception e) {
                 resultDto.setCode("E");
                 resultDto.setData("邮件发送失败");
@@ -223,14 +223,17 @@ public class LoginService {
         String time = user.getTime();
         if (time == null)
             return ResultDtoFactory.toAck("F", "验证码错误");
-        if (user.getState().equals(UserState.ACTIVE.getState()) && Integer.valueOf(time) > 15) {
+        if (user.getState().equals(UserState.ACTIVE.getState()) && Integer.valueOf(time) > 30) {
             user.setActivationCode(null);
             user.setTime(null);
             userRepository.save(user);
             return ResultDtoFactory.toAck("F", "验证码过期");
         }
-        if (user.getActivationCode().equals(PasswordUtil.MD5(activationCode)))
+        if (user.getActivationCode().equals(PasswordUtil.MD5(activationCode))) {
+            user.setActivationCode(null);
+            user.setTime(null);
             return ResultDtoFactory.toAck("S");
+        }
         else
             return ResultDtoFactory.toAck("F", "验证码错误");
     }

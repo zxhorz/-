@@ -111,25 +111,8 @@
 .center-login .actions .row .link-forgotPassword:hover {
     color: #157FFF;
 }
-.btn-signUp, .btn-login, .btn-submit {
+.btn-signUp, .btn-login, .btn-submit, .btn-forget{
     width: 100%;
-    float: left;
-    background-position: 0 -96px;
-}
-.btn {
-    cursor: pointer;
-    color: #FFF;
-    text-align: center;
-    font-size: 26px;
-    line-height: 58px;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    -khtml-user-select: none;
-    user-select: none;
-    border: 0;
-    outline: none;
-    padding: 0;
 }
 .float-right,
 .center-login .actions .link-register,
@@ -187,17 +170,15 @@ a {
 	background-position: -96px -64px;
 }
 .notes-error,.notes-success{
-	float: left;
 	border: 1px solid #393b3f;
-	width: 331px;
 	border-radius: 2px;
-	margin: 0 0 16px 0;
-	/*color: #8d313d;*/
+	/* color: #8d313d; */
 	color:#BB4252;
 	position: relative;
-	padding: 15px 0 15px 0;
+	padding: 10px 0 10px 0;
 	min-height: 26px;
 	height: auto;
+	text-align: center;
 }
 .notes-error .icon-noteError,.notes-success .icon-noteSuccess{
 	top: 50%;
@@ -207,7 +188,8 @@ a {
 .notes-error p,.notes-success p{
 	font-size: 14px;
 	line-height: 14px;
-	margin:5px 5px 5px 50px;
+	margin: 0px;
+	clear: both;
 }
 .ie7 .center-forgotPassword .notes-error p{
 	line-height:20px;
@@ -262,4 +244,14 @@ img.captcha {
 }
 img.logo {
     cursor: pointer;
+}
+input#forget-activationCode {
+    display: inline;
+    width: 142px;
+}
+
+button#btn-send-mail {
+    width: 100px;
+    height: 40px;
+    padding: 0;
 }
