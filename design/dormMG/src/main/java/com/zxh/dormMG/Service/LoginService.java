@@ -128,7 +128,7 @@ public class LoginService {
     }
 
     public ResultDto<String> forget(String userName) {
-        ResultDto<String> resultDto = new ResultDto<String>();
+        ResultDto<String> resultDto = new ResultDto<>();
         boolean exists = checkUserExists(userName);
         if (!exists) {
             resultDto.setCode("E");
@@ -157,7 +157,7 @@ public class LoginService {
     }
 
     public ResultDto<String> register(String userName) {
-        ResultDto<String> resultDto = new ResultDto<String>();
+        ResultDto<String> resultDto = new ResultDto<>();
         User user = userRepository.findUserByName(userName);
         boolean exists = (user != null);
         if (!checkEmail(userName + EMAIL_SUFFIX)) {

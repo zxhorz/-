@@ -20,75 +20,86 @@
 </head>
 
 <body class="login">
-<div class="logo-area">
-    <img class="logo" src='images/logo.png' ng-click="index()" />
-</div>
-<div class="splitLine"></div>
+<!--<div class="logo-area">-->
+    <!--<img class="logo" src='images/logo.png' ng-click="index()" />-->
+<!--</div>-->
+<!--<div class="splitLine"></div>-->
 <div class="loginform" ng-controller="loginController">
     <div class="logincontainer col-sm-12 ">
+        <a class="navbar-brand" href="/index.html" title="Dorm Manager">Dorm Manager</a>
         <div id="login" class="login-content" style="display: block;" ng-show="show_login">
             <form id="form-login" modelAttribute="loginDto">
                 <div class="fields">
                     <div class="form-group form-group-top">
                         <!--<span class="icon icon-W32H32 icon-email"></span>-->
-                        <input id="username" class="form-control" cname="userName" type="text" placeholder="Email Address"
+                        <input id="username" class="form-control" cname="userName" type="text" placeholder="用户名"
                                maxlength="30" autocomplete="off" autofocus="autofocus" ng-model="userName">
                     </div>
                     <div class="form-group">
                         <!--<span class="icon icon-W32H32 icon-password"></span>-->
-                        <input id="password" class="form-control" name="password" type="password" placeholder="Password"
+                        <input id="password" class="form-control" name="password" type="password" placeholder="密码"
                                maxlength="30" ng-model="password">
                     </div>
                     <div class="form-group">
-                        <input class="captcha form-control" name="captcha_login" type="text" placeholder="Captcha"
+                        <input class="captcha form-control" name="captcha_login" type="text" placeholder="验证码"
                                maxlength="30" autocomplete="off" ng-model="captcha_login">
                         <img id="imgCaptcha_login" class="captcha" href="#" alt="验证码" src="/login/validateCode"
                              ng-click="changeImg('#imgCaptcha_login')" />
                     </div>
                 </div>
-                <div class="actions form-group">
-                    <div class="notes-error" ng-show="showError">
-                        <!--<span class="icon icon-W32H32 icon-noteError"></span>-->
-                        <p class="fa fa-warning">{{msg}}</p>
+                <div>
+                    <div class="form-group">
+                        <div class="notes-error" ng-show="showError">
+                            <!--<span class="icon icon-W32H32 icon-noteError"></span>-->
+                            <p class="fa fa-warning">{{msg}}</p>
+                        </div>
+                        <div class="notes-success" ng-show="showSuccess">
+                            <!--<span class="fa fa-check"></span>-->
+                            <p class="fa fa-check">{{msg}}</p>
+                        </div>
                     </div>
-                    <div class="notes-success" ng-show="showSuccess">
-                        <!--<span class="fa fa-check"></span>-->
-                        <p class="fa fa-check">{{msg}}</p>
+                    <div class="form-group">
+                        <div class="row">
+                            <a id="link-forgotPassword" class="btn link-forgotPassword float-right" ng-click="toggleForget()">忘记密码</a>
+                        </div>
+                        <button id="btn-login" class="btn btn-success btn-login" ng-click="signIn()">Sign In</button>
                     </div>
-                    <div class="row">
-                        <a id="link-forgotPassword" class="btn link-forgotPassword float-right" ng-click="toggleForget()">忘记密码</a>
-                    </div>
-                    <button id="btn-login" class="btn btn-success btn-login" ng-click="signIn()">Sign In</button>
                 </div>
             </form>
         </div>
         <div id="forget" class="login-content" ng-show="show_forget">
-            <h2 class="title">Enter your email</h2>
+            <div class="form-group">
+                <h2 class="title">输入用户名</h2>
+            </div>
             <form id="form-forget">
                 <div class="fields">
                     <div class="form-group form-group-top">
                         <!--<span class="icon icon-W32H32 icon-email"></span>-->
                         <input id="forget-email" class="form-control" name="email" type="text" autocomplete="off"
-                               placeholder="Email Address" ng-model="email">
+                               placeholder="用户名" ng-model="email">
                     </div>
                     <div class="form-group">
                         <!--<span class="icon icon-W32H32 icon-email"></span>-->
                         <input id="forget-activationCode" class="form-control" name="activationCode" type="text"
-                               placeholder="Activation Code" autocomplete="off" ng-model="activationCode">
+                               placeholder="验证码" autocomplete="off" ng-model="activationCode">
                         <button id="btn-send-mail" class="btn btn-success btn-signUp" ng-click="forget()" ng-bind="activation_button"
                                 ng-disabled="canClick"></button>
                     </div>
                 </div>
-                <div class="actions form-group">
-                    <div class="notes-error" ng-show="showError">
-                        <!--<span class="fa fa-warning"></span>-->
-                        <p class="fa fa-warning">{{msg}}</p>
+                <div>
+                    <div class="form-group">
+                        <div class="notes-error" ng-show="showError">
+                            <!--<span class="fa fa-warning"></span>-->
+                            <p class="fa fa-warning">{{msg}}</p>
+                        </div>
+                        <div class="notes-success" ng-show="showSuccess">
+                            <!--<span class="fa fa-check"></span>-->
+                            <p class="fa fa-check">{{msg}}</p>
+                        </div>
                     </div>
-                    <div class="notes-success" ng-show="showSuccess">
-                        <!--<span class="fa fa-check"></span>-->
-                        <p class="fa fa-check">{{msg}}</p>
+                    <div class="form-group">
+                        <button id="btn-forget-signUp" class="btn btn-success btn-signUp" ng-click="checkForgotActivationCode()">确认</button>
                     </div>
-                    <button id="btn-forget-signUp" class="btn btn-success btn-signUp" ng-click="checkForgotActivationCode()">确认</button>
                     <a class="link-login" ng-click="toggleLogin()">
                         <span class="icon icon-W32H32 icon-goLeft"></span>
                         <span>返回</span>
@@ -97,16 +108,18 @@
             </form>
         </div>
         <div id="change" class="login-content" ng-show="show_change">
-            <h2 class="title">Enter your email</h2>
+            <div class="form-group">
+                <h2 class="title">Enter your email</h2>
+            </div>
             <form id="form-change">
                 <div class="form-group form-group-top">
                     <!--<span class="icon icon-W32H32 icon-password"></span>-->
-                    <input class="form-control" name="password" type="password" placeholder="new password"
+                    <input class="form-control" name="password" type="password" placeholder="输入新密码"
                            maxlength="30" ng-model="newPassword1">
                 </div>
                 <div class="form-group">
                     <!--<span class="icon icon-W32H32 icon-password"></span>-->
-                    <input class="form-control" name="password" type="password" placeholder="new password again"
+                    <input class="form-control" name="password" type="password" placeholder="再次输入新密码"
                            maxlength="30" ng-model="newPassword2">
                 </div>
 
@@ -121,8 +134,8 @@
                     </div>
                     <button class="btn btn-signUp btn-success" ng-click="changePassword()">修改</button>
                     <a class="link-login" ng-click="toggleLogin()">
-                        <span class="icon icon-W32H32 icon-goLeft"></span>
-                        <span>返回</span>
+                        <span class=""></span>
+                        <span><-返回</span>
                     </a>
                 </div>
             </form>

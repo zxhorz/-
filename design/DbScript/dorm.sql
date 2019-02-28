@@ -15,6 +15,10 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+DROP DATABASE IF EXISTS `dorm_MG`;
+CREATE DATABASE IF NOT EXISTS `dorm_MG` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `dorm_MG`;
+
 --
 -- Table structure for table `dorm`
 --
@@ -189,5 +193,25 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+use dorm_MG;
+delimiter //
+create procedure checkUser()
+begin
+update user SET send_time=send_time + 10;
+
+delete from user where user.id in 
+(select id from (SELECT user.id FROM user where send_time > 1440 and state = 'nonactive') as temp);
+end
+//
+delimiter ;
+
+create event ten_minute_event
+on schedule every 10 minute STARTS TIMESTAMP '2019-01-01 00:00:00'
+on completion preserve enable
+do call checkUser();
+
+set GLOBAL event_scheduler=1;
+
 
 -- Dump completed on 2019-01-14 14:29:32
