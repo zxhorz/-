@@ -110,20 +110,20 @@ jQuery(document).ready(function() {
             window.location.hash = '#' + urlFragment;
         }
     });
-    // Internal page tab selection handling via location hash
-    if (jQuery(location).attr('hash').substr(1) != "") {
-        var activeTab = jQuery(location).attr('hash');
-        jQuery(".tab-pane").removeClass('active');
-        jQuery(activeTab).removeClass('fade').addClass('active');
-        jQuery(".list-group-tab-nav a").removeClass('active');
-        jQuery('a[href="' + activeTab + '"]').addClass('active');
-        setTimeout(function() {
-            // Browsers automatically scroll on page load with a fragment.
-            // This scrolls back to the top right after page complete, but
-            // just before render (no perceptible scroll).
-            window.scrollTo(0, 0);
-        }, 1);
-    }
+//    // Internal page tab selection handling via location hash
+//    if (jQuery(location).attr('hash').substr(1) != "") {
+//        var activeTab = jQuery(location).attr('hash');
+//        jQuery(".tab-pane").removeClass('active');
+//        jQuery(activeTab).removeClass('fade').addClass('active');
+//        jQuery(".list-group-tab-nav a").removeClass('active');
+//        jQuery('a[href="' + activeTab + '"]').addClass('active');
+//        setTimeout(function() {
+//            // Browsers automatically scroll on page load with a fragment.
+//            // This scrolls back to the top right after page complete, but
+//            // just before render (no perceptible scroll).
+//            window.scrollTo(0, 0);
+//        }, 1);
+//    }
     // Enable Switches for Checkboxes
     if (jQuery.prototype.bootstrapSwitch) {
         jQuery(".toggle-switch-success").bootstrapSwitch({

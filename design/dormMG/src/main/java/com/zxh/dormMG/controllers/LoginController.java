@@ -42,7 +42,7 @@ public class LoginController {
         Subject currentUser = SecurityUtils.getSubject();
         String captcha = loginDto.getCaptcha();
         if (!loginService.checkCaptcha(captcha, request))
-            return ResultDtoFactory.toAck("F", "Captcha wrong");
+            return ResultDtoFactory.toAck("F", "验证码错误");
         String userName = loginDto.getUserName();
         String password = loginDto.getPassword();
         UsernamePasswordToken token = new UsernamePasswordToken(userName, PasswordUtil.MD5(password));
@@ -58,7 +58,7 @@ public class LoginController {
             token.clear();
             // ModelAndView modelAndView = new ModelAndView("redirect:/static/login-module/login1.html");
             // return modelAndView;
-            return ResultDtoFactory.toAck("F", "userName/password not correct or the account is not activated!");
+            return ResultDtoFactory.toAck("F", "用户名/密码不正确");
         }
     }
 

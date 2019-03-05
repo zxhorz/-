@@ -49,7 +49,7 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
 				else if (data.message === 'N'){
 				}
 				else {
-					$rootScope.msg = "Link wrong or overdue";
+					$rootScope.msg = "链接错误或超时";
 					$rootScope.showError = true;
 					$timeout(function () {
 						window.location.href = 'http://' + window.location.host;
