@@ -5,12 +5,13 @@
     app.directive('leftMenuModule', ['$parse', 'dromManagerConfig', function($parse, dromManagerConfig) {
         return {
             restrict: 'EA',
-            templateUrl: dromManagerConfig.tplPath + '/left-menu.html',
+            templateUrl: 'left-menu-module/left-menu.html',
             controller: leftMenuController
         };
 
-        function leftMenuController($scope, $http, $location, $rootScope,$attrs){
+        function leftMenuController($scope, $http, $location, $rootScope,$attrs,$state){
             angular.element('.menu .item');
+            $state.go('info');
 //            var element = angular.element('.menu .item');
 //            angular.element('.menu .item').bind('click',function() {
 //                if (jQuery(this).hasClass("active")) {
