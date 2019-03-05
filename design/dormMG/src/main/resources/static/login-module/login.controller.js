@@ -76,7 +76,10 @@ angular.module('loginApp', []).controller('loginController', function ($rootScop
     	} else if (!loginDto.userName) {
     		$rootScope.msg = "请输入用户名"
     		$rootScope.showError = true;
-    	} else {
+    	} else if(loginDto.captcha){
+    		$rootScope.msg = "请输入验证码"
+    		$rootScope.showError = true;
+    	}else {
 			var encrypt = new JSEncrypt();
 			encrypt.setPublicKey($rootScope.key);
 			loginDto.userName = encrypt.encrypt(loginDto.userName);
