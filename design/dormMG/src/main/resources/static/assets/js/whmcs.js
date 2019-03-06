@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
     // Left-Menu
     jQuery(".menu .item").click(function(event) {
         if (jQuery(this).hasClass("active")) {
-            event.preventDefault();
+//            event.preventDefault();
         }
         if (!jQuery(this).hasClass("active")) {
             jQuery("ul", jQuery(this).parents("ul:first")).slideUp(350);

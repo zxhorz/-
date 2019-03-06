@@ -12,6 +12,14 @@
         function leftMenuController($scope, $http, $location, $rootScope,$attrs,$state){
             angular.element('.menu .item');
             $state.go('info');
+
+
+            $scope.switchToInfo = function(){
+                $state.go('info')
+            }
+            $scope.switchToNotice = function(){
+                $state.go('notice')
+            }
 //            var element = angular.element('.menu .item');
 //            angular.element('.menu .item').bind('click',function() {
 //                if (jQuery(this).hasClass("active")) {
