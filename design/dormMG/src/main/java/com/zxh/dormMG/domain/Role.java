@@ -11,10 +11,13 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
+
     @Column(name = "role_name")
     private String roleName;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
     private List<Permission> permissions;
 

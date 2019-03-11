@@ -10,8 +10,10 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
+
     @Column(name = "permission")
     private String permission;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 

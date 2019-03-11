@@ -1,12 +1,11 @@
 <section class="header-nav">
     <div class="pull-left">
 
-
-        <h3><a href="/index">HOME</a></h3>
+        <h3><a href="index.php">HOME</a></h3>
     </div>
     <div class="pull-right hidden-xs hidden-sm" style="padding-top: 17px;">
         <form role="form" method="post" action="clientarea.php?action=kbsearch">
-            <input type="hidden" name="token" value="f9297d39d7bc3ad57c66ac91288f6afef804cde4">
+            <input type="hidden" name="token" value="2563d954adf71cf93fdf6d77f59262ffcd64097c">
             <div class="home-kb-search">
                 <input type="text" name="search" class="form-control" placeholder="在知识库里查找您的问题">
                 <i class="fa fa-search"></i>
@@ -18,8 +17,6 @@
                                                                                                     class="badge badge-danger">0</span></a>
     </div>
 </section>
-
-
 
 <div class="main-content">
     <section id="main-body" class="content content--border">
@@ -85,66 +82,26 @@
                 jQuery('#tableLoading').addClass('hidden');
             });
         </script>
-        <h3 class="headline">我的邮件</h3>
+        <h3 class="headline">寝室公告</h3>
         <div class="table-container clearfix">
-            <div id="tableEmailsList_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                <div class="listtable">
-                    <div id="tableEmailsList_filter" class="dataTables_filter"><label><input type="search" class="form-control input-sm"
-                                                                                             placeholder="输入要搜索的内容..." aria-controls="tableEmailsList"></label></div>
-                    <div class="dataTables_info" id="tableEmailsList_info" role="status" aria-live="polite">无记录</div>
+
                     <table id="tableEmailsList" class="table table-list dataTable no-footer dtr-inline"
                            aria-describedby="tableEmailsList_info" role="grid">
                         <thead>
                         <tr role="row">
-                            <th class="hidden-xs hidden-sm sorting_desc" tabindex="0" aria-controls="tableEmailsList"
-                                rowspan="1" colspan="1" aria-label="寄送日期: activate to sort column ascending" style="width: 0px;"
-                                aria-sort="descending">寄送日期</th>
-                            <th class="sorting" tabindex="0" aria-controls="tableEmailsList" rowspan="1" colspan="1"
-                                aria-label="邮件主题: activate to sort column ascending" style="width: 0px;">邮件主题</th>
-                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="&amp;nbsp;" style="width: 0px;">&nbsp;</th>
+                            <th class="hidden-xs hidden-sm sorting_desc">发布日期</th>
+                            <th class="sorting">公告主题</th>
+                            <th class="sorting_disabled">&nbsp;</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr class="odd">
-                            <td valign="top" colspan="3" class="dataTables_empty">没有记录</td>
+                            <td>Row 1 Data 1</td>
+                            <td>Row 1 Data 2</td>
+                            <td></td>
                         </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="dataTables_paginate paging_simple_numbers" id="tableEmailsList_paginate">
-                    <ul class="pagination">
-                        <li class="paginate_button previous disabled" aria-controls="tableEmailsList" tabindex="0" id="tableEmailsList_previous"><a
-                                href="#">上一页</a></li>
-                        <li class="paginate_button next disabled" aria-controls="tableEmailsList" tabindex="0" id="tableEmailsList_next"><a
-                                href="#">下一页</a></li>
-                    </ul>
-                </div>
-                <div class="dataTables_length" id="tableEmailsList_length"><label>每页显示 <select name="tableEmailsList_length"
-                                                                                               aria-controls="tableEmailsList" class="form-control input-sm selectpicker" style="display: none;">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="-1">所有</option>
-                </select>
-                    <div class="btn-group bootstrap-select form-control input-sm"><button type="button" class="btn dropdown-toggle form-control selectpicker btn-default"
-                                                                                          data-toggle="dropdown" title="50" aria-expanded="false"><span class="filter-option pull-left">50</span>&nbsp;<span
-                            class="caret"></span></button>
-                        <div class="dropdown-menu open" style="max-height: 513.125px; overflow: hidden; min-height: 92px;">
-                            <ul class="dropdown-menu inner selectpicker" role="menu" style="max-height: 501.125px; overflow-y: auto; min-height: 80px;">
-                                <li data-original-index="0" class=""><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;>10</span>"
-                                                                        data-tokens="null"><span class="text">10</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                <li data-original-index="1"><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;>25</span>"
-                                                               data-tokens="null"><span class="text">25</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                <li data-original-index="2" class="selected"><a tabindex="0" class=""
-                                                                                data-normalized-text="<span class=&quot;text&quot;>50</span>" data-tokens="null"><span
-                                        class="text">50</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                <li data-original-index="3"><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;>所有</span>"
-                                                               data-tokens="null"><span class="text">所有</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                            </ul>
-                        </div>
-                    </div> 条
-                </label></div>
-            </div>
             <div class="text-center hidden" id="tableLoading">
                 <p><i class="fa fa-spinner fa-spin"></i> 下载中...</p>
             </div>
@@ -155,16 +112,13 @@
     </section>
 </div>
 
-
-<script src="http://cdn.bcoder.cn/mgy/jquery-ui.min.js"></script>
 <script type="text/javascript">
-    var csrfToken = 'f9297d39d7bc3ad57c66ac91288f6afef804cde4',
+    var csrfToken = '2563d954adf71cf93fdf6d77f59262ffcd64097c',
         markdownGuide = '标记符指南',
         locale = 'en_GB',
         saved = '保存',
         saving = '自动保存';
 </script>
-<!-- <script src="http://cdn.bcoder.cn/mgy/whmcs.js"></script> -->
 <script src="/assets/js/AjaxModal.js"></script>
 
 <div class="modal system-modal fade" id="modalAjax" tabindex="-1" role="dialog" aria-hidden="true">
