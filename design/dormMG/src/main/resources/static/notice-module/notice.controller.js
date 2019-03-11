@@ -6,7 +6,7 @@
 
 //	    $('#tableEmailsList').DataTable(data);
         var tableEmailsList = $('#tableEmailsList').DataTable();
-        tableEmailsList.settings()[0].ajax.url = "/data/noticeList";
+        tableEmailsList.settings()[0].ajax.url = "/notice/noticeList";
         tableEmailsList.ajax.reload();
 
 	}]);

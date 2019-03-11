@@ -66,7 +66,7 @@ public class LoginService {
     public boolean checkCaptcha(String captcha, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String sessionCode = (String) session.getAttribute("captcha");
-        return captcha != null && sessionCode.equalsIgnoreCase(captcha);
+        return sessionCode.equalsIgnoreCase(captcha);
     }
 
     //添加角色
