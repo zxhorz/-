@@ -66,7 +66,13 @@
                         "bSortable": false,
                         "aTargets": [-1]
                     }],
-                    "stateSave": true
+                    "stateSave": true,
+                    "ajax":"/notice/noticeList",
+                    "columns":[
+                        {"data": "date"},
+                        {"data": "title"},
+                        {"data": ""}
+                    ]
                 });
                 jQuery(".dataTables_filter input").attr("placeholder", "输入要搜索的内容...");
 

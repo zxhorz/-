@@ -5,9 +5,9 @@
 	    var data = [];
 
 //	    $('#tableEmailsList').DataTable(data);
-        var tableEmailsList = $('#tableEmailsList').DataTable();
-        tableEmailsList.settings()[0].ajax.url = "/data/noticeList";
-        tableEmailsList.ajax.reload();
+//        var tableEmailsList = $('#tableEmailsList').DataTable();
+//        tableEmailsList.ajax.url = "/data/noticeList";
+//        tableEmailsList.ajax.reload();
 
 	}]);
 
