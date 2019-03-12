@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-/**
- * @author shaofan
- */
+
 @Controller
 @RequestMapping("/office")
 @ConfigurationProperties(prefix="myProps") //接收application.yml中的myProps下面的属性
