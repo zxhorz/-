@@ -2,12 +2,11 @@ package com.zxh.dormMG.controllers;
 
 import com.zxh.dormMG.Service.NoticeService;
 import com.zxh.dormMG.domain.Notice;
+import com.zxh.dormMG.dto.DataTableDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,11 +16,21 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
-    //post登录
-    @RequestMapping(value = "/noticeList", method = RequestMethod.POST)
+    //
+    @RequestMapping(value = "/noticeList", method = RequestMethod.GET)
     @ResponseBody
-    public List<Notice> notice() {
-        return noticeService.noticeList();
+    public DataTableDto noticeList() {
+        return new DataTableDto<>(noticeService.noticeList());
     }
+
+    //
+    @RequestMapping(value = "/noticeSave", method = RequestMethod.POST)
+    @ResponseBody
+    public DataTableDto noticeSave(@RequestParam("title") String title,@RequestParam("content") String content) {
+        Notice notice = new Notice(title,new Date(),content);
+        noticeService.noticeSave(notice);
+        return new DataTableDto<>(noticeService.noticeList());
+    }
+
 
 }

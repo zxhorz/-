@@ -184,9 +184,16 @@
 
         <dependency>
             <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-ui-tinymce</artifactId>
+            <version>0.0.19</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
             <artifactId>angular-ui-router</artifactId>
             <version>1.0.20</version>
         </dependency>
+
 
         <dependency>
             <groupId>com.github.junrar</groupId>

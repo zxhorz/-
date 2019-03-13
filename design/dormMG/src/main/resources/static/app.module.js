@@ -4,5 +4,6 @@ angular.module('DormManagerApp', [
     'noticeModule',
     'pascalprecht.translate',
     'ngFileUpload',
-    'ui.router'
+    'ui.router',
+    'ui.tinymce'
 ]);

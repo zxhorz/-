@@ -22,9 +22,11 @@ public class Notice {
     @Column(name = "content")
     private String content;
 
-    public Notice(String id, String title, Date date, String content) {
+    public Notice() {
+    }
+
+    public Notice(String title, Date date, String content) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH时");
-        this.id = id;
         this.title = title;
         this.date = sdf.format(date);
         this.content = content;

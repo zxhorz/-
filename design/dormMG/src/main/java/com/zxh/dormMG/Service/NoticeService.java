@@ -23,4 +23,9 @@ public class NoticeService {
         return list;
     }
 
+    public void noticeSave(Notice notice) {
+        noticeRepository.save(notice);
+    }
+
+
 }
