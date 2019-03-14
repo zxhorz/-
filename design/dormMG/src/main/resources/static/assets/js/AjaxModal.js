@@ -27,8 +27,7 @@ jQuery(document).ready(function(){
     });
 });
 
-function openModal(url, postData, modalTitle, modalSize, submitLabel, submitId) {
-
+function openModal(url,modalTitle,modalSize,modelContent,submitLabel, submitId){
     //set the text of the modal title
     jQuery('#modalAjax .modal-title').html(modalTitle);
 
@@ -51,30 +50,81 @@ function openModal(url, postData, modalTitle, modalSize, submitLabel, submitId) 
     // show modal
     jQuery('#modalAjax').modal('show');
 
-    // fetch modal content
-    jQuery.post(url, postData, function(data) {
-        updateAjaxModal(data);
-    }, 'json').fail(function() {
-        jQuery('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');
-        jQuery('#modalAjax .loader').fadeOut();
-    });
+    jQuery('#modalAjax .modal-body').html(modelContent);
+
+//    // fetch modal content
+//    jQuery.post(url, postData, function(data) {
+//        updateAjaxModal(data);
+//    }, 'json').fail(function() {
+//        jQuery('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');
+//        jQuery('#modalAjax .loader').fadeOut();
+//    });
 
     //define modal submit button click
-    if (submitId) {
-        jQuery('#' + submitId).on('click', function() {
-            var modalForm = jQuery('#modalAjax').find('form');
-            jQuery('#modalAjax .loader').show();
-            jQuery.post(modalForm.attr('action'), modalForm.serialize(),
-                function(data) {
-                    updateAjaxModal(data);
-                }, 'json').fail(function() {
-                    jQuery('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');
-                    jQuery('#modalAjax .loader').fadeOut();
-                }
-            );
-        })
-    }
+//    if (submitId) {
+//        jQuery('#' + submitId).on('click', function() {
+//            var modalForm = jQuery('#modalAjax').find('form');
+//            jQuery('#modalAjax .loader').show();
+//            jQuery.post(modalForm.attr('action'), modalForm.serialize(),
+//                function(data) {
+//                    updateAjaxModal(data);
+//                }, 'json').fail(function() {
+//                    jQuery('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');
+//                    jQuery('#modalAjax .loader').fadeOut();
+//                }
+//            );
+//        })
+//    }
 }
+
+//function openModal(url, postData, modalTitle, modalSize, submitLabel, submitId) {
+//
+//    //set the text of the modal title
+//    jQuery('#modalAjax .modal-title').html(modalTitle);
+//
+//    // set the modal size via a class attribute
+//    if (modalSize) {
+//        jQuery('#modalAjax').children('div[class="modal-dialog"]').addClass(modalSize);
+//    }
+//
+//    // set the text of the submit button
+//    if(!submitLabel){
+//       jQuery('#modalAjax .modal-submit').hide();
+//    } else {
+//        jQuery('#modalAjax .modal-submit').show().html(submitLabel);
+//        // set the button id so we can target the click function of it.
+//        if (submitId) {
+//            jQuery('#modalAjax .modal-submit').attr('id', submitId);
+//        }
+//    }
+//
+//    // show modal
+//    jQuery('#modalAjax').modal('show');
+//
+//    // fetch modal content
+//    jQuery.post(url, postData, function(data) {
+//        updateAjaxModal(data);
+//    }, 'json').fail(function() {
+//        jQuery('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');
+//        jQuery('#modalAjax .loader').fadeOut();
+//    });
+//
+//    //define modal submit button click
+//    if (submitId) {
+//        jQuery('#' + submitId).on('click', function() {
+//            var modalForm = jQuery('#modalAjax').find('form');
+//            jQuery('#modalAjax .loader').show();
+//            jQuery.post(modalForm.attr('action'), modalForm.serialize(),
+//                function(data) {
+//                    updateAjaxModal(data);
+//                }, 'json').fail(function() {
+//                    jQuery('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');
+//                    jQuery('#modalAjax .loader').fadeOut();
+//                }
+//            );
+//        })
+//    }
+//}
 
 function updateAjaxModal(data) {
     if (data.dismiss) {
