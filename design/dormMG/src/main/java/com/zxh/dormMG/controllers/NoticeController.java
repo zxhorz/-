@@ -3,6 +3,8 @@ package com.zxh.dormMG.controllers;
 import com.zxh.dormMG.Service.NoticeService;
 import com.zxh.dormMG.domain.Notice;
 import com.zxh.dormMG.dto.DataTableDto;
+import com.zxh.dormMG.dto.ResultDto;
+import com.zxh.dormMG.dto.ResultDtoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +28,10 @@ public class NoticeController {
     //
     @RequestMapping(value = "/noticeSave", method = RequestMethod.POST)
     @ResponseBody
-    public DataTableDto noticeSave(@RequestParam("title") String title,@RequestParam("content") String content) {
-        Notice notice = new Notice(title,new Date(),content);
-        noticeService.noticeSave(notice);
-        return new DataTableDto<>(noticeService.noticeList());
+    public ResultDto<String> noticeSave(@RequestParam("title") String title, @RequestParam("content") String content) {
+//        Notice notice = new Notice(title,new Date(),content);
+//        noticeService.noticeSave(notice);
+        return ResultDtoFactory.toAck("success");
     }
 
 

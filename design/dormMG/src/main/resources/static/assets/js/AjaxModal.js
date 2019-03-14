@@ -51,7 +51,7 @@ function openModal(url,modalTitle,modalSize,modelContent,submitLabel, submitId){
     jQuery('#modalAjax').modal('show');
 
     jQuery('#modalAjax .modal-body').html(modelContent);
-
+    jQuery('#modalAjax .loader').fadeOut();
 //    // fetch modal content
 //    jQuery.post(url, postData, function(data) {
 //        updateAjaxModal(data);

@@ -1,3 +1,8 @@
 .pull-right.form-group button {
     margin: 3px;
 }
+
+input#title {
+    background-color: white;
+    width: 100%;
+}

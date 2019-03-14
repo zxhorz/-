@@ -5,5 +5,6 @@ h3 div {
 }
 
 h3 div :hover{
-    cursor:point
+    cursor: pointer;
 }
+
