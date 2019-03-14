@@ -252,3 +252,7 @@ body.login footer {
 div#order-standard_cart input {
   background: white;
 }
+
+.modal-backdrop {
+    z-index: 0;
+}

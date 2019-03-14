@@ -1,7 +1,7 @@
 (function (angular,$) {
 	'use strict';
 	var app = angular.module('noticeModule',[])
-	    .controller('noticeController', ['$scope',function ($scope) {
+	    .controller('noticeController',function ($scope,$state) {
 //	    var data = [];
 
 	    var table = $('#tableEmailsList').DataTable();
@@ -14,8 +14,12 @@
             openModal("/xx",{},"title",200,5,5  )
         } );
 
+        $scope.addNotice = function (){
+            $state.go('editor');
+        }
 
-	}]);
+
+	});
 
 
 })(angular,$);

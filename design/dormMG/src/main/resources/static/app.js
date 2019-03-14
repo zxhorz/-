@@ -20,5 +20,10 @@
                 templateUrl: 'notice-module/notice.html',
                 controller: 'noticeController'
             })
+            .state('editor', {
+                url: '/editor',
+                templateUrl: 'editor-module/editor.html',
+                controller: 'editorController'
+            })
     }]);
 })(window, angular);
