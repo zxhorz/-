@@ -12,5 +12,6 @@ import javax.transaction.Transactional;
 @Transactional
 @Repository
 public interface NoticeRepository extends BaseRepository<Notice,Long> {
-    
+    @Query("select n from Notice n where n.id = :query")
+    Notice findNoticeById(@Param("query") String id);
 }

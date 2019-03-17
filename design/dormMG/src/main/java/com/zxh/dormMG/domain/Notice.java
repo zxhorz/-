@@ -26,10 +26,14 @@ public class Notice {
     }
 
     public Notice(String title, Date date, String content) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日HH时");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         this.title = title;
         this.date = sdf.format(date);
         this.content = content;
+    }
+
+    public Notice(String id) {
+        this.id = id;
     }
 
     public String getId() {

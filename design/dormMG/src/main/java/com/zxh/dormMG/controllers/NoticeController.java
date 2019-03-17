@@ -29,9 +29,20 @@ public class NoticeController {
     @RequestMapping(value = "/noticeSave", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> noticeSave(@RequestParam("title") String title, @RequestParam("content") String content) {
-//        Notice notice = new Notice(title,new Date(),content);
-//        noticeService.noticeSave(notice);
-        return ResultDtoFactory.toAck("success");
+        Notice notice = new Notice(title,new Date(),content);
+        if(noticeService.noticeSave(notice))
+            return ResultDtoFactory.toAck("S");
+        return ResultDtoFactory.toAck("F");
+    }
+
+    //
+    @RequestMapping(value = "/noticeGet", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultDto<String> noticeSave(@RequestParam("id") String id) {
+        Notice notice = noticeService.noticeGet(id);
+        if(notice != null)
+            return ResultDtoFactory.toAck("S");
+        return ResultDtoFactory.toAck("F");
     }
 
 

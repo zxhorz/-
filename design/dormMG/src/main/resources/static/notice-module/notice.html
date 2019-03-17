@@ -71,7 +71,10 @@
                     "columns":[
                         {"data": "date"},
                         {"data": "title"},
-                        {"defaultContent": ""}
+                        {"data":null,"render":function(data,type,row,meta){
+                            var html ="<button class='btn btn-success' ng-click = noticeDelete("+ data['id'] +")>删除</button>"
+                            return html;
+                        }}
                     ]
                 });
                 jQuery(".dataTables_filter input").attr("placeholder", "输入要搜索的内容...");

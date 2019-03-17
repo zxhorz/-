@@ -9,27 +9,34 @@
             console.log('Editor content:', $scope.tinymceModel);
         };
 
-        var modelContent ='<input id="title" ng-model="title" ng-click="addNotice">'
+        var modelContent = '<input id="title" ng-model="title" ng-click="addNotice">'
 
         $scope.setContent = function () {
-//            $scope.tinymceModel = 'Time: ' + (new Date());
-            openModal('/notice/addNotice','设置该公告的主题',500,modelContent,'确定', 'addNotice');
-            $('#addNotice').on('click',function(){
+            //            $scope.tinymceModel = 'Time: ' + (new Date());
+            openModal('/notice/addNotice', '设置该公告的主题', 500, modelContent, '确定', 'addNotice');
+            $('#addNotice').on('click', function () {
                 $('#modalAjax .loader').show();
                 $http({
-                    method:'POST',
-                    url:'/notice/noticeSave',
-                    params:{
-                        'title':$scope.title,
-                        'content':$scope.tinymceModel
+                    method: 'POST',
+                    url: '/notice/noticeSave',
+                    params: {
+                        'title': $('#title').val(),
+                        'content': $scope.tinymceModel
                     }
-                }).success(function (data){
-                      $('#modalAjax .loader').fadeOut();
-                }).error(function (data){
+                }).success(function (data) {
+                    if (data.message === 'S') {
+                        $('#modalAjax .loader').fadeOut();
+                        $state.go('notice');
+                    }
+                }).error(function (data) {
                     $('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');
                 });
             });
         };
+
+        $scope.goNotice = function () {
+            $state.go('notice');
+        }
 
         $scope.tinymceOptions = {
             menubar: false,
