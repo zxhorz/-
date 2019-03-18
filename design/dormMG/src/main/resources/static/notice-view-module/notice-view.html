@@ -8,22 +8,12 @@
 <div class="main-content">
     <section id="main-body" class="content content--border">
         <link rel="stylesheet" type="text/css" href="/editor-module/editor.css">
-        <!--<script type="text/javascript" charset="utf8" src="/assets/js/tinymce.min.js"></script>-->
-        <!--<script type="text/javascript" charset="utf8" src="/assets/lang/zh_CN.js"></script>-->
-        <h3 class="headline">编写公告</h3>
+
 
         <div class="table-container clearfix">
-            <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
-            <div class="pull-right form-group">
-                <button class="btn btn-success" ng-click="cancel()">取消</button>
-                <button class="btn btn-success" ng-click="noticeSave()">确定发布</button>
-            </div>
-            <!--<textarea id="editorTitle" >-->
-                <!--点击编辑标题-->
-            <!--</textarea>-->
-            <!--<textarea id="editorContent">-->
-                <!--点击编辑公告-->
-            <!--</textarea>-->
+
+            <div id="noticeContent"></div>
+
         </div>
 
 

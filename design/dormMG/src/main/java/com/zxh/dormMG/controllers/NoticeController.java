@@ -38,9 +38,17 @@ public class NoticeController {
     //
     @RequestMapping(value = "/noticeGet", method = RequestMethod.GET)
     @ResponseBody
-    public ResultDto<String> noticeSave(@RequestParam("id") String id) {
+    public ResultDto<String> noticeGet(@RequestParam("id") String id) {
         Notice notice = noticeService.noticeGet(id);
         if(notice != null)
+            return ResultDtoFactory.toAck("S");
+        return ResultDtoFactory.toAck("F");
+    }
+
+    @RequestMapping(value = "/noticeDelete", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultDto<String> noticeDelete(@RequestParam("id") String id) {
+        if(noticeService.noticeDelete(id))
             return ResultDtoFactory.toAck("S");
         return ResultDtoFactory.toAck("F");
     }

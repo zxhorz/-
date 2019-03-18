@@ -5,13 +5,13 @@
     app.controller('editorController', function ($scope, $http, $rootScope, $state) {
         $scope.tinymceModel = '';
 
-        $scope.getContent = function () {
-            console.log('Editor content:', $scope.tinymceModel);
+        $scope.cancel = function () {
+            $state.go('notice')
         };
 
-        var modelContent = '<input id="title" ng-model="title" ng-click="addNotice">'
+        var modelContent = '<input id="title" autocomplete="off" ng-model="title" ng-click="addNotice">'
 
-        $scope.setContent = function () {
+        $scope.noticeSave = function () {
             //            $scope.tinymceModel = 'Time: ' + (new Date());
             openModal('/notice/addNotice', '设置该公告的主题', 500, modelContent, '确定', 'addNotice');
             $('#addNotice').on('click', function () {
@@ -41,6 +41,8 @@
         $scope.tinymceOptions = {
             menubar: false,
             height: 600,
+            plugins: "nonbreaking",
+            nonbreaking_force_tab: true,
             toolbar: 'undo redo | formatselect | bold italic backcolor | fontselect fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
             language: 'zh_CN',
             content_css: [

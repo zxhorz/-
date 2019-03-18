@@ -2,6 +2,7 @@
 angular.module('DormManagerApp', [
     'mainContentModule',
     'noticeModule',
+    'noticeViewModule',
     'editorModule',
     'pascalprecht.translate',
     'ngFileUpload',

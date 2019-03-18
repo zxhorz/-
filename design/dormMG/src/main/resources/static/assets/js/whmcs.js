@@ -29,7 +29,8 @@ jQuery(document).ready(function() {
         } else if (jQuery(this).hasClass("active")) {
             jQuery("ul", jQuery(this).parents("ul:first")).slideUp(350);
             jQuery(this).find("ul").slideUp(350);
-            jQuery(this).removeClass("active");
+            if(jQuery(this).find("ul").length != 0)
+                jQuery(this).removeClass("active");
         }
     });
     //Mobile Left-Menu

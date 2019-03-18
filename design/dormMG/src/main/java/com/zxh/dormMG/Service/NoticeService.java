@@ -31,6 +31,7 @@ public class NoticeService {
             noticeRepository.save(notice);
             return true;
         }catch (Exception e){
+            logger.error(e.getMessage());
             return false;
         }
     }
@@ -38,5 +39,17 @@ public class NoticeService {
 
     public Notice noticeGet(String id) {
         return noticeRepository.findNoticeById(id);
+    }
+
+    public boolean noticeDelete(String id) {
+        try{
+            Notice notice = new Notice(id);
+            noticeRepository.delete(notice);
+            logger.info("notice deleted successfully");
+            return true;
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return false;
+        }
     }
 }

@@ -25,5 +25,13 @@
                 templateUrl: 'editor-module/editor.html',
                 controller: 'editorController'
             })
+            .state('notice/view', {
+                url: 'notice/view',
+                templateUrl: 'notice-view-module/notice-view.html',
+                controller: 'noticeViewController',
+                params:{
+                    notice:''
+                }
+            })
     }]);
 })(window, angular);
