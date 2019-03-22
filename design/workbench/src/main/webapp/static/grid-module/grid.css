@@ -1,0 +1,72 @@
+.gridsWrap{
+	height:  calc(100% - 40px);
+	width: calc(100% - 10px);
+	overflow: auto;
+}
+.myGrid{
+	float: left;
+	margin: 2px;
+	width: calc(50% - 4px);
+	height: calc(50% - 4px);
+	/*z-index: 2;*/
+}
+#output_graph_window{
+	height: 30px;
+	line-height: 30px;
+	width: 100%;
+}
+.switchStyle{
+	float: right;
+	margin-right: 15px;
+	height: 30px;
+}
+.panel{
+	margin-bottom: 0px ! important;
+}
+.myGridContainer{
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	/*z-index: 1;*/
+}
+h3{
+	background-color: #d9edf7;
+}
+.panel-body{
+	background-color: #FFFFFF;
+}
+canvas{
+	background-color: #FFFFFF;
+}
+/* N4J模块 */
+.n4jContent{
+	padding: 0 5px;
+}
+.graphTitle{
+    color:#666;
+	line-height:20px;
+}
+.cypherLists{
+	width:150px;
+	color:#666;
+	height:25px;
+}
+.cypherLists option{
+	color:#666;
+	line-height:20px;
+}
+#query{
+	width:50px;
+	height:25px;
+	line-height:25px;
+	background-color:#2A72D5;
+	border:none;
+}
+.n4jContent textarea{
+	width:96%;
+	height:50px;margin-top:15px;resize: none;background:none;
+	border:1px solid #ddd;
+	color:#666;
+	box-shadow:none;
+	padding:5px;
+}

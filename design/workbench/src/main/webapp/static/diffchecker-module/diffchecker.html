@@ -1,0 +1,17 @@
+<div flex layout="column" layout-gt-md="row">
+    <md-card flex>
+        <md-card-content>
+            <h4 class="cloneCodeTxt">{{name1}}</h4>
+            <pre class="textdiff" style="font-size:14px;height:512px">{{left}}</pre>
+            <!-- <textarea layout-fill class="inputBox" ng-model="left" style="font-size:14px; height:500px"></textarea> -->
+        </md-card-content>
+    </md-card>
+</div>
+<div flex layout="column" layout-gt-md="row" style="margin-left:1%">
+    <md-card flex>
+        <md-card-content>
+            <h4 class="cloneCodeTxt">{{name2}}</h4>
+            <pre class="textdiff" diff left-obj="left" right-obj="right" style="font-size:14px;height:512px"></pre>
+        </md-card-content>
+    </md-card>
+</div>

@@ -1,0 +1,56 @@
+<div class="content clearfix">
+	<div id="delectProject" class="selectAndAdd">
+		<h3>Delete Project</h3>
+		<div class="selectAddBox">
+			<div class="selectPageItem2">
+				<table class="table mb0">
+					<thead class="tableThead">
+						<tr>
+							<th class="textAlignLeft iconWidth">
+								<input class="checkbox" type='checkbox' ng-checked="selectedProjectId.length===projectList.length&&selectedProjectId.length>0" ng-click="selectAll()"/>
+							</th>
+							<th class="textAlignLeft">Project Name</th>
+							<!-- <th class="textAlignLeft">Created Time</th> -->
+							<th class="textAlignLeft">Description</th>
+							<th class="textAlignLeft iconWidth">
+								<i ng-show="projectList.length>0" class="iconDef iconColorRed glyphicon glyphicon-trash" title="Delete Project" ng-click="deleteProject()"></i>
+							</th>
+						</tr>
+					</thead>
+					<tbody class="tableTbody">
+						<tr class="tableThead" ng-repeat="items in projectList track by $index">
+							<td class="textAlignLeft iconWidth">
+								<input class="checkbox" type='checkbox' ng-checked="isSelected(items.id)" ng-click="selectOne(items.id)"/>
+							</td>
+							<td class="textAlignLeft">{{items.name}}</td>
+							<!-- <td class="textAlignLeft">{{items.createdTime | date : 'yyyy-MM-dd'}}</td> -->
+							<td class="textAlignLeft">{{items.description}}</td>
+							<!-- <td class="textAlignLeft iconWidth">
+								<i ng-show="items.description" class="iconDef iconColorRed glyphicon glyphicon-trash" title="Delete Project" ng-click="deleteProject(items.id)"></i>
+							</td> -->
+							<td class="textAlignLeft iconWidth"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="selectPageItem3 clearfix">
+				<div class="selectPageItem3Or">
+					<a class="selectPageItem3Creat" href="javascript:void(0);" ng-click="goToProjectSelect()">Go Back</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="model" ng-show="deteleInfo">
+	<div class="modelContent">
+		<p align="center">Are you sure you want to delete this project?</p>
+		<button class="btn btn-default btnColor" ng-click="delCancel()">
+			Cancel
+		</button>
+		<button class="btn btn-primary btnSave" ng-click="delSave()">
+			Ok
+		</button>
+	</div>
+</div>
+
+<modelshow-directive></modelshow-directive>

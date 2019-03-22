@@ -1,0 +1,19 @@
+<div class="modal-box" ng-show="myVar">
+    <div class="modal-header">  
+        <h3 class="txt">I'm a modal!</h3>  
+        <span class="closeBtn" ng-click="close()">X</span>
+    </div>  
+    <div class="modal-body">  
+        <ul>  
+            <li class="item" ng-repeat="item in items">
+                    <input class="inp" type="checkbox"  ng-model="myVar" ng-click="all(selectAll)"/>{{ item }}
+            </li>  
+        </ul>  
+    </div>  
+    <div class="modal-footer">  
+        <button class="btn btn-primary" ng-click="ok()">OK</button>  
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>  
+    </div>  
+</div>
+
+<button class="btn btnOpen" ng-click="open()">Open me!</button>

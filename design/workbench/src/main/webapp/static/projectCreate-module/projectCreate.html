@@ -1,0 +1,29 @@
+<div class="content clearfix">
+	<div id="addPage" class="selectAndAdd">
+		<div class="selectAddBox">
+			<p class="selectAddTxt titleTxt">New Project</p>
+			<form action="" name="newProjectInfo" novalidate onsubmit="return false;">
+				<div class="selectAddItem">
+					<fieldset>
+						<input type="text" class="inputModal inputColor" name="newProjectName" ng-model="newProjectName" ng-maxlength=40 required ng-init="" ng-pattern="/^[a-zA-Z][a-zA-Z0-9_]*$/"
+						 placeholder="Project Name" autocomplete="off" disableautocomplete/>
+						<span class="star">*</span>
+						<span class="tips colorRed" ng-show="!newProjectInfo.newProjectName.$error.required&&newProjectInfo.newProjectName.$dirty&&newProjectInfo.newProjectName.$invalid">
+							Please enter a project name that begins with a letter and contain only characters, numbers or underlines and no more than 40 lengths.</span>
+					</fieldset>
+					<fieldset>
+						<textarea class="projectDsc" name="newProjectDsc" ng-model="newProjectDsc" ng-maxlength=200 class="ng-valid ng-dirty ng-valid-parse ng-empty ng-touched"
+						 required ng-init="" placeholder="Description"></textarea>
+						<span class="star">*</span>
+						<span class="tips colorRed" ng-show="!newProjectInfo.newProjectDsc.$error.required&&newProjectInfo.newProjectDsc.$dirty && newProjectInfo.newProjectDsc.$invalid">Length of project description must less than 200</span>
+					</fieldset>
+					<div class="okOrCancel">
+						<input type="button" class="btn btn-primary" value="OK" ng-click="saveProject()" ng-disabled="newProjectInfo.newProjectDsc.$error.required || newProjectInfo.newProjectName.$error.required||newProjectInfo.newProjectDsc.$invalid||newProjectInfo.newProjectName.$invalid">
+						<button class="btn btn-primary cancelBtn" type="button" ng-click="goToSelect()">Cancel</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<modelshow-directive></modelshow-directive>

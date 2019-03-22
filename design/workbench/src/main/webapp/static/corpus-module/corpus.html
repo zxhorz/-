@@ -1,0 +1,50 @@
+<div class="content codeSearch">
+    <div class="codeSearchBox corpusBox">
+        <ul class="nav nav-tabs detailNav">
+            <li role="presentation" id="abbreviation_dict" class='active'>
+                <a class="text" ng-click="changeTab('abbreviation_dict')">Abbreviation Dictionary Corpus</a>
+            </li>
+            <li role="presentation" id="word_phase">
+                <a class="text" ng-click="changeTab('word_phase')">Word and Phrase Corpus</a>
+            </li>
+        </ul>
+        <div class="TabCon">
+            <div class="clearfix">
+                <div id="abbrCondtion">
+                    <label>Business Domain:</label>
+                    <select ng-model="selectedDomain" ng-options="t.id as t.domainName for t in domainList" ng-change="domainChange()"></select>
+                    <label>Organization:</label>
+                    <select ng-model="selectedOrganization" ng-options="org.id as org.organizationName for org in organizationList" ng-change="organizationChange()"></select>
+                    <label>System:</label>
+                    <select ng-model="selectedSystem" ng-options="system.id as system.systemName for system in systemList" ng-change="systemChange()"></select>
+                    <button class="btn btn-primary" ng-click="Search(true,1)">Search</button>
+                </div>
+                <div id="abbrButtonGroup">
+                    <button class="btn btn-primary corpus-op" ng-click="corpusExport()">Export</button>
+                    <button class="btn btn-primary corpus-op" ng-click="corpusImport()">Import</button>
+                    <button class="btn btn-primary corpus-op" ng-click="corpusNew()">New</button>
+                    <!-- <button class="btn btn-primary corpus-op" ng-click="corpusEdit()">Edit</button> -->
+                </div>
+            </div>
+            <div ng-if='corpusNavTxt==="abbreviation_dict"' class="TabConItem">
+                <div ui-grid="gridOptionsAbbr" class="user-grid" ui-grid-selection ui-grid-pagination></div>
+            </div>
+            <div ng-if='corpusNavTxt==="word_phase"' class="TabConItem">
+                <div ui-grid="gridOptionsPhrase" class="user-grid" ui-grid-selection ui-grid-pagination></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="model" ng-show="deteleInfo">
+    <div class="modelContent">
+        <p align="center">Are you sure you want to delete this data?</p>
+        <button class="btn btn-default btnColor" ng-click="delCancel()">
+            Cancel
+        </button>
+        <button class="btn btn-primary btnSave" ng-click="delSave()">
+            Ok
+        </button>
+    </div>
+</div>
+<modelshow-directive></modelshow-directive>

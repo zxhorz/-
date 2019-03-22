@@ -1,0 +1,15 @@
+.chartsContainer{
+	/*height: 300px;*/
+	width: 40%; 
+	margin-left:5%; 	
+	float: left;
+}
+.chartsContainer canvas{
+	width: 100% ! important;
+	height: 100% ! important;
+	margin: auto auto;
+}
+.chartTitle{
+	color: #898989;
+	font-size: 18px;
+}

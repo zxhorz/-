@@ -1,0 +1,24 @@
+<div class="content clearfix">
+	<div id="selectPage" class="selectAndAdd">
+		<div class="selectAddBox">
+			<p class="selectAddTxt titleTxt">Open Project</p>
+			<div class="selectPageItem2">
+				<div class="selectPageItem2Txt" ng-show="existProject">Please select an existing project to open :</div>
+				<div class="selectPageItem2Txt" ng-show="!existProject">No projects existed, please create new project first</div>
+				<br />
+				<div class="selectPageItem2Box" ng-show="existProject">
+					<select id="projectSelect" ng-model="selectedProject" ng-options="t.name for t in projectList"></select>
+					<button class="btn btn-primary selectBtn" ng-click="goToSummary()">Open Project</button>
+				</div>
+			</div>
+			<div class="selectPageItem3">
+				<div class="selectPageItem3Or">
+					Or
+					<a class="selectPageItem3Creat" href="javascript:void(0);" ng-click="goToCreate()">Create New Project</a>
+				</div>
+			</div> 
+		</div>
+	</div>
+</div>
+
+<modelshow-directive></modelshow-directive>

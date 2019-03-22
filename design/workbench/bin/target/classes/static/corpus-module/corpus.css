@@ -1,0 +1,151 @@
+.content .corpusBox{
+    width: 95%;
+}
+#abbrCondtion{
+    float:left;margin-top:1%;margin-bottom:1%;width:70%;
+}
+#abbrCondtion select{
+    width: 15%;
+    vertical-align: middle;
+    margin-right:2%;
+}
+#abbrButtonGroup{
+    float:right;margin-top:1%;margin-bottom:1%;width:30%
+}
+th{
+    color:#7D8793;
+}
+.delete{
+    padding: 0px 6px
+}
+#abbrBodyTable{
+    overflow: auto;height:95%;
+}
+#abbrBody{
+    width:100%;
+}
+#phaseBody{
+    width:100%;    
+}
+.corpusBox .TabCon{
+    height: 90%;
+}
+.corpusBox .TabCon .TabConItem{
+    height: 90%;
+}
+.corpusBox .user-grid{
+    border: 1px solid #ddd;
+    height: 100%;
+}
+.corpusBox .fa{
+    color:#157FFF;
+    cursor: pointer;
+}
+.corpusBox .fa-pencil-square-o:hover {
+    color: #007800;
+}
+.corpusBox .fa-trash-o:hover{
+    color:red;
+}
+.modelContent{
+    padding: 1%;
+    width: 20%;
+    min-height: 116px;
+    margin: 18% auto;
+    background-color: white;
+    border-radius: 4px;
+}
+.modelContent .btn{
+    float: right;
+    margin-top: 5%;;
+}
+.modelContent .btn.btnSave{
+    margin-right: 4%;
+}
+.tableBorder{
+    border: 1px solid #ccc;
+}
+table tbody tr.trColor{
+    background-color: #76A5E9;
+}
+td{
+    padding: 5px;
+    text-align: center;
+    cursor: default;
+}
+/* .corpusTxt{
+    margin-right: 30px;
+} */
+/* .corpusTxt:focus{
+    border: none;    
+    border-bottom: 1px solid #157FFF;  
+} */
+#file-frame{
+	position: relative;
+	float: left;
+	width: 50%;
+}
+#select-file{
+	position: relative;
+	width: 50%;
+	float: left;
+}
+#file-wrapper{
+	margin-bottom: 0px;
+}
+#file-container{
+	height: 50px;
+}
+.corpus-op{
+	float: right;
+	margin-left: 2%;
+}
+.corpusContent table tbody tr{
+    background: #d9edf7;
+}
+.corpusContent tr td:first-child{
+    text-align: right;
+    padding-right: 6%;
+}
+.corpusContent .star{
+    color: red;
+    width: 8%;
+    background-color: white;
+}
+.corpusTxt{
+    width: 100%;
+    height: 24px;
+}
+.sel{
+    display: inline-block;
+    width: 100%;
+    height: 24px;
+}
+.corpusBox .ui-grid-cell-contents{
+    white-space:normal;
+}
+/* .corpusBox .ui-grid-render-container-body .ui-grid-header-viewport .ui-grid-header-canvas{
+    width: 100%;    
+}
+
+.corpusBox .ui-grid-header-cell-wrapper{
+    width: 100%;
+} */
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    font-size: 8px;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	font-size: 8px;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	font-size: 8px;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	font-size: 8px;
+}
+.inpBorder{
+    border: 1px solid orangered;
+}
+.corpusModel{
+    min-width: 0;
+}

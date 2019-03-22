@@ -1,0 +1,124 @@
+<div class="content codeSearch">
+    <div class="codeSearchBox">
+        <ul class="nav nav-tabs">
+            <li role="presentation" ng-class="{active:selected==$index}" ng-click='tabShow($index)' ng-repeat='item in tabName'>
+                <a>{{item.list}}</a>
+            </li>
+        </ul>
+        <div class="TabCon">
+            <div ng-show='selected==0' class="TabConItem">
+                <div class="searchTop ketWord">
+                    <span class="text">Keywords:</span>
+                    <input class="kerWords searchInp" name="kerWords" ng-model="kerWords" required ng-init="" ng-keyup="setFocus($event)" title="Please enter the keyword"/>
+                    <button class="btn btnColor searchBtn kerWordSearch" ng-click="kerWordSearch(true)">Search</button>
+                </div>
+            </div>
+            <div ng-show='selected==1' class="TabConItem">
+                <div class="searchTop tages">
+                    <span class="text">Tags:</span>
+                    <select id = 'tagSearch' class="form-control" multiple="multiple" ng-model="selectedTags" style="width:27%" title="Please enter the tag"></select>
+                    <button class="btn btnColor searchBtn tagsSearch" ng-click="tagsSearch(true)">Search</button>
+                </div>
+            </div>
+            <div ng-show='selected==2' class="TabConItem">
+                <div class="searchTop">
+                    <span class="text">Code snippet:</span>
+                    <textarea ng-model="code" class="searchCodeTxt" required title="Please enter the code"></textarea>
+                    <!-- <div class="snippetCode">
+                        <textarea ng-model="code" class="searchCodeTxt"></textarea>
+                    </div> -->
+                    <button class="btn btnColor searchBtn snippetSearch" ng-click="codeSearch(true)">Search</button>
+                </div>
+            </div>
+        </div>
+                <div class="searchContent" ng-class="{'keyWordAndTagsContent' : selected==0||selected==1, 'searchSimCodeContent' : selected==2}">
+                    <div class="searchContentLeft ketWordTab">
+                        <!--<input class="checkbox selectBox" type="checkbox" ng-model="SelectAll" ng-click="SelectAll()" />
+                        <span class="selectAll">Select All</span>-->
+                        <div class="searchTab">
+                            <div>
+                                <p ng-show="!hasRecords" class="noData">No data, please click the 'search' button</p>
+                                <table id='headTable' ng-show="hasRecords" style="margin-bottom:2px">
+                                <thead>
+                                    <tr class="headtr">
+                                        <th class="headth1"><input type='checkbox' id="selectAllBox" ng-model="SelectAll" class="checkbox"/></th>
+                                        <th class="headth2">Name</th>
+                                        <th class="headth3">Tags</th>
+                                    </tr>
+                                </thead>
+                                </table>
+                            </div>
+                            <div style="overflow:auto;height:93%">
+                            <!--<table id = "searchTable">
+                                <tbody>
+                                    <tr ng-repeat='kerWordsSearchInfo in kerWordsSearch track by $index'>
+                                        <table>
+
+                                        </table>
+                                        <td ng-show='kerWordsSearchInfo.type==1' class="headth1">
+                                            <input class="checkbox" type='checkbox' ng-checked="SelectAll" ng-model= "kerWordsSearchInfo.checked" ng-click="selectOne()" 
+                                            name='keywordSearch' id='{{kerWordsSearchInfo.programId}}' />
+                                        </td>
+                                        <td ng-show='kerWordsSearchInfo.type==1' class="headth2" ng-click="openSource($index,kerWordsSearchInfo)" style="cursor:pointer">
+                                            Program:{{kerWordsSearchInfo.program}}
+                                        </td>
+                                        <td ng-show='kerWordsSearchInfo.type==1' class="headth3">{{kerWordsSearchInfo.programTags.join(', ')}}</td>
+                                        <td ng-show='kerWordsSearchInfo.type==2' class="headth1">
+                                            <input class="checkbox" type='checkbox' ng-checked="SelectAll" ng-model= "kerWordsSearchInfo.checked" ng-click="selectOne()" 
+                                            name='keywordSearch' id='{{kerWordsSearchInfo.paragraphId}}'/>
+                                        </td>
+                                        <td ng-show='kerWordsSearchInfo.type==2' ng-click="openSource($index,kerWordsSearchInfo)" style="cursor:pointer" class="headth2">
+                                            Paragraph:{{kerWordsSearchInfo.paragraph}}
+                                        </td>
+                                        <td ng-show='kerWordsSearchInfo.type==2' class="headth3">{{kerWordsSearchInfo.paragraphTags.join(', ')}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>-->
+                                <div id = "searchTable">
+                                    <div class="searchTableBox" ng-repeat='kerWordsSearchInfo in kerWordsSearch track by $index'>
+                                        <div class="searchTableItem" ng-init="pIndex=$index">
+                                            <span ng-show='kerWordsSearchInfo.type==1' class="checkboxItem">
+                                                <input class="checkbox" type='checkbox' ng-checked="SelectAll" ng-model= "kerWordsSearchInfo.checked" ng-click="selectOne()" 
+                                                name='keywordSearch' id='{{kerWordsSearchInfo.programId}}' />
+                                            </span>
+                                            <span ng-show='kerWordsSearchInfo.type==1' class="headth2" ng-click="openSource(pIndex,kerWordsSearchInfo)" style="cursor:pointer">
+                                            Program:{{kerWordsSearchInfo.program}}
+                                            </span>
+                                            <span ng-show='kerWordsSearchInfo.type==1' class="headth3">
+                                            {{kerWordsSearchInfo.programTags.join(', ')}}
+                                            </span>
+                                            <span ng-show='kerWordsSearchInfo.type==2' class="checkboxItem">
+                                                <input class="checkbox" type='checkbox' ng-checked="SelectAll" ng-model= "kerWordsSearchInfo.checked" ng-click="selectOne()" 
+                                                name='keywordSearch' id='{{kerWordsSearchInfo.paragraphId}}'/>
+                                            </span>
+                                            <span ng-show='kerWordsSearchInfo.type==2' ng-click="openSource(pIndex,kerWordsSearchInfo)" style="cursor:pointer" class="headth2">
+                                            Paragraph:{{kerWordsSearchInfo.paragraph}}
+                                            </span>
+                                            <span ng-show='kerWordsSearchInfo.type==2' class="headth3">{{kerWordsSearchInfo.paragraphTags.join(', ')}}</span>
+                                        </div>
+                                        <div ng-hide='selected==1'>
+                                            <table>
+                                                <tr class="searchRes">
+                                                    <td><span  ng-bind-html="kerWordsSearchInfo.snippet|trust2Html"><span></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="searchContentRight ketWordCode">
+                        <pre class="codeinfo" ng-model='keywordSourceCode'>{{keywordSourceCode}}</pre>
+                    </div>
+                </div>
+                <div class="searchContentBottom">
+                        <span>Tags:</span>
+                        <select id= "tagManage" class="form-control" multiple="multiple" ng-model="modelName" style="width:75%"/>
+                        <button class="btn btn-sm btn-primary TagsBtn" ng-click="addTags()"  ><i class="fa fa-pencil"></i>Add</button>
+                        <button class="btn btn-sm btn-primary TagsBtn" ng-click="removeTags()"  ><i class="fa fa-trash-o"></i>Remove</button>
+                </div>
+    </div>
+</div>
+
+<modelshow-directive></modelshow-directive>

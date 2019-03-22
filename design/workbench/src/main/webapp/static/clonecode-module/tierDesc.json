@@ -1,0 +1,22 @@
+[
+    {
+        "tier": "t1",
+        "value": "1",
+        "desc": "Tier-1: 100% the same. These include all the variable names, command and text position. In this case, simply comparing the hash value will work."
+    },
+    {
+        "tier": "t2",
+        "value": "2",
+        "desc": "Tier-2: Code syntax and structures are the same, with the exception that variable names are different, commands may not be in same row orders. This is pretty common code copy and paste. To deal with this, hide the variables or change it to meta-data, then tokenize the entire codes into vectors for comparison shall be a solution."
+    },
+    {
+        "tier": "t3",
+        "value": "3",
+        "desc": "Tier-3: Code syntax and structures are 'similar' in the way that they are i) performing the same business functions ii) have similar input/output parameters but not exactly the same  iii) similar structures (e.g same amount) with loop and conditional statements.   To deal with this, a full conversion of codes to meta-data is needed, then compare the numbers of input and output variables, tokenize and doing vector comparison of the meta-data."
+    },
+    {
+        "tier": "ta",
+        "value": "5",
+        "desc": "Tier-all: All Tiers."
+    }
+]

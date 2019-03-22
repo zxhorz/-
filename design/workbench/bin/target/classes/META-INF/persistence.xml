@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	version="2.0">
+	<persistence-unit name="bluemorphoWrokbench"
+		transaction-type="RESOURCE_LOCAL">
+		<properties>
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.use_query_cache" value="false" />
+			<property name="hibernate.use_sql_comments" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>

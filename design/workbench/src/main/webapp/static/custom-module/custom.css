@@ -1,0 +1,79 @@
+.custom{
+    padding-top: 0;
+}
+/* launch */
+.launch .modal-header{
+    color: #337ab7;
+}
+.launch p{
+    text-align: left;
+}
+.launch .launchDes{
+    width: 100%;
+    height: 200px;
+    overflow: auto;
+    resize: none;
+    margin-bottom: 2%;    
+}
+.launch .commandOpt{
+    width: 100%;
+}
+.launch .RunTxt{
+    float: left;
+    vertical-align: middle;
+}
+.selectItem{
+    float: left;
+    vertical-align: middle;
+    padding: 2px;
+}
+/* script console */
+.command{
+    text-align: left;
+    /* margin-bottom: 2%; */
+}
+.command .commLine{
+    border-bottom: 1px solid rgb(169, 169, 169);
+    display: inline-block;
+    height: 18px;
+    width: 469px;
+    text-indent: 2em;
+}
+.commandCon{
+    position: relative;
+    height: 32px;
+    margin-bottom: 2%;
+}
+.command .consoleLeft{
+    position: absolute;
+    bottom: 2px;
+    float: left;
+}
+.command .consoleRight{
+    float: right;
+}
+#consoleInfo{
+    height: 200px;
+    border: 1px solid rgb(169, 169, 169);
+    overflow: auto;
+    margin-bottom: 2%;
+}
+#consoleInfo .consoleInfoItem{
+    margin: 0;
+}
+.launch .tableDiv{
+    overflow: auto;
+    min-height:50px;
+    max-height: 200px;
+    border: 1px solid rgb(169, 169, 169);
+}
+.launch .outputTab{
+    width: 100%;
+}
+.launch .outputTab a{
+    text-decoration: underline;
+    color: #333;
+}
+.customGrid{
+    height: 415px;
+}

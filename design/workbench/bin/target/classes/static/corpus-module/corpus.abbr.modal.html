@@ -1,0 +1,98 @@
+<div class="corpusContent">
+    <div class="modal-header">
+        <span class="dataSet">{{modalTitle}}</span>
+    </div>
+    <div class="modal-body abbr">
+        <div align="center">
+            <form action="" name="info" novalidate>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Abbr.:</td>
+                            <td>
+                                <input class="corpusTxt inputColor"  ng-model="record.abbr" required name="abbrInfo" ng-pattern="/[a-zA-Z0-9]/" ng-maxlength=50 ng-blur="abbrBlur(info.abbrInfo.$invalid)"/>
+                            </td>
+                            <td class="star">*</td>
+                        </tr>
+                        <tr>
+                            <td>FullPhrase: </td>
+                            <td>
+                                <input class="corpusTxt inputColor" ng-model="record.fullPhrase" required name="fullPhraseInfo" ng-pattern="/[a-zA-Z0-9]/" ng-maxlength=50 ng-blur="abbrBlur(info.fullPhraseInfo.$invalid)"/>
+                            </td>
+                            <td class="star">*</td>
+                        </tr>
+                        <tr>
+                            <td>Business Domain: </td>
+                            <td>
+                                <select class="sel" ng-model="record.businessDomainId" ng-options="t.id as t.domainName for t in domains"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Business Domain Rank: </td>
+                            <td>
+                                <input type="number" class="corpusTxt inputColor" ng-model="record.businessDomainRank" placeholder="Enter number or keep empty." title="Please enter the number or not fill in it."/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Organization: </td>
+                            <td>
+                                <select class="sel" ng-model="record.organizationId" ng-options="org.id as org.organizationName for org in organizations"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Organization Rank: </td>
+                            <td>
+                                <input type="number" class="corpusTxt inputColor" ng-model="record.organizationRank" placeholder="Enter number or keep empty." title="Please enter the number or not fill in it."/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>System: </td>
+                            <td>
+                                <select class="sel" ng-model="record.systemId" ng-options="system.id as system.systemName for system in systems"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>System Rank: </td>
+                            <td>
+                                <input type="number" class="corpusTxt inputColor" ng-model="record.systemRank" placeholder="Enter number or keep empty." title="Please enter the number or not fill in it."/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Code Type: </td>
+                            <td>
+                                <input class="corpusTxt inputColor" ng-model="record.codeType" name="codeType" ng-pattern="/[a-zA-Z]/" ng-maxlength=50 ng-blur="abbrBlur(info.codeType.$invalid)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Frequency: </td>
+                            <td>
+                                <input type="number" class="corpusTxt inputColor" ng-model="record.frequency" placeholder="Enter number or keep empty." title="Please enter the number or not fill in it."/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>General Rank: </td>
+                            <td>
+                                <input type="number" class="corpusTxt inputColor" ng-model="record.generalRank" placeholder="Enter number or keep empty." title="Please enter the number or not fill in it."/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary btnColor" ng-click="ok()" ng-disabled="info.abbrInfo.$error.required || info.abbrInfo.$invalid || info.fullPhraseInfo.$error.required || info.fullPhraseInfo.$invalid ||info.codeType.$invalid">
+            Save
+        </button>
+        <button class="btn btnColor" ng-click="cancel()">
+            Cancel
+        </button>
+    </div>
+</div>
+<div class="model corpusModel" ng-show="errorInfo">
+    <div class="part">
+        <img src="modelshow-module/images/error.png">
+        <p>{{promptInfo}}</p>
+    </div>
+</div>
+<!-- <modelshow-directive></modelshow-directive> -->

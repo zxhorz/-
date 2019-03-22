@@ -1,0 +1,8 @@
+[
+	{ "paragraph names": "Number of Files Scanned"},
+    { "paragraph names": "Number of Procedures Scanned"},
+    { "paragraph names": "Number of Paragraphs"},
+    { "paragraph names": "Number of Reporting Modules Founded" },
+    { "paragraph names": "Number of Procedures with Reporting Modules Founded" },
+    { "paragraph names": "Average LOC per Procedure"}
+]

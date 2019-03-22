@@ -1,0 +1,36 @@
+[
+    {
+        "Complexity_Ratio":[
+            {
+                "LOC":0.05,
+                "LOOP":0.3,
+                "Conditional_Statements":0.2,
+                "Tables":1,
+                "Variables":0.1
+            }
+        ],
+        "Median_Code_Size":[
+            {
+                "Median_LOC":500,
+                "Median_Loops":1,
+                "Median_Condition":1,
+                "Median_Tables":1  ,
+                "Median_Variables":50
+            }
+        ],
+        "Fixed_Parameters":[
+            {
+                "Cost_Point":300, 
+                "Man_Hour":1
+            }
+        ],
+        "Project_Summary":[
+            {
+                "Team_Size":2,
+                "Available_Budget":100,
+                "Hourly_Rate":26,
+                "Time_Window":100
+            }
+        ]
+    }
+]

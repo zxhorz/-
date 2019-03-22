@@ -1,0 +1,31 @@
+[
+  {
+    "id": "Build Report Content",
+    "label": "Build Report Content"
+  },
+  {
+    "id": "Error Handling",
+    "label": "Error Handling"
+  },
+  {
+    "id": "Print Footer",
+    "label": "Print Footer"
+  },
+  {
+    "id":"Print Heading",
+    "label": "Print Heading"
+  },
+    {
+    "id":"Print Record Line",
+    "label": "Print Record Line"
+  },  {
+    "id":"Program Exit",
+    "label": "Program Exit"
+  },  {
+    "id":"Write Report Stream",
+    "label": "Write Report Stream"
+  },  {
+    "id":"Other",
+    "label": "Other"
+  }
+]

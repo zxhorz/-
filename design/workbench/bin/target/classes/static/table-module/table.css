@@ -1,0 +1,38 @@
+.tableContent .contentLeft{
+     width: 27%;
+     float: left;
+}
+.contentLeft .contentLeftbottom{
+    margin-top: 8%;
+}
+.contentLeft .contentLeftbottom .tages{
+    text-align: left;
+}
+.tableContent .usedIn{
+    float: left;
+    width: 38%;
+    margin-left: 4%;
+    height: 90%;
+}
+.tableContent .contentRight{
+    float: left;
+    width: 27%;
+    margin-left: 4%;
+}
+.comments{
+    text-align: left;
+}
+.contentRightbody .commentsTab{
+    margin-left: 2%;
+}
+/* .contentRight .contentRightbody{
+    width: 90%;
+} */
+.pageBtn{
+    height: 50px;
+    width: 50px;
+}
+/* .txtInfo{
+    color:black;
+    text-decoration:underline;
+} */

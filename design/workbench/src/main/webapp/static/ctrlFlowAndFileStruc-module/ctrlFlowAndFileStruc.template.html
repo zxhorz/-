@@ -1,0 +1,57 @@
+<div id="ctrlAndFileStru" class="detailHeader">
+	<div class="pro_doc_op">
+		<a class="download" href="javascript:void(0);" ng-click="printCurDoc()">
+			<i class="fa fa-print iconColorGreen" aria-hidden="true" title="Print&nbsp;{{detailNav[selectedTab].name|lowercase}}"></i>
+		</a>
+		<a class="download" href="javascript:void(0);" ng-click="downloadCurDoc()">
+			<i class="fa fa-download iconColorGreen" aria-hidden="true" title="Download&nbsp;{{detailNav[selectedTab].name|lowercase}}"></i>
+		</a>
+	</div>
+	<ul class="nav nav-tabs detailNav">
+		<li role="presentation" class="ctrlAndFileStruTab" ng-repeat="detailNavInfo in detailNav" id="{{detailNavInfo.name}}">
+			<a class="text" ng-click="detailTable($event,$index)" ng-show="checkNav(detailNavInfo.name)">{{detailNavInfo.name}}</a>
+		</li>
+	</ul>
+</div>
+
+<div id="controlFlow" class="ctrlFileTabItem" ng-show="selectedTab===0">
+	<div class="selectBox" ng-show="showSelectedSvg">
+		<select ng-model="selectedSvg" ng-options="x.graphName as x.graphName for x in controlFlowSvgMap" ng-change='changeSvg()'></select>
+		<i id='autoLinkIcon' class="btn btn-xs fa fa-exchange" aria-hidden="true" ng-click="autoLink()"></i>
+	</div>
+	<div id='svgclass' ng-show="showSelectedSvg"></div>
+</div>
+
+<div id="fileStructure" class="ctrlFileTabItem" ng-show="selectedTab===1">
+	<ul id="tree" class="ztree" style="height:500px; overflow:auto"></ul>
+</div>
+
+
+<div id="dependency" class="ctrlFileTabItem" ng-show="selectedTab===2">
+	<div id="dependencySvg" ng-class="{'depSvg' : isMaximize}">
+		<svgd3-directive></svgd3-directive>
+	</div>
+	<div id="dependencyTable" ng-class="{'depTable' : isMaximize}" ng-show="isMaximize">
+		<table class="table mb0">
+			<thead class="tableThead">
+				<tr>
+					<th class="textAlignLeft" ng-repeat="item in DependenceTableThead">{{item}}</th>
+				</tr>
+			</thead>
+			<tbody class="depTbody tableTbody">
+				<tr class="tableThead" ng-repeat="items in DependenceTable">
+					<td class="textAlignLeft" ng-repeat="item in items">{{item}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="dependencyTxt" ng-show="!isMaximize && DependenceTable.length>0">
+		<p class="textAlignLeft" ng-repeat="items in DependenceTable" ng-show="items[3]>0">
+			<strong>{{selectedProgram}}</strong>
+			<span> &lt;{{items[1]}}&gt; </span>
+			<strong>{{items[3]}}</strong>
+			<span>{{items[0]}}<span ng-show="items[3]>1">s</span>:</span></br>
+			<span class="dependencyName">{{items[2]}}</span>
+		</p>
+	</div>
+</div>

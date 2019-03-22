@@ -1,0 +1,16 @@
+<div class="gridsWrap" ng-show="isGridStyle">
+    <ul class="sortableGrids">     
+        <li ng-repeat="grid in grids" class="myGrid">
+            <div class="panel panel-info" class="myGridContainer">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{grid.title}}</h3>
+                </div>
+                <div class="panel-body">
+                    <pie-chart-directive includein={{belongingWindow}} tabtitle={{grid.title}}></pie-chart-directive>
+                    <smart-table-directive></smart-table-directive>
+                    <!--<d3-directive includein={{belongingWindow}} tabtitle={{currentTitle}} parentistab=false></d3-directive>-->
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

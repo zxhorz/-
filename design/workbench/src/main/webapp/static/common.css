@@ -1,0 +1,151 @@
+.btn:focus, .btn.focus, .btn:active:focus,.btn:active.focus, .btn.active:focus, .btn.active.focus, input:focus, input:active, select:focus, select:active:focus{outline:none;}
+.titleTxt{
+  background-color: #DAE7F8;
+  margin: 0px;
+  padding-left: 22px;
+  display:flex;
+  align-items:center;
+  margin-bottom: 16px;
+  color: #11468C;
+  border-radius: 4px 4px 0px 0px;
+}
+.content{
+  height: 100%;
+  width: 98%;
+  background-color: white;
+  margin: 0 auto;
+  padding-top: 2%;
+  box-shadow: 0px 4px 7px #C6CACD;
+  border-radius: 4px;
+  overflow: auto;
+}
+.contentBox{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.btnColor,.btnColor:focus{
+  background-color: #157FFF;
+  color: white;
+}
+.btnColor:hover{
+  color: white;
+  background-color: #0077D2;
+}
+input[type=text]{
+  border: 1px solid #ddd;
+}
+input[type=checkbox]{
+  margin-right: 8px;
+}
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
+  font-size: 12px;
+}
+input:-moz-placeholder,textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  font-size: 12px;
+}
+input::-moz-placeholder, textarea::-moz-placeholder{ /* Mozilla Firefox 19+ */
+  font-size: 12px;
+}
+input:-ms-input-placeholder ,textarea:-ms-input-placeholder{ /* Internet Explorer 10+ */
+  font-size: 12px;
+}
+.linkfont{
+  color:black;
+  text-decoration: underline;
+  margin-left:50px
+}
+.floatLeft{
+  float: left;
+}
+.floatright{
+  float: right;
+}
+table tbody tr:nth-child(odd){
+  background-color: #fff;
+}
+table tbody tr:nth-child(even){
+  background-color: #F5F5F5;
+}
+
+.clearfix:after{
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.clearfix {
+  zoom: 1;
+}
+.autoLink{
+	color:#eef1f5;
+    background-color: #5e9ae6;
+}
+svg .svgLink{
+  fill: #5e9ae6;
+}
+.modal-header h3{
+  float: left;
+  background-color: #1591f3;
+}
+.modal-open .modal{
+  overflow: hidden;
+}
+.iconDef{
+  color: #157FFF;
+  cursor: pointer;
+}
+.iconDef:hover{
+  color: #007800;
+}
+.iconColorGreen:hover{
+  color: #007800;
+}
+.iconColorRed:hover{
+  color: red;
+}
+.colorRed{
+  color: red;
+}
+.colorGreen{
+  color: green;
+}
+table tbody tr.borderBottom{
+  border-bottom: 1px solid #ddd;
+}
+fieldset{
+  position: relative;
+  margin-bottom: 10px;
+}
+fieldset .star{
+  position: absolute;
+  color: red;
+  right: -16px;
+  top: 8px;
+}
+.inputModal{
+  width: 100%;
+  padding: 0 10px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid rgb(169, 169, 169);
+}
+.defCursor{
+  cursor: default;
+}
+.textAlignLeft{
+  text-align:left;
+  word-wrap: break-word;
+  word-break: normal;
+}
+.tableThead{
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.tableTbody{
+  max-height: 450px;
+  display: block;
+  overflow: auto;
+}
