@@ -262,3 +262,7 @@ div#order-standard_cart input {
     vertical-align: middle;
     line-height: 28px;
 }
+
+.modal-content {
+    background-color: #48405a;
+}

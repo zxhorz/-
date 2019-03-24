@@ -16,7 +16,7 @@ angular.module('studentInfoModule')
         }
         return studentInfoModal;
     })
-.controller('studentInfoCtrl',function ($scope,$http,$state,$rootScope,$timeout,studentId){
+.controller('studentInfoCtrl',function ($scope,$http,$state,$rootScope,$modalInstance,$timeout,studentId){
 
 			$http({
 				method: 'GET',
@@ -62,6 +62,9 @@ angular.module('studentInfoModule')
 			});
 		}
 
+        $scope.close = function() {
+            $modalInstance.close();
+        }
 
 
 	});

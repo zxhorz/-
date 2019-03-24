@@ -1,0 +1,21 @@
+<nav class="navbar navbar-inverse" ng-class="{'customNav':config.isCustom,'fileManagerNav':!config.isCustom}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9 col-md-8 hidden-xs">
+                <!--<div ng-show="!config.breadcrumb">-->
+                    <!--<a class="navbar-brand hidden-xs ng-binding" href="">angular-{{"filemanager" | translate}}</a>-->
+                <!--</div>-->
+            </div>
+            <div class="col-sm-3 col-md-4">
+                <div class="navbar-collapse">
+                    <div class="navbar-form navbar-right text-right">
+                        <button class="btn btn-flat btn-sm" ng-click="close()" ng-show="!config.isCustom" title="Close">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
