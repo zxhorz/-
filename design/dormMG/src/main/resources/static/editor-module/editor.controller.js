@@ -2,7 +2,7 @@
     'use strict';
     var app = angular.module('editorModule', []);
 
-    app.controller('editorController', function ($scope, $http, $rootScope, $state) {
+    app.controller('editorController', function ($scope, $http, $rootScope, $state,$timeout) {
         $scope.tinymceModel = '';
 
         $scope.cancel = function () {
@@ -26,7 +26,10 @@
                 }).success(function (data) {
                     if (data.message === 'S') {
                         $('#modalAjax .loader').fadeOut();
-                        $state.go('notice');
+                        $scope.onModel.modelShow('success','发布成功')
+                        $timeout(function() {
+                            $state.go('notice');
+                        },1500)
                     }
                 }).error(function (data) {
                     $('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');

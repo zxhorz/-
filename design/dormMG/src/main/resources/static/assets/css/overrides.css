@@ -256,3 +256,9 @@ div#order-standard_cart input {
 .modal-backdrop {
     z-index: 0;
 }
+
+.form-group div.ng-binding {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 28px;
+}

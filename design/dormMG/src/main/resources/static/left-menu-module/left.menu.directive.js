@@ -2,7 +2,7 @@
     'use strict';
     var app = angular.module('DormManagerApp');
 
-    app.directive('leftMenuModule', ['$parse', 'dromManagerConfig', function($parse, dromManagerConfig) {
+    app.directive('leftMenuDirective', ['$parse', 'dromManagerConfig', function($parse, dromManagerConfig) {
         return {
             restrict: 'EA',
             templateUrl: 'left-menu-module/left-menu.html',
@@ -20,6 +20,15 @@
             $scope.switchToNotice = function(){
                 $state.go('notice')
             }
+            $scope.switchToMyInfo = function(){
+                $state.go('myInfo')
+            }
+
+
+            $rootScope.switchToPage = function(key){
+                $state.go(key)
+            }
+
 //            var element = angular.element('.menu .item');
 //            angular.element('.menu .item').bind('click',function() {
 //                if (jQuery(this).hasClass("active")) {

@@ -1,19 +1,19 @@
 <div class="left-menu">
     <header class="header">
-        <a class="navbar-brand" href="/index.html" title="蘑菇云">MGY</a>
+        <a class="navbar-brand" href="/index.html" title="蘑菇云">DORGM</a>
     </header>
     <div class="left-menu-wrap">
         <section class="menu">
             <ul>
                 <li class="item active">
-                    <a href="#" ng-click="switchToInfo()"><i class="alico icon-menu"></i>个人中心</a>
+                    <a href="#" ng-click="switchToPage('info')"><i class="alico icon-menu"></i>个人中心</a>
                 </li>
 
                 <li class="item ">
-                    <a href="javascript:;"><i class="alico icon-ecs"></i>我的套餐<span class="fa fa-caret-down"></span></a>
+                    <a href="javascript:;"><i class="alico icon-ecs"></i>管理<span class="fa fa-caret-down"></span></a>
                     <ul>
-                        <li><a href="clientarea.php?action=services">查看套餐&账号</a></li>
-                        <li><a href="cart.php">购买套餐</a></li>
+                        <li><a href="#" ng-click="switchToPage('dorm')">寝室管理</a></li>
+                        <li><a href="#" ng-click="switchToPage('student')">学生管理</a></li>
                         <li><a href="http://mgyvpn.com/index.php?m=geninvoices">提前续费</a></li>
                         <li><a href="knowledgebase.php?action=displaycat&catid=3">使用教程</a></li>
                         <!--            <li><a target="_blank" href="http://ssblog.me/2017/09/02/new-server-list/">免费提供</a></li>  -->
@@ -43,14 +43,14 @@
                     <a href="javascript:;"><i class="alico icon-account-2"></i>账户管理<span class="fa fa-caret-down"></span>
                     </a>
                     <ul>
-                        <li><a href="clientarea.php?action=details">我的资料</a></li>
+                        <li><a href="#" ng-click="switchToPage('myInfo')">我的资料</a></li>
                         <!--       <li><a href="clientarea.php?action=contacts">子联系人</a></li>	 -->
-                        <li><a href="clientarea.php?action=changepw">更改密码</a></li>
+                        <li><a href="#" ng-click="switchToPage('changePw')">更改密码</a></li>
                         <li><a href="clientarea.php?action=emails">站内消息</a></li>
                     </ul>
                 </li>
                 <li class="item ">
-                    <a href="#" ng-click="switchToNotice()">
+                    <a href="#" ng-click="switchToPage('notice')">
                         <i class="fa fa-bell"></i>寝室公告
                     </a>
                 </li>

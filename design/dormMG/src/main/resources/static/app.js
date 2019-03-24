@@ -29,9 +29,29 @@
                 url: 'notice/view',
                 templateUrl: 'notice-view-module/notice-view.html',
                 controller: 'noticeViewController',
-                params:{
-                    notice:''
+                params: {
+                    notice: ''
                 }
+            })
+            .state('myInfo', {
+                url: 'myInfo',
+                templateUrl: 'myInfo-module/myInfo.html',
+                controller: 'myInfoController'
+            })
+            .state('changePw', {
+                url: 'myInfo/changePw',
+                templateUrl: 'myInfo-module/changePw.html',
+                controller: 'changePwController'
+            })
+            .state('dorm', {
+                url: '/dorm',
+                templateUrl: 'dorm-module/dorm.html',
+                controller: 'dormController'
+            })
+            .state('student', {
+                url: '/student',
+                templateUrl: 'student-module/student.html',
+                controller: 'studentController'
             })
     }]);
 })(window, angular);

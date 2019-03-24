@@ -149,9 +149,9 @@ public class LoginController {
 
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDto<String> changePassword(@Valid LoginDto loginDto, BindingResult result) {
+    public ResultDto<String> changePassword(LoginDto loginDto) {
         loginService.decryptLoginDto(loginDto);
-        return loginService.changePassword(loginDto.getUserName(),loginDto.getNewPassword());
+        return loginService.changePassword(loginDto);
     }
 
     @RequestMapping(value = "/validateCode", method = RequestMethod.GET)

@@ -185,7 +185,7 @@ public class LoginService {
             user.setTime("0");
             userRepository.save(user);
             try {
-                sendPasswordAndActivationCode(activationCode, userName+EMAIL_SUFFIX);
+                sendPasswordAndActivationCode(activationCode, userName + EMAIL_SUFFIX);
             } catch (Exception e) {
                 resultDto.setCode("E");
                 resultDto.setData("邮件发送失败");
@@ -201,15 +201,21 @@ public class LoginService {
         return resultDto;
     }
 
-    public ResultDto<String> changePassword(String userName, String newPassword) {
+    public ResultDto<String> changePassword(LoginDto loginDto) {
+        String userName = loginDto.getUserName();
+        String password = loginDto.getPassword();
+        String newPassword = loginDto.getNewPassword();
         User user = userRepository.findUserByName(userName);
         if (user != null) {
-            user.setPassword(PasswordUtil.MD5(newPassword));
-            user.setState(UserState.ACTIVE.getState());
-            user.setActivationCode(null);
-            user.setTime(null);
-            userRepository.save(user);
-            return ResultDtoFactory.toAck("S", "密码修改成功");
+            if (PasswordUtil.MD5(password).equals(user.getPassword())) {
+                user.setPassword(PasswordUtil.MD5(newPassword));
+                user.setState(UserState.ACTIVE.getState());
+                user.setActivationCode(null);
+                user.setTime(null);
+                userRepository.save(user);
+                return ResultDtoFactory.toAck("S", "密码修改成功");
+            } else
+                return ResultDtoFactory.toAck("F", "旧密码错误");
         } else {
             return ResultDtoFactory.toAck("F", "密码修改失败");
         }
@@ -233,8 +239,7 @@ public class LoginService {
             user.setActivationCode(null);
             user.setTime(null);
             return ResultDtoFactory.toAck("S");
-        }
-        else
+        } else
             return ResultDtoFactory.toAck("F", "验证码错误");
     }
 
@@ -320,7 +325,7 @@ public class LoginService {
         Session mailSession = Session.getDefaultInstance(props, authentication);
 
         Message msg = new MimeMessage(mailSession);
-        msg.setFrom(new InternetAddress("DormManager<"+fromUserName+">"));
+        msg.setFrom(new InternetAddress("DormManager<" + fromUserName + ">"));
         msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
         msg.setSubject("Dorm Manager Activation Email");
         String content = "<h1>您的邮箱绑定的用户正在找回密码，请不要回复本邮件，如非本人操作，请勿理会。</h1>" +
