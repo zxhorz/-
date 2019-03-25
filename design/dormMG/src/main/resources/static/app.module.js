@@ -7,7 +7,7 @@ angular.module('DormManagerApp', [
     'noticeViewModule',
     'editorModule',
     'myInfoModule',
-    'studentInfoModule',
+//    'studentInfoModule',
     'modelshowModule',
     'changePwModule',
     'pascalprecht.translate',

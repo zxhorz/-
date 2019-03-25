@@ -100,6 +100,7 @@
                 }).success(function (data) {
                     if (data.message === 'S') {
                         initTable.ajax.reload();
+
                     } else {
                         console.log(error)
                     }

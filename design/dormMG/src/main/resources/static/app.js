@@ -51,7 +51,10 @@
             .state('student', {
                 url: '/student',
                 templateUrl: 'student-module/student.html',
-                controller: 'studentController'
+                controller: 'studentController',
+                params: {
+                    search: ''
+                }
             })
     }]);
 })(window, angular);

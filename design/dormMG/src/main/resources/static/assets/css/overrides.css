@@ -266,3 +266,12 @@ div#order-standard_cart input {
 .modal-content {
     background-color: #48405a;
 }
+
+.modal-dialog section#main-body {
+    margin: 0px 5px;
+}
+
+nav.navbar.navbar-inverse {
+    border-radius: 0;
+    border: 0;
+}

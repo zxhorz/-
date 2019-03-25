@@ -29,6 +29,7 @@
                 $state.go(key)
             }
 
+
 //            var element = angular.element('.menu .item');
 //            angular.element('.menu .item').bind('click',function() {
 //                if (jQuery(this).hasClass("active")) {

@@ -1,3 +1,3 @@
-'use strict';
-
-angular.module('studentInfoModule', ['ui.bootstrap']);
+//'use strict';
+//
+//angular.module('studentInfoModule', ['ui.bootstrap']);
