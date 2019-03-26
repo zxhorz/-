@@ -4,6 +4,9 @@ import com.zxh.dormMG.Repository.DormRepository;
 import com.zxh.dormMG.Repository.StudentRepository;
 import com.zxh.dormMG.domain.Dorm;
 import com.zxh.dormMG.domain.Student;
+import com.zxh.dormMG.dto.ResultDto;
+import com.zxh.dormMG.dto.ResultDtoFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,8 @@ import java.util.List;
 
 @Service
 public class DormService {
+    private static final Logger logger = Logger.getLogger(DormService.class);
+
     @Autowired
     private DormRepository dormRepository;
 
@@ -29,5 +34,35 @@ public class DormService {
             dorm.setStudents(students);
         }
         return list;
+    }
+
+    public List<Student> dormStudents(String id) {
+        Dorm dorm = new Dorm();
+        dorm = dormRepository.findDormById(id);
+        return dorm.getStudents();
+    }
+
+    public ResultDto<String> dormDelete(String id) {
+        Dorm dorm = dormRepository.findDormById(id);
+        if(dorm != null) {
+            List<Student> students = dorm.getStudents();
+            if (students != null && students.size() == 0) {
+                try {
+                    dormRepository.delete(dorm);
+                    logger.info("dorm deleted successfully");
+                    return ResultDtoFactory.toAck("S");
+                } catch (Exception e) {
+                    logger.error(e.getMessage());
+                    return ResultDtoFactory.toAck("F","删除失败");
+                }
+            }
+            else if (students.size() > 0){
+                return ResultDtoFactory.toAck("F","寝室仍有学生居住");
+            }
+
+
+        }
+        return ResultDtoFactory.toAck("F","删除失败");
+
     }
 }

@@ -11,6 +11,6 @@ import javax.transaction.Transactional;
 @Transactional
 @Repository
 public interface DormRepository extends BaseRepository<Dorm,Long> {
-    @Query("select new Dorm(n.id,n.volume) from Dorm n where n.id = :query")
+    @Query("select n from Dorm n where n.id = :query")
     Dorm findDormById(@Param("query") String id);
 }

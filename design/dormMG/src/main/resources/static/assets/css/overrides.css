@@ -275,3 +275,6 @@ nav.navbar.navbar-inverse {
     border-radius: 0;
     border: 0;
 }
+tbody {
+    color: white;
+}
