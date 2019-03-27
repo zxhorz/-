@@ -1,7 +1,7 @@
 (function (angular, $) {
 	'use strict';
 	var app = angular.module('dormModule', [])
-		.controller('dormController', function ($scope, $state, $compile, $http,$modal) {
+		.controller('dormController', function ($scope, $state, $compile, $http, $modal) {
 			//	    var data = [];
 
 			var alreadyReady = false; // The ready function is being called twice on page load.
@@ -48,12 +48,12 @@
 						"data": null,
 						"render": function (data, type, row, meta) {
 							var html = data['volume'] - data['remain'];
-							html = "<a href='#' ng-click='openDorm($event)'>"+html+" </a>"
+							html = "<a href='#' ng-click='openDorm($event)'>" + html + " </a>"
 							return html;
 						},
-                        "fnCreatedCell": function (td, cellData, rowData, row, col) {
-                        	$compile(td)($scope);
-                        }
+						"fnCreatedCell": function (td, cellData, rowData, row, col) {
+							$compile(td)($scope);
+						}
 					},
 					{
 						"data": "remain"
@@ -70,27 +70,28 @@
 					}
 				],
 				"rowCallback": function (row, data) {
-//					$('td:eq(0)', row).on('click', function () {
-//						$scope.viewDorm(data);
-//					});
-//					$('td:eq(1)', row).on('click', function () {
-//						$scope.viewDorm(data);
-//					});
+					//					$('td:eq(0)', row).on('click', function () {
+					//						$scope.viewDorm(data);
+					//					});
+					//					$('td:eq(1)', row).on('click', function () {
+					//						$scope.viewDorm(data);
+					//					});
 				}
 			});
 			$(".dataTables_filter input").attr("placeholder", "输入要搜索的内容...");
+			$(".dataTables_filter input").val("");
 
 			alreadyReady = true;
 
 			var table = $('#tableEmailsList').removeClass('hidden').DataTable();
 			table.order(0, 'asc');
-			table.draw();
+			table.search("").draw();
 			$('#tableLoading').addClass('hidden');
 
 			var table = $('#tableEmailsList').DataTable();
 
 			$scope.openDorm = function ($event) {
-//			    var data = table.row($event.target.parentElement).data();
+				//			    var data = table.row($event.target.parentElement).data();
 				// //                var data = table.row(this.parentElement).data();
 				//                 $state.go('notice/view', {
 				//                     notice: data
@@ -113,7 +114,7 @@
 					if (data.message === 'S') {
 						initTable.ajax.reload();
 					} else {
-						$scope.onModel.modelShow('error',data.data);
+						$scope.onModel.modelShow('error', data.data);
 					}
 				}).error(function (data) {
 					$scope.onModel.modelShow('error');
@@ -121,26 +122,33 @@
 			}
 
 			$scope.openDorm = function ($event) {
-			    var data = table.row($event.target.parentElement.parentElement).data();
+				var data = table.row($event.target.parentElement.parentElement).data();
 				$modal.open({
 					backdrop: 'static',
 					templateUrl: 'dorm-module/dorm.student.html',
 					controller: 'dormStudentCtrl',
 					resolve: {
-						students: function() {
-						    return data['students']
+						students: function () {
+							return data['students']
 						}
 					}
 				})
 			}
 
-		}).controller('dormStudentCtrl', function ($scope, $state,$modalInstance, $http, students) {
-            $scope.close = function () {
-                $modalInstance.close();
-            }
-            if(students){
-                $scope.students=students;
-            }
+		}).controller('dormStudentCtrl', function ($scope, $state, $modalInstance, $http, students) {
+
+			$scope.switchToStudent = function (id) {
+				$state.go('student', {
+					search: id
+				});
+			}
+
+			$scope.close = function () {
+				$modalInstance.close();
+			}
+			if (students) {
+				$scope.students = students;
+			}
 		});
 
 

@@ -12,23 +12,25 @@
                         <div class="row">
                             <div class="form-group col-xs-6 col-sm-6">
                                 <label for="studentId" class="control-label">学号</label>
-                                <div type="text" name="studentId" id="studentId" class="form-control" >{{student.id}}</div>
+                                <div type="text" name="studentId" id="studentId" class="form-control">{{student.id}}</div>
                             </div>
 
                             <div class="form-group col-xs-6  col-sm-6">
                                 <label for="studentName" class="control-label">姓名</label>
-                                <div type="text" name="studentName" id="studentName" class="form-control" >{{student.name}}</div>
+                                <div type="text" name="studentName" id="studentName" class="form-control">{{student.name}}</div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="inputEmail" class="control-label">电子邮箱</label>
-                            <input type="email" name="email" id="inputEmail"  class="form-control" ng-model="student.email" required="required" autocomplete="off">
+                            <input type="email" name="email" id="inputEmail" class="form-control" ng-model="student.email"
+                                   required="required" autocomplete="off">
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPhone" class="control-label">联系电话</label>
-                            <input type="tel" name="tel" id="inputTel" class="form-control" ng-model="student.tel" required="required" autocomplete="off">
+                            <label for="inputTel" class="control-label">联系电话</label>
+                            <input type="tel" name="tel" id="inputTel" class="form-control" ng-model="student.tel"
+                                   required="required" autocomplete="off">
                         </div>
 
 
@@ -38,17 +40,24 @@
 
                         <div class="form-group">
                             <label for="inputBranch" class="control-label">分院</label>
-                            <input type="text" name="branch" id="inputBranch" class="form-control" ng-model="student.branch" required="required" autocomplete="off">
+                            <input type="text" name="branch" id="inputBranch" class="form-control" ng-model="student.branch"
+                                   required="required" autocomplete="off">
                         </div>
+
+
 
                         <div class="form-group">
                             <label for="inputDorm" class="control-label">寝室</label>
-                            <div type="text" name="dorm" id="inputDorm" class="form-control">{{student.dorm}}</div>
+                            <select name="dorm" id="inputDorm" ng-model="student.dorm" class="form-control selectpicker">
+                                <option ng-repeat="item in dorms" value="{{item.id}}" >{{item.id}}</option>
+                            </select>
+                            <!--<div type="text" name="dorm" id="inputDorm" class="form-control">{{student.dorm}}</div>-->
                         </div>
 
                         <div class="form-group">
                             <label for="inputClass" class="control-label">班级</label>
-                            <input type="text" name="class" id="inputClass" class="form-control" ng-model="student.studentClass" required="required" autocomplete="off">
+                            <input type="text" name="class" id="inputClass" class="form-control" ng-model="student.studentClass"
+                                   required="required" autocomplete="off">
                         </div>
 
                     </div>

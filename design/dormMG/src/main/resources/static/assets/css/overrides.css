@@ -18,6 +18,7 @@ h5,
 h6 {
   font-family: 'HanHei SC', 'PingFang SC', 'Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Microsoft YaHei', Raleway, Verdana, Tahoma, serif;
   font-weight: 300;
+  color:white;
 }
 
 .navbar-main .navbar-brand {
@@ -32,7 +33,7 @@ h6 {
   text-align: center;
   margin-top: 13px;
   margin-left: 0 !important;
-  margin-right: 10px;
+          margin-right: 10px;
   font-family: Raleway, sans-serif;
 }
 
@@ -271,6 +272,10 @@ div#order-standard_cart input {
     margin: 0px 5px;
 }
 
+.modal-title {
+    margin: 0% 3%;
+}
+
 nav.navbar.navbar-inverse {
     border-radius: 0;
     border: 0;
@@ -278,3 +283,4 @@ nav.navbar.navbar-inverse {
 tbody {
     color: white;
 }
+

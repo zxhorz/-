@@ -32,6 +32,12 @@ public class DormController {
         return new DataTableDto<>(dormService.dormList());
     }
 
+    @RequestMapping(value = "/availableDormList", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultDto<List<Dorm>> availableDormList() {
+        return ResultDtoFactory.toAck("S",dormService.availableDormList());
+    }
+
     @ApiOperation(value = "get dorm student")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),

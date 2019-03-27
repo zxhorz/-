@@ -73,7 +73,7 @@
 
             var table = $('#tableEmailsList').removeClass('hidden').DataTable();
             table.order(0, 'desc');
-            table.draw();
+            table.search("").draw();
             $('#tableLoading').addClass('hidden');
 
             var table = $('#tableEmailsList').DataTable();

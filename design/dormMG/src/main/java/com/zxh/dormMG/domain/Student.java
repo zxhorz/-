@@ -29,10 +29,13 @@ public class Student {
     @Column(name = "class")
     private String studentClass;
 
+    @Column(name = "dorm_pos")
+    private String pos;
+
     public Student() {
     }
 
-    public Student(String id, String name, String dorm, String branch, String tel, String email, String studentClass) {
+    public Student(String id, String name, String dorm, String branch, String tel, String email, String studentClass, String pos) {
         this.id = id;
         this.name = name;
         this.dorm = dorm;
@@ -40,6 +43,7 @@ public class Student {
         this.tel = tel;
         this.email = email;
         this.studentClass = studentClass;
+        this.pos = pos;
     }
 
     public String getId() {
@@ -96,5 +100,13 @@ public class Student {
 
     public void setStudentClass(String studentClass) {
         this.studentClass = studentClass;
+    }
+
+    public String getPos() {
+        return pos;
+    }
+
+    public void setPos(String pos) {
+        this.pos = pos;
     }
 }

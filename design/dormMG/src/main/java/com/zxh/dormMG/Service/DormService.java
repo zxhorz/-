@@ -65,4 +65,15 @@ public class DormService {
         return ResultDtoFactory.toAck("F","删除失败");
 
     }
+
+    public List<Dorm> availableDormList() {
+        Iterable<Dorm> dorms = dormRepository.findAll();
+        List<Dorm> list = new ArrayList<>();
+        for (Dorm dorm:dorms) {
+            if(dorm.getRemain() > 0)
+                list.add(dorm);
+        }
+
+        return list;
+    }
 }

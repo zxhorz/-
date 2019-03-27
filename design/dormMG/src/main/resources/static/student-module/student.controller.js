@@ -51,6 +51,9 @@
                     "data": "dorm"
                 },
                 {
+                    "data": "pos"
+                },
+                {
                     "data": null,
                     "render": function (data, type, row, meta) {
                         var html = "<button class='btn btn-success' ng-click = showStudentInfo(" + data['id'] + ")>查看信息</button>"
@@ -77,7 +80,7 @@
 
         var table = $('#tableEmailsList').removeClass('hidden').DataTable();
         table.order(0, 'asc');
-        table.draw();
+        table.search(search).draw();
         $('#tableLoading').addClass('hidden');
 
         var table = $('#tableEmailsList').DataTable();
@@ -137,6 +140,14 @@
 
 
     }).controller('studentInfoCtrl', function ($scope, $http, $state, $rootScope, $modalInstance, $timeout, studentId) {
+		$http({
+			method: 'GET',
+			url: '/dorm/dormList',
+		}).success(function (data) {
+			$scope.dorms = data.aaData;
+		}).error(function (data) {
+			console.log("error")
+		});
 
         $http({
             method: 'GET',
@@ -147,7 +158,6 @@
         }).success(function (data) {
             if (data.message === 'S') {
                 $scope.student = data.data;
-
             }
         }).error(function (data) {
 
