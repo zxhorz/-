@@ -22,8 +22,15 @@
         <script type="text/javascript" charset="utf8" src="/assets/js/dataTables.responsive.min.js"></script>
 
         <h3 class="headline">
-            寝室管理
+            学生管理
+            <div ng-click="addStudent()">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </div>
+            <div ng-click="importStudents()">
+                <span class="glyphicon glyphicon-import"></span>
+            </div>
         </h3>
+
         <div class="table-container clearfix">
 
                     <table id="tableEmailsList" class="table table-list dataTable no-footer dtr-inline"

@@ -5,6 +5,7 @@ import com.zxh.dormMG.domain.Notice;
 import com.zxh.dormMG.domain.Student;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
+import com.zxh.dormMG.dto.StudentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,19 +20,17 @@ public class MyInfoController {
 
     @RequestMapping(value = "/myInfoSave", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDto<String> myInfoSave(Student student) {
-        if(myInfoService.myInfoSave(student))
-            return ResultDtoFactory.toAck("S");
-        return ResultDtoFactory.toAck("F");
+    public ResultDto<String> myInfoSave(StudentDto studentDto) {
+        return (myInfoService.myInfoSave(studentDto));
     }
 
     //
     @RequestMapping(value = "/myInfoGet", method = RequestMethod.GET)
     @ResponseBody
-    public ResultDto<Student> myInfoGet(@RequestParam("id") String id) {
+    public ResultDto<StudentDto> myInfoGet(@RequestParam("id") String id) {
         Student student = myInfoService.myInfoGet(id);
-        if(student != null)
-            return ResultDtoFactory.toAck("S",student);
+        if (student != null)
+            return ResultDtoFactory.toAck("S", new StudentDto(student));
         else
             return ResultDtoFactory.toAck("F");
     }

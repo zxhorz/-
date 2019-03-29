@@ -76,4 +76,14 @@ public class DormService {
 
         return list;
     }
+
+    public boolean dormaAdd(Dorm dorm) {
+        try {
+            dormRepository.save(dorm);
+            return true;
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return false;
+        }
+    }
 }

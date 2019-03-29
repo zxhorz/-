@@ -284,3 +284,7 @@ tbody {
     color: white;
 }
 
+[ng-click] .click{
+    cursor:pointer;
+}
+

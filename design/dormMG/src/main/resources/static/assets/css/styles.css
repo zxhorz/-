@@ -1059,10 +1059,10 @@ table.table-list thead th {
   border-color: #474252;
 }
 
-.table-list>tbody>tr:hover {
+/*.table-list>tbody>tr:hover {
   cursor: pointer;
   cursor: hand;
-}
+}*/
 
 .table-list>tbody>tr>td {
   background-color: #322e3a;

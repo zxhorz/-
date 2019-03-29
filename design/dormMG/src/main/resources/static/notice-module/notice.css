@@ -2,9 +2,14 @@ h3 div {
     display: inline;
     font-size: 15px;
     color: #ffffff;
+    margin: 5px;
 }
 
 h3 div :hover{
+    cursor: pointer;
+}
+
+tr>td:nth-child(2):hover {
     cursor: pointer;
 }
 

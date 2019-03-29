@@ -2,6 +2,7 @@ h3 div {
     display: inline;
     font-size: 15px;
     color: #ffffff;
+    margin: 5px;
 }
 
 h3 div :hover{

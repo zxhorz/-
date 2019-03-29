@@ -1,59 +1,37 @@
-package com.zxh.dormMG.domain;
+package com.zxh.dormMG.dto;
 
-import com.zxh.dormMG.Repository.DormRepository;
-import com.zxh.dormMG.dto.StudentDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zxh.dormMG.domain.Student;
 
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name = "student")
-public class Student {
+public class StudentDto {
 
-    @Autowired
-    @Transient
-    private DormRepository dormRepository;
-
-    @Id
-    @Column(name = "id", unique = true, nullable = false)
     private String id;
 
-    @Column(name = "name")
     private String name;
 
-//    @Column(name = "dorm")
-////    @ManyToOne(fetch = FetchType.EAGER)
-//    private String dormId;
+    private String dorm;
 
-//    @Transient
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Dorm dorm;
-
-    @Column(name = "branch")
     private String branch;
 
-    @Column(name = "tel")
     private String tel;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "class")
     private String studentClass;
 
-    @Column(name = "dorm_pos")
     private String pos;
 
-    public Student() {
+    public StudentDto() {
 
     }
 
-    public Student(String id) {
+    public StudentDto(String id) {
         this.id = id;
     }
 
-    public Student(String id, String name, Dorm dorm, String branch, String tel, String email, String studentClass, String pos) {
+    public StudentDto(String id, String name, String dorm, String branch, String tel, String email, String studentClass, String pos) {
         this.id = id;
         this.name = name;
         this.dorm = dorm;
@@ -64,17 +42,17 @@ public class Student {
         this.pos = pos;
     }
 
-    public Student(StudentDto studentDto) {
-        this.id = studentDto.getId();
-        this.name = studentDto.getName();
-        String dormId = studentDto.getDorm();
-        this.dorm = this.dormRepository.findDormById(dormId);
-        this.branch = studentDto.getBranch();
-        this.tel = studentDto.getTel();
-        this.email = studentDto.getEmail();
-        this.studentClass = studentDto.getStudentClass();
-        this.pos = studentDto.getPos();
+    public StudentDto(Student student) {
+        this.id = student.getId();
+        this.name = student.getName();
+        this.dorm = student.getDorm().getId();
+        this.branch = student.getBranch();
+        this.tel = student.getTel();
+        this.email = student.getEmail();
+        this.studentClass = student.getStudentClass();
+        this.pos = student.getPos();
     }
+
 
     public String getId() {
         return id;
@@ -140,17 +118,17 @@ public class Student {
         this.pos = pos;
     }
 
-    public Dorm getDorm() {
+    public String getDorm() {
         return dorm;
     }
 
-    public void setDorm(Dorm dorm) {
+    public void setDorm(String dorm) {
         this.dorm = dorm;
     }
 
     @Override
     public boolean equals(Object o) {
-        Student inItem = (Student) o;
+        StudentDto inItem = (StudentDto) o;
         return Objects.equals(id, inItem.getId());
     }
 

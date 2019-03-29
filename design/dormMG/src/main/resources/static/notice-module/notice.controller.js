@@ -59,9 +59,10 @@
                     }
                 ],
                 "rowCallback": function (row, data) {
-                    $('td:eq(0)', row).on('click', function () {
-                        $scope.viewNotice(data);
-                    });
+//                    $('td:eq(0)', row).on('click', function () {
+//                        $scope.viewNotice(data);
+//                    });
+//
                     $('td:eq(1)', row).on('click', function () {
                         $scope.viewNotice(data);
                     });
