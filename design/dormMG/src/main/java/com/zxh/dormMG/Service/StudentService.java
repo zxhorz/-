@@ -6,7 +6,6 @@ import com.zxh.dormMG.domain.Dorm;
 import com.zxh.dormMG.domain.Student;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
-import com.zxh.dormMG.dto.StudentDto;
 import com.zxh.dormMG.utils.FileUploadUtils;
 import com.zxh.dormMG.utils.FileUtils;
 import org.apache.log4j.Logger;
@@ -28,11 +27,11 @@ public class StudentService {
     @Autowired
     private DormRepository dormRepository;
 
-    public List<StudentDto> studentList() {
+    public List<Student> studentList() {
         Iterable<Student> students = studentRepository.findAll();
-        List<StudentDto> list = new ArrayList<>();
+        List<Student> list = new ArrayList<>();
         for (Student student : students) {
-            list.add(new StudentDto(student));
+            list.add(student);
         }
 
         return list;
@@ -60,15 +59,21 @@ public class StudentService {
         return null;
     }
 
-    public ResultDto<String> studentAdd(StudentDto studentDto) {
-        Student student = new Student(studentDto);
+    public ResultDto<String> studentAdd(Student student) {
         String id = student.getId();
-        Dorm dorm = student.getDorm();
-        if (!dorm.getStudents().contains(student)) {
-            if (dorm.getRemain() == 0)
-                return ResultDtoFactory.toAck("F", dorm.getId() + "寝室已满");
-        } else {
-            List<Student> students = dorm.getStudents();
+        String dormId = student.getDorm();
+
+        Student student1 = studentRepository.findStudentById(id);
+        if (student1 != null)
+            return ResultDtoFactory.toAck("F", "已存在该学号的学生");
+
+        Dorm dorm = dormRepository.findDormById(dormId);
+        List<Student> students = studentRepository.findStudentsByDorm(dorm.getId());
+        dorm.setStudents(students);
+
+        if (dorm.getRemain() == 0)
+            return ResultDtoFactory.toAck("F", dorm.getId() + "寝室已满");
+        else {
             List<String> positions = new ArrayList<>();
             for (int i = 1; i <= dorm.getVolume(); i++)
                 positions.add(i + "");
@@ -77,9 +82,6 @@ public class StudentService {
             }
             student.setPos(positions.get(0));
         }
-        Student student1 = studentRepository.findStudentById(id);
-        if (student1 != null)
-            return ResultDtoFactory.toAck("F", "已存在该学号的学生");
 
         try {
             studentRepository.save(student);

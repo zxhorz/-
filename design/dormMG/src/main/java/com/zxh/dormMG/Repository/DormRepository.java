@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 
 @Transactional
-@Repository
 public interface DormRepository extends BaseRepository<Dorm,Long> {
     @Query("select n from Dorm n where n.id = :query")
     Dorm findDormById(@Param("query") String id);

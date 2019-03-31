@@ -1,7 +1,7 @@
 (function (angular, $) {
 	'use strict';
 	var app = angular.module('studentModule', ['ui.bootstrap']);
-	app.controller('studentController', function ($scope, $state, $compile, $http, $modal, $stateParams) {
+	app.controller('studentController', function ($scope, $state, $compile, $http, $modal, $stateParams,$timeout) {
 		//	    var data = [];
 		var search = $stateParams.search;
 		var alreadyReady = false; // The ready function is being called twice on page load.
@@ -100,6 +100,22 @@
 				controller: 'studentAddCtrl', //modal对应的Controller
 				size: 'lg'
 			});
+
+			modal.result.then(function (result) {
+            	if (result == 'S') {
+            		$scope.onModel.modelShow('success', '添加成功');
+            		$timeout(function() {
+                        $state.reload();
+                    },1500)
+            	}else{
+            		$scope.onModel.modelShow('error', result);
+//            		$timeout(function() {
+//                        $state.reload();
+//                    },1500)
+            	}
+            }, function (reason) {
+            	//        	$state.reload();
+            })
 		}
 
 		$scope.studentDelete = function (id) {
@@ -210,7 +226,9 @@
 			}).success(function (data) {
 				if (data.message === 'S') {
 					$modalInstance.close('S')
-				} else {}
+				} else {
+				    $modalInstance.close(data.data)
+				}
 			}).error(function (data) {});
 		}
 

@@ -1,7 +1,6 @@
 package com.zxh.dormMG.domain;
 
 import com.zxh.dormMG.Repository.DormRepository;
-import com.zxh.dormMG.dto.StudentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -22,13 +21,12 @@ public class Student {
     @Column(name = "name")
     private String name;
 
-//    @Column(name = "dorm")
+    @Column(name = "dorm")
 ////    @ManyToOne(fetch = FetchType.EAGER)
-//    private String dormId;
-
+    private String dorm;
 //    @Transient
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Dorm dorm;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    private Dorm dorm;
 
     @Column(name = "branch")
     private String branch;
@@ -53,7 +51,7 @@ public class Student {
         this.id = id;
     }
 
-    public Student(String id, String name, Dorm dorm, String branch, String tel, String email, String studentClass, String pos) {
+    public Student(String id, String name, String dorm, String branch, String tel, String email, String studentClass, String pos) {
         this.id = id;
         this.name = name;
         this.dorm = dorm;
@@ -62,18 +60,6 @@ public class Student {
         this.email = email;
         this.studentClass = studentClass;
         this.pos = pos;
-    }
-
-    public Student(StudentDto studentDto) {
-        this.id = studentDto.getId();
-        this.name = studentDto.getName();
-        String dormId = studentDto.getDorm();
-        this.dorm = this.dormRepository.findDormById(dormId);
-        this.branch = studentDto.getBranch();
-        this.tel = studentDto.getTel();
-        this.email = studentDto.getEmail();
-        this.studentClass = studentDto.getStudentClass();
-        this.pos = studentDto.getPos();
     }
 
     public String getId() {
@@ -140,11 +126,11 @@ public class Student {
         this.pos = pos;
     }
 
-    public Dorm getDorm() {
+    public String getDorm() {
         return dorm;
     }
 
-    public void setDorm(Dorm dorm) {
+    public void setDorm(String dorm) {
         this.dorm = dorm;
     }
 

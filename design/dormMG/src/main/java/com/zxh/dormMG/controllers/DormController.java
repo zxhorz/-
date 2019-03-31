@@ -65,8 +65,8 @@ public class DormController {
             return ResultDtoFactory.toAck("F","寝室容量格式不正确");
         }
         Dorm dorm = new Dorm(id,vol);
-        if(dormService.dormaAdd(dorm));
+        if(dormService.dormaAdd(dorm))
             return ResultDtoFactory.toAck("S");
-//        return ResultDtoFactory.toAck("F","失败");
+        return ResultDtoFactory.toAck("F","失败");
     }
 }

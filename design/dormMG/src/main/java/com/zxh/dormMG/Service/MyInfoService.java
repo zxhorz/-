@@ -6,7 +6,6 @@ import com.zxh.dormMG.domain.Dorm;
 import com.zxh.dormMG.domain.Student;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
-import com.zxh.dormMG.dto.StudentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,22 +25,26 @@ public class MyInfoService {
         return studentRepository.findStudentById(id);
     }
 
-    public ResultDto<String> myInfoSave(StudentDto studentDto) {
-        Student student = new Student(studentDto);
+    public ResultDto<String> myInfoSave(Student student) {
         String id = student.getId();
-        Dorm dorm = student.getDorm();
+        String dormId = student.getDorm();
+
+        Dorm dorm = dormRepository.findDormById(dormId);
+        List<Student> students = studentRepository.findStudentsByDorm(dorm.getId());
+        dorm.setStudents(students);
+
         if (!dorm.getStudents().contains(student)) {
             if (dorm.getRemain() == 0)
                 return ResultDtoFactory.toAck("F", dorm.getId() + "寝室已满");
-        } else {
-            List<Student> students = dorm.getStudents();
-            List<String> positions = new ArrayList<>();
-            for (int i = 1; i <= dorm.getVolume(); i++)
-                positions.add(i + "");
-            for (Student temp : students) {
-                positions.remove(temp.getPos());
+            else {
+                List<String> positions = new ArrayList<>();
+                for (int i = 1; i <= dorm.getVolume(); i++)
+                    positions.add(i + "");
+                for (Student temp : students) {
+                    positions.remove(temp.getPos());
+                }
+                student.setPos(positions.get(0));
             }
-            student.setPos(positions.get(0));
         }
         try {
             studentRepository.save(student);

@@ -1,7 +1,6 @@
 package com.zxh.dormMG.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +17,8 @@ public class Dorm {
     @Transient
     private Integer remain;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dorm")
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dorm")
+    @Transient
     private List<Student> students;
 
     public Dorm() {
