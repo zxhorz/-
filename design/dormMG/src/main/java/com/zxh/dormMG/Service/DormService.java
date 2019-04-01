@@ -26,13 +26,11 @@ public class DormService {
         Iterable<Dorm> dorms = dormRepository.findAll();
         List<Dorm> list = new ArrayList<>();
         for (Dorm dorm:dorms) {
+            List<Student> students = studentRepository.findStudentsByDorm(dorm.getId());
+            dorm.setStudents(students);
             list.add(dorm);
         }
 
-        for (Dorm dorm:list) {
-            List<Student> students = studentRepository.findStudentsByDorm(dorm.getId());
-            dorm.setStudents(students);
-        }
         return list;
     }
 
@@ -69,7 +67,10 @@ public class DormService {
     public List<Dorm> availableDormList() {
         Iterable<Dorm> dorms = dormRepository.findAll();
         List<Dorm> list = new ArrayList<>();
+
         for (Dorm dorm:dorms) {
+            List<Student> students = studentRepository.findStudentsByDorm(dorm.getId());
+            dorm.setStudents(students);
             if(dorm.getRemain() > 0)
                 list.add(dorm);
         }
@@ -77,13 +78,16 @@ public class DormService {
         return list;
     }
 
-    public boolean dormaAdd(Dorm dorm) {
+    public ResultDto<String> dormaAdd(Dorm dorm) {
+        Dorm dorm1 = dormRepository.findDormById(dorm.getId());
+        if(dorm1 == null)
+            return ResultDtoFactory.toAck("F","该寝室已经存在");
         try {
             dormRepository.save(dorm);
-            return true;
+            return ResultDtoFactory.toAck("","该寝室已经存在");
         }catch (Exception e){
             logger.error(e.getMessage());
-            return false;
+            return ResultDtoFactory.toAck("F","添加失败");
         }
     }
 }

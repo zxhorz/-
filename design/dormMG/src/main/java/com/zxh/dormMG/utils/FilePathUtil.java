@@ -16,6 +16,7 @@ import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.util.FileCopyUtils;
 
@@ -26,6 +27,7 @@ public class FilePathUtil {
 
 	private static final String SYSTEMCONFIG = "systemconfig/";
 	private static final String SMTP = "/smtp.properties";
+    private static final String UPLOAD_PATH = "upload/";
 
     public static File getSmtpConfigPath() throws Exception{
         String filePath = SYSTEMCONFIG + SMTP;
@@ -36,7 +38,16 @@ public class FilePathUtil {
             throw new Exception("Cant't find smtp config");
         }
     }
-    
+
+    public static String createUploadFile(String uploadFileName) {
+        File file = new File(UPLOAD_PATH + uploadFileName);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        String path = StringUtils.replace(file.getAbsolutePath(), "\\", "/");
+        return path;
+    }
+
     public static void download(File file,HttpServletResponse response) throws IOException {
         if (!file.exists()) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Resource Not Found");

@@ -276,10 +276,15 @@ div#order-standard_cart input {
     margin: 0% 3%;
 }
 
+.navbar{
+    height: 50px;
+}
+
 nav.navbar.navbar-inverse {
     border-radius: 0;
     border: 0;
 }
+
 tbody {
     color: white;
 }
@@ -288,3 +293,7 @@ tbody {
     cursor:pointer;
 }
 
+.modal-dialog .navbar h3{
+    margin: 13px;
+    color:#e2e2e2;
+}

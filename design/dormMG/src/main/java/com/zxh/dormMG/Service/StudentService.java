@@ -11,6 +11,7 @@ import com.zxh.dormMG.utils.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
@@ -101,5 +102,10 @@ public class StudentService {
             logger.error(e.getMessage());
             return false;
         }
+    }
+
+    public ResultDto<String> importStudents(File file) {
+
+        file.delete();
     }
 }

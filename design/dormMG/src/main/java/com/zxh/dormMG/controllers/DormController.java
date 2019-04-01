@@ -57,16 +57,14 @@ public class DormController {
 
     @RequestMapping(value = "/dormAdd", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDto<String> dormAdd(@RequestParam("id") String id, @RequestParam("volume") String volume) {
-        int vol = 4;
-        try{
-            vol = Integer.valueOf(volume);
-        }catch (NumberFormatException e){
-            return ResultDtoFactory.toAck("F","寝室容量格式不正确");
-        }
-        Dorm dorm = new Dorm(id,vol);
-        if(dormService.dormaAdd(dorm))
-            return ResultDtoFactory.toAck("S");
-        return ResultDtoFactory.toAck("F","失败");
+    public ResultDto<String> dormAdd(Dorm dorm) {
+//        int vol = 4;
+//        try{
+//            vol = Integer.valueOf(volume);
+//        }catch (NumberFormatException e){
+//            return ResultDtoFactory.toAck("F","寝室容量格式不正确");
+//        }
+//        Dorm dorm = new Dorm(id,vol);
+        return (dormService.dormaAdd(dorm));
     }
 }

@@ -1,0 +1,114 @@
+<div ng-include="'templates'+'/navbar.html'"></div>
+<div class="main-content">
+    <section id="main-body" class="content content--border">
+        <div class="portlet">
+
+            <form ng-submit="submitForm()" role="form">
+                <input type="hidden" name="token" value="68638049942167b2afbf98d195a6e17de3ec5db1">
+
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <div class="row">
+                            <div class="form-group col-xs-6 col-sm-6">
+                                <label for="studentId" class="control-label">学号</label>
+                                <input type="text" name="studentId" id="studentId" class="form-control" ng-model="student.id" autocomplete="off">
+                            </div>
+
+                            <div class="form-group col-xs-6  col-sm-6">
+                                <label for="studentName" class="control-label">姓名</label>
+                                <input type="text" name="studentName" id="studentName" class="form-control" ng-model="student.name" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputEmail" class="control-label">电子邮箱</label>
+                            <input type="text" name="email" id="inputEmail" class="form-control" ng-model="student.email"
+                                   required="required" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputTel" class="control-label">联系电话</label>
+                            <input type="text" name="tel" id="inputTel" class="form-control" ng-model="student.tel"
+                                   required="required" autocomplete="off">
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-xs-12 pull-right">
+
+                        <div class="form-group">
+                            <label for="inputBranch" class="control-label">分院</label>
+                            <input type="text" name="branch" id="inputBranch" class="form-control" ng-model="student.branch"
+                                   required="required" autocomplete="off">
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="inputDorm" class="control-label">寝室</label>
+                            <select name="dorm" id="inputDorm" ng-model="student.dorm" class="form-control selectpicker">
+                                <option ng-repeat="item in dorms" value="{{item.id}}" >{{item.id}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputClass" class="control-label">班级</label>
+                            <input type="text" name="class" id="inputClass" class="form-control" ng-model="student.studentClass"
+                                   required="required" autocomplete="off">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group text-center">
+                    <input class="btn btn-primary" type="submit" name="save" value="保存更改">
+                    <input class="btn btn-default" type="reset" value="清空">
+                </div>
+
+            </form>
+        </div>
+
+
+    </section>
+</div>
+
+<script type="text/javascript">
+    var csrfToken = '68638049942167b2afbf98d195a6e17de3ec5db1',
+        markdownGuide = '标记符指南',
+        locale = 'en_GB',
+        saved = '保存',
+        saving = '自动保存';
+</script>
+<!-- <script src="http://cdn.bcoder.cn/mgy/whmcs.js"></script> -->
+<script src="/assets/js/AjaxModal.js"></script>
+
+<div class="modal system-modal fade" id="modalAjax" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel panel-primary">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">关闭</span>
+                </button>
+                <h4 class="modal-title">标题</h4>
+            </div>
+            <div class="modal-body panel-body">
+                Loading...
+            </div>
+            <div class="modal-footer panel-footer">
+                <div class="pull-left loader">
+                    <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary modal-submit">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modelshow-directive></modelshow-directive>

@@ -1,7 +1,7 @@
 (function (angular, $) {
 	'use strict';
-	var app = angular.module('studentModule', ['ui.bootstrap']);
-	app.controller('studentController', function ($scope, $state, $compile, $http, $modal, $stateParams,$timeout) {
+	var app = angular.module('studentModule', ['ui.bootstrap','ngFileUpload']);
+	app.controller('studentController', function ($scope, $state, $compile, $http, $modal, $stateParams,$timeout,Upload) {
 		//	    var data = [];
 		var search = $stateParams.search;
 		var alreadyReady = false; // The ready function is being called twice on page load.
@@ -65,12 +65,12 @@
 				}
 			],
 			"rowCallback": function (row, data) {
-				$('td:eq(0)', row).on('click', function () {
-					$scope.viewStudent(data);
-				});
-				$('td:eq(1)', row).on('click', function () {
-					$scope.viewStudent(data);
-				});
+//				$('td:eq(0)', row).on('click', function () {
+//					$scope.viewStudent(data);
+//				});
+//				$('td:eq(1)', row).on('click', function () {
+//					$scope.viewStudent(data);
+//				});
 			}
 		});
 		$(".dataTables_filter input").attr("placeholder", "输入要搜索的内容...");
@@ -85,13 +85,13 @@
 
 		var table = $('#tableEmailsList').DataTable();
 
-		$scope.viewStudent = function (data) {
-			// //                var data = table.row(this.parentElement).data();
-			//                 $state.go('notice/view', {
-			//                     notice: data
-			//                 })
-			//                 //            openModal("/xx",{},"title",200,5,5  )
-		}
+//		$scope.viewStudent = function (data) {
+//			// //                var data = table.row(this.parentElement).data();
+//			//                 $state.go('notice/view', {
+//			//                     notice: data
+//			//                 })
+//			//                 //            openModal("/xx",{},"title",200,5,5  )
+//		}
 
 		$scope.addStudent = function () {
 			var modal = $modal.open({
@@ -117,6 +117,28 @@
             	//        	$state.reload();
             })
 		}
+
+        $scope.addForUpload = function($files) {
+
+        };
+
+        $scope.upload = function(file) {
+            Upload.upload(
+                {
+                    url: 'student/importStudents',
+                    file: file
+                })
+                .progress(function (evt) {
+                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+                })
+                .success(function (data, status, headers, config) {
+                    console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+                })
+                .error(function (data, status, headers, config) {
+                    console.log('error status: ' + status);
+                })
+        };
 
 		$scope.studentDelete = function (id) {
 			$http({
@@ -161,28 +183,32 @@
 
 
 	}).controller('studentInfoCtrl', function ($scope, $http, $state, $rootScope, $modalInstance, $timeout, studentId) {
+	    $scope.title = "学生信息";
 		$http({
 			method: 'GET',
-			url: '/dorm/dormList',
+			url: '/dorm/availableDormList',
 		}).success(function (data) {
-			$scope.dorms = data.aaData;
+			$scope.dorms = data.data;
+
+			$http({
+            	method: 'GET',
+            	url: '/myInfo/myInfoGet',
+            	params: {
+            		'id': studentId
+            	}
+            }).success(function (data) {
+            	if (data.message === 'S') {
+            	    $scope.dorms.unshift({'id':data.data.dorm});
+            		$scope.student = data.data;
+            	}
+            }).error(function (data) {
+
+            });
 		}).error(function (data) {
 			console.log("error")
 		});
 
-		$http({
-			method: 'GET',
-			url: '/myInfo/myInfoGet',
-			params: {
-				'id': studentId
-			}
-		}).success(function (data) {
-			if (data.message === 'S') {
-				$scope.student = data.data;
-			}
-		}).error(function (data) {
 
-		});
 
 		$scope.submitForm = function () {
 			$http({
@@ -203,14 +229,15 @@
 			$modalInstance.close();
 		}
 	}).controller('studentAddCtrl', function ($scope, $http, $state, $rootScope, $modalInstance, $timeout) {
+	    $scope.title = "添加学生";
 	    $scope.student = {};
 
 		$http({
 			method: 'GET',
-			url: '/dorm/dormList',
+			url: '/dorm/availableDormList',
 		}).success(function (data) {
-			$scope.dorms = data.aaData;
-			$scope.student.dorm = data.aaData[0].id;
+			$scope.dorms = data.data;
+			$scope.student.dorm = data.data[0].id;
 		}).error(function (data) {
 			console.log("error")
 		});
@@ -233,7 +260,7 @@
 		}
 
 		$scope.close = function () {
-			$modalInstance.close();
+			$modalInstance.dismiss();
 		}
 	});
 

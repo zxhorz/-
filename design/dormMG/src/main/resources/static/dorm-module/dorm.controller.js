@@ -100,7 +100,28 @@
 			}
 
 			$scope.addDorm = function () {
-				$state.go('editor');
+    			var modal = $modal.open({
+    				backdrop: 'static',
+    				templateUrl: 'dorm-module/dorm.add.html', //script标签中定义的id
+    				controller: 'dormAddCtrl', //modal对应的Controller
+    				size: 'md'
+    			});
+
+    			modal.result.then(function (result) {
+                	if (result == 'S') {
+                		$scope.onModel.modelShow('success', '添加成功');
+                		$timeout(function() {
+                            $state.reload();
+                        },1500)
+                	}else{
+                		$scope.onModel.modelShow('error', result);
+    //            		$timeout(function() {
+    //                        $state.reload();
+    //                    },1500)
+                	}
+                }, function (reason) {
+                	//        	$state.reload();
+                })
 			}
 
 			$scope.dormDelete = function (id) {
@@ -136,6 +157,7 @@
 			}
 
 		}).controller('dormStudentCtrl', function ($scope, $state, $modalInstance, $http, students) {
+		    $scope.title = "寝室成员";
 
 			$scope.switchToStudent = function (id) {
 				$state.go('student', {
@@ -149,7 +171,31 @@
 			if (students) {
 				$scope.students = students;
 			}
+		}).controller('dormAddCtrl', function ($scope, $state, $modalInstance, $http) {
+        $scope.title = "添加寝室";
+
+		$scope.submitForm = function () {
+			$http({
+				method: 'POST',
+				url: '/dorm/dormAdd',
+				data: $.param($scope.dorm),
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			}).success(function (data) {
+				if (data.message === 'S') {
+					$modalInstance.close('S')
+				} else {
+				    $modalInstance.close(data.data)
+				}
+			}).error(function (data) {});
+		}
+
+		$scope.close = function () {
+			$modalInstance.dismiss();
+		}
 		});
+
 
 
 })(angular, $);
