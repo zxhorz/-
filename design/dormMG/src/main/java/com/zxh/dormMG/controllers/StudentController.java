@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 
@@ -44,7 +45,7 @@ public class StudentController {
 
     @RequestMapping(value = "/importStudents", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDto<String> importStudents(@RequestParam("file")MultipartFile file) {
+    public ResultDto<String> importStudents(@RequestParam("file")MultipartFile file,HttpServletResponse response) {
 //        return (studentService.studentAdd(student));
         if (file != null) {
             String fileName = file.getOriginalFilename();
@@ -53,13 +54,12 @@ public class StudentController {
             //写文件到本地
             try {
                 file.transferTo(tempFile);
-                return (studentService.importStudents(tempFile));
+                return (studentService.importStudents(tempFile,response));
             } catch (IOException e) {
                 logger.error(e);
                 return ResultDtoFactory.toAck("F","导入失败");
             }
         }
-
-
+        return ResultDtoFactory.toAck("F","导入失败");
     }
 }

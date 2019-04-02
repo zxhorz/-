@@ -62,6 +62,15 @@ public class Student {
         this.pos = pos;
     }
 
+    public Student(String id, String name, String branch, String tel, String email, String studentClass) {
+        this.id = id;
+        this.name = name;
+        this.branch = branch;
+        this.tel = tel;
+        this.email = email;
+        this.studentClass = studentClass;
+    }
+
     public String getId() {
         return id;
     }

@@ -2002,3 +2002,6 @@ tr.masspay-total td {
   background-color: #7266ba;
   border-color: #7266ba;
 }
+#tableEmailsList button{
+    margin:2px
+}

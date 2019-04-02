@@ -19,7 +19,7 @@ import java.util.Set;
  * @author <a href="mailto:akhuting@hotmail.com">Alex Yang</a>
  * @date 2016年08月25日 10:02
  */
-public class FileUtils {
+public class FileUtils extends org.apache.commons.io.FileUtils{
 
     private static List<String> ExtsDocument = Arrays.asList
             (

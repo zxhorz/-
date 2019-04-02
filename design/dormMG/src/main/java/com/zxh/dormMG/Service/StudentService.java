@@ -6,14 +6,14 @@ import com.zxh.dormMG.domain.Dorm;
 import com.zxh.dormMG.domain.Student;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
-import com.zxh.dormMG.utils.FileUploadUtils;
-import com.zxh.dormMG.utils.FileUtils;
+import com.zxh.dormMG.utils.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.util.*;
@@ -21,6 +21,11 @@ import java.util.*;
 @Service
 public class StudentService {
     private static final Logger logger = Logger.getLogger(StudentService.class);
+    private static String[] shuxin = {"学号", "姓名", "分院", "联系方式", "班级", "邮箱"};
+    private static String[] attriabute = {"id", "姓名", "分院", "联系方式", "班级", "邮箱"};
+
+    @Autowired
+    private DormService dormService;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -66,7 +71,7 @@ public class StudentService {
 
         Student student1 = studentRepository.findStudentById(id);
         if (student1 != null)
-            return ResultDtoFactory.toAck("F", "已存在该学号的学生");
+            return ResultDtoFactory.toAck("F", "已存在学号为" + student.getId() + "的学生");
 
         Dorm dorm = dormRepository.findDormById(dormId);
         List<Student> students = studentRepository.findStudentsByDorm(dorm.getId());
@@ -104,8 +109,83 @@ public class StudentService {
         }
     }
 
-    public ResultDto<String> importStudents(File file) {
+    public ResultDto<String> importStudents(File file, HttpServletResponse response) {
+        FileType fileType = FileUtils.GetFileType(file.getName());
+        if (!fileType.equals(FileType.Spreadsheet)) {
+            file.delete();
+            return ResultDtoFactory.toAck("F", "不支持.xls以外的Excel文件格式");
+        } else {
+            try {
+                List<List<String>> list = DocUtil.readExcel(file);
+                List<Student> students = new ArrayList<>();
+                List<String> attributes = list.get(0);
+                int idIndex = attributes.indexOf("学号");
+                int nameIndex = attributes.indexOf("姓名");
+                int branchIndex = attributes.indexOf("分院");
+                int telIndex = attributes.indexOf("电话");
+                int emailIndex = attributes.indexOf("邮箱");
+                int classIndex = attributes.indexOf("班级");
+                if (idIndex == -1 || nameIndex == -1 || branchIndex == -1 || telIndex == -1 || emailIndex == -1 || classIndex == -1)
+                    throw new Exception("excel需要有学号、姓名、分院、电话、邮箱、班级六列");
 
+                for (int i = 1; i < list.size(); i++) {
+                    List<String> row = list.get(i);
+                    Student student = new Student(row.get(idIndex), row.get(nameIndex), row.get(branchIndex), row.get(telIndex), row.get(emailIndex), row.get(classIndex));
+//                    students.add(student);
+                    student = autoImportStudent(student);
+                    if(student == null)
+                        ResultDtoFactory.toAck("F", "寝室容量不足");
+                    ResultDto<String> result = studentAdd(student);
+                    if (result.getMessage().equals("F"))
+                        students.add(student);
+                }
+
+                if (students.size() != 0) {
+                    File tempFile = new File("导入失败名单.txt");
+                    for (Student student : students) {
+                        FileUtils.writeStringToFile(tempFile, student.getId() + " " + student.getName() + "导入失败\n");
+                    }
+                    FilePathUtil.download(tempFile, response);
+                    tempFile.delete();
+                    file.delete();
+                    return ResultDtoFactory.toAck("W", "部分导入成功");
+                }
+
+            } catch (Exception e) {
+                logger.error(e);
+                return ResultDtoFactory.toAck("F", e.getMessage());
+            }
+        }
         file.delete();
+        return ResultDtoFactory.toAck("S", "导入成功");
+    }
+
+    public Student autoImportStudent(Student student) {
+        List<Dorm> dorms = dormService.availableDormList();
+        if(dorms.size() == 0)
+            return null;
+        float max = -Float.MAX_VALUE;
+        String dormId = dorms.get(0).getId();
+        for (Dorm dorm : dorms) {
+            List<Student> students = dorm.getStudents();
+            if (students.size() == 0 && max <= 0 && dormRepository.findDormById(dormId).getStudents().size() != 0)
+                dormId = dorm.getId();
+            else {
+                for (Student student1 : students) {
+                    float distance = EditorDistance.Levenshtein(student1.getStudentClass(), student.getStudentClass());
+                    if (distance == 1) {
+                        student.setDorm(dorm.getId());
+                        return student;
+                    } else if (distance > max) {
+                        max = distance;
+                        dormId = dorm.getId();
+                    }
+                }
+            }
+
+        }
+
+        student.setDorm(dormId);
+        return student;
     }
 }
