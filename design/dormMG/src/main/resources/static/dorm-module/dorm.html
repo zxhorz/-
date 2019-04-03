@@ -21,9 +21,13 @@
             <div ng-click="addDorm()">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </div>
-            <div ng-click="importDorms()">
+            <div ngf-select ngf-change="upload($file)">
                 <span class="glyphicon glyphicon-import"></span>
             </div>
+            <!---->
+            <!--<div ng-click="importDorms()">-->
+                <!--<span class="glyphicon glyphicon-import"></span>-->
+            <!--</div>-->
         </h3>
 
         <div class="table-container clearfix">

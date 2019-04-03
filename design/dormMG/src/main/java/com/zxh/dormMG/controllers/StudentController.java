@@ -45,7 +45,7 @@ public class StudentController {
 
     @RequestMapping(value = "/importStudents", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDto<String> importStudents(@RequestParam("file")MultipartFile file,HttpServletResponse response) {
+    public ResultDto<String> importStudents(@RequestParam("file")MultipartFile file) {
 //        return (studentService.studentAdd(student));
         if (file != null) {
             String fileName = file.getOriginalFilename();
@@ -54,12 +54,24 @@ public class StudentController {
             //写文件到本地
             try {
                 file.transferTo(tempFile);
-                return (studentService.importStudents(tempFile,response));
+                return (studentService.importStudents(tempFile));
             } catch (IOException e) {
                 logger.error(e);
                 return ResultDtoFactory.toAck("F","导入失败");
             }
         }
         return ResultDtoFactory.toAck("F","导入失败");
+    }
+
+    @RequestMapping(value = "/downloadFailedImport", method = RequestMethod.POST)
+    @ResponseBody
+    public void downloadFailedImport(HttpServletResponse response) {
+//        return (studentService.studentAdd(student));
+        try {
+            File file = FilePathUtil.getDownloadFilePath("导入失败学生名单.xls");
+            FilePathUtil.download(file, response);
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 }

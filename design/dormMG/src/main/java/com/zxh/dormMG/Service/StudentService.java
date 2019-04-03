@@ -21,8 +21,7 @@ import java.util.*;
 @Service
 public class StudentService {
     private static final Logger logger = Logger.getLogger(StudentService.class);
-    private static String[] shuxin = {"学号", "姓名", "分院", "联系方式", "班级", "邮箱"};
-    private static String[] attriabute = {"id", "姓名", "分院", "联系方式", "班级", "邮箱"};
+    private static final String DOWNLOAD_PATH = "download/";
 
     @Autowired
     private DormService dormService;
@@ -109,7 +108,7 @@ public class StudentService {
         }
     }
 
-    public ResultDto<String> importStudents(File file, HttpServletResponse response) {
+    public ResultDto<String> importStudents(File file) {
         FileType fileType = FileUtils.GetFileType(file.getName());
         if (!fileType.equals(FileType.Spreadsheet)) {
             file.delete();
@@ -117,7 +116,7 @@ public class StudentService {
         } else {
             try {
                 List<List<String>> list = DocUtil.readExcel(file);
-                List<Student> students = new ArrayList<>();
+                Map<Student, String> students = new HashMap<>();
                 List<String> attributes = list.get(0);
                 int idIndex = attributes.indexOf("学号");
                 int nameIndex = attributes.indexOf("姓名");
@@ -133,20 +132,38 @@ public class StudentService {
                     Student student = new Student(row.get(idIndex), row.get(nameIndex), row.get(branchIndex), row.get(telIndex), row.get(emailIndex), row.get(classIndex));
 //                    students.add(student);
                     student = autoImportStudent(student);
-                    if(student == null)
+                    if (student == null)
                         ResultDtoFactory.toAck("F", "寝室容量不足");
                     ResultDto<String> result = studentAdd(student);
                     if (result.getMessage().equals("F"))
-                        students.add(student);
+                        students.put(student, result.getData());
                 }
 
                 if (students.size() != 0) {
-                    File tempFile = new File("导入失败名单.txt");
-                    for (Student student : students) {
-                        FileUtils.writeStringToFile(tempFile, student.getId() + " " + student.getName() + "导入失败\n");
-                    }
-                    FilePathUtil.download(tempFile, response);
+                    File tempFile = new File(FilePathUtil.createDownloadFile("导入失败名单.xls"));
                     tempFile.delete();
+                    if (!tempFile.exists()) {
+                        tempFile.createNewFile();
+                    }
+
+                    ArrayList<ArrayList> writeContent = new ArrayList<>();
+                    ArrayList<String> titles = new ArrayList<>();
+                    titles.add("学号");
+                    titles.add("姓名");
+                    titles.add("失败原因");
+                    writeContent.add(titles);
+
+                    for (Student student : students.keySet()) {
+                        ArrayList<String> columns = new ArrayList<>();
+                        columns.add(student.getId());
+                        columns.add(student.getName());
+                        columns.add(students.get(student));
+                        writeContent.add(columns);
+
+                    }
+
+                    DocUtil.writeExcel(writeContent,DOWNLOAD_PATH+"导入失败学生名单.xls");
+
                     file.delete();
                     return ResultDtoFactory.toAck("W", "部分导入成功");
                 }
@@ -162,7 +179,7 @@ public class StudentService {
 
     public Student autoImportStudent(Student student) {
         List<Dorm> dorms = dormService.availableDormList();
-        if(dorms.size() == 0)
+        if (dorms.size() == 0)
             return null;
         float max = -Float.MAX_VALUE;
         String dormId = dorms.get(0).getId();

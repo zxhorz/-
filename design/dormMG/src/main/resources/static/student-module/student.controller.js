@@ -128,20 +128,25 @@
                     file: file
                 })
                 .progress(function (evt) {
-                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+//                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+//                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
                 })
                 .success(function (data) {
                     if (data.message === 'S') {
                         $scope.onModel.modelShow('success', '导入成功');
                         $timeout(function () {
                             $state.reload();
-                        }, 1500)
+                        }, 3000)
                     } else if (data.message === 'W') {
                         $scope.onModel.modelShow('warning', data.data);
+                        downloadByFormPost({
+                            url: 'student/downloadFailedImport',
+                            data: {
+                            }
+                        });
                         $timeout(function () {
                             $state.reload();
-                        }, 1500)
+                        }, 3000)
                     } else {
                         $scope.onModel.modelShow('error', data.data);
                     }
@@ -197,6 +202,20 @@
             }, function (reason) {
                 //        	$state.reload();
             })
+        }
+
+        function downloadByFormPost(options) {
+        	var config = $.extend(true, { method: 'post' }, options);
+        	var $iframe = $('<iframe id="down-file-iframe" />');
+        	var $form = $('<form target="down-file-iframe" method="post" />');
+        	$form.attr('action', config.url);
+        	for (var key in config.data) {
+        		$form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
+        	}
+        	$iframe.append($form);
+        	$(document.body).append($iframe);
+        	$form[0].submit();
+        	$iframe.remove();
         }
 
 

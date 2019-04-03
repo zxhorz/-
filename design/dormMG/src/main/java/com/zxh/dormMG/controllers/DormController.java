@@ -8,13 +8,19 @@ import com.zxh.dormMG.domain.Student;
 import com.zxh.dormMG.dto.DataTableDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
+import com.zxh.dormMG.utils.FilePathUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/dorm")
 public class DormController {
+    private static final Logger logger = Logger.getLogger(DormController.class);
 
     @Autowired
     private DormService dormService;
@@ -65,6 +72,38 @@ public class DormController {
 //            return ResultDtoFactory.toAck("F","寝室容量格式不正确");
 //        }
 //        Dorm dorm = new Dorm(id,vol);
-        return (dormService.dormaAdd(dorm));
+        return (dormService.dormAdd(dorm));
+    }
+
+    @RequestMapping(value = "/importDorms", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultDto<String> importDorms(@RequestParam("file")MultipartFile file) {
+//        return (studentService.studentAdd(student));
+        if (file != null) {
+            String fileName = file.getOriginalFilename();
+            String path = FilePathUtil.createUploadFile(fileName);
+            File tempFile =new File(path);
+            //写文件到本地
+            try {
+                file.transferTo(tempFile);
+                return (dormService.importDorms(tempFile));
+            } catch (IOException e) {
+                logger.error(e);
+                return ResultDtoFactory.toAck("F","导入失败");
+            }
+        }
+        return ResultDtoFactory.toAck("F","导入失败");
+    }
+
+    @RequestMapping(value = "/downloadFailedImport", method = RequestMethod.POST)
+    @ResponseBody
+    public void downloadFailedImport(HttpServletResponse response) {
+
+        try {
+            File file = FilePathUtil.getDownloadFilePath("导入失败寝室列表.xls");
+            FilePathUtil.download(file, response);
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 }

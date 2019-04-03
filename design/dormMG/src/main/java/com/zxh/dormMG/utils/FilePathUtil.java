@@ -28,6 +28,7 @@ public class FilePathUtil {
 	private static final String SYSTEMCONFIG = "systemconfig/";
 	private static final String SMTP = "/smtp.properties";
     private static final String UPLOAD_PATH = "upload/";
+    private static final String DOWNLOAD_PATH = "download/";
 
     public static File getSmtpConfigPath() throws Exception{
         String filePath = SYSTEMCONFIG + SMTP;
@@ -39,8 +40,27 @@ public class FilePathUtil {
         }
     }
 
+    public static File getDownloadFilePath(String fileName) throws Exception{
+        String filePath = DOWNLOAD_PATH + fileName;
+        File file = new File(filePath);
+        if (file.exists()) {
+            return file;
+        } else {
+            throw new Exception("Cant't find downloadFile");
+        }
+    }
+
     public static String createUploadFile(String uploadFileName) {
         File file = new File(UPLOAD_PATH + uploadFileName);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        String path = StringUtils.replace(file.getAbsolutePath(), "\\", "/");
+        return path;
+    }
+
+    public static String createDownloadFile(String downloadFileName) {
+        File file = new File(DOWNLOAD_PATH + downloadFileName);
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
