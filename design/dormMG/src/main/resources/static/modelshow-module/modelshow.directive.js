@@ -25,7 +25,7 @@ angular.module('modelshowModule').directive('modelshowDirective', function ($tim
             }else{
                 $timeout(function () {
                     $scope.display = false;
-                }, 1000);
+                }, 1500);
             }
         }
 

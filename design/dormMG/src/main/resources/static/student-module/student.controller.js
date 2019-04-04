@@ -59,7 +59,7 @@
                 {
                     "data": null,
                     "render": function (data, type, row, meta) {
-                        var html = "<button class='btn btn-success' ng-click = showStudentInfo(" + data['id'] + ")>查看信息</button><button class='btn btn-success' ng-click = studentDelete(" + data['id'] + ")>删除</button>"
+                        var html = "<button class='btn btn-success' ng-click = showStudentInfo(" + data['id'] + ") ng-show = 'isAdmin'>查看信息</button><button class='btn btn-success' ng-click = studentDelete(" + data['id'] + ") ng-show = 'isAdmin'>删除</button>"
                         return html;
                     },
                     "fnCreatedCell": function (td, cellData, rowData, row, col) {
@@ -209,6 +209,7 @@
         	var $iframe = $('<iframe id="down-file-iframe" />');
         	var $form = $('<form target="down-file-iframe" method="post" />');
         	$form.attr('action', config.url);
+        	$form.attr('target', '');
         	for (var key in config.data) {
         		$form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
         	}

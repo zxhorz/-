@@ -1,7 +1,7 @@
 (function (angular, $) {
 	'use strict';
 	var app = angular.module('dormModule', ['ngFileUpload'])
-		.controller('dormController', function ($scope, $state, $compile, $http, $modal) {
+		.controller('dormController', function ($scope, $state, $compile, $http, $modal,$timeout,Upload) {
 			//	    var data = [];
 
 			var alreadyReady = false; // The ready function is being called twice on page load.
@@ -61,7 +61,7 @@
 					{
 						"data": null,
 						"render": function (data, type, row, meta) {
-							var html = "<button class='btn btn-success' ng-click = dormDelete(" + data['id'] + ")>删除</button>"
+							var html = "<button class='btn btn-success' ng-click = dormDelete(" + data['id'] + ") ng-show = 'isAdmin'>删除</button>"
 							return html;
 						},
 						"fnCreatedCell": function (td, cellData, rowData, row, col) {
@@ -203,6 +203,7 @@
                 var $iframe = $('<iframe id="down-file-iframe" />');
                 var $form = $('<form target="down-file-iframe" method="post" />');
                 $form.attr('action', config.url);
+                $form.attr('target', '');
                 for (var key in config.data) {
                     $form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
                 }

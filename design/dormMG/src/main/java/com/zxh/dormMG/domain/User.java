@@ -33,10 +33,21 @@ public class User {
     public User() {
     }
 
+    public User(String id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
     public User(String id, String activationCode, String state) {
         this.id = id;
         this.activationCode = activationCode;
         this.state = state;
+    }
+
+    public User(String id, String username, List<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.roles = roles;
     }
 
     public String getId() {

@@ -48,7 +48,8 @@ public class DormService {
     public ResultDto<String> dormDelete(String id) {
         Dorm dorm = dormRepository.findDormById(id);
         if (dorm != null) {
-            List<Student> students = dorm.getStudents();
+            List<Student> students = studentRepository.findStudentsByDorm(dorm.getId());
+            dorm.setStudents(students);
             if (students != null && students.size() == 0) {
                 try {
                     dormRepository.delete(dorm);
@@ -84,11 +85,12 @@ public class DormService {
 
     public ResultDto<String> dormAdd(Dorm dorm) {
         Dorm dorm1 = dormRepository.findDormById(dorm.getId());
-        if (dorm1 == null)
+        if (dorm1 != null)
             return ResultDtoFactory.toAck("F", dorm.getId() + "寝室已经存在");
         try {
             dormRepository.save(dorm);
-            return ResultDtoFactory.toAck("", dorm.getId() + "寝室已经存在");
+            return ResultDtoFactory.toAck("S", dorm.getId() + "添加成功");
+
         } catch (Exception e) {
             logger.error(e.getMessage());
             return ResultDtoFactory.toAck("F", "添加失败");

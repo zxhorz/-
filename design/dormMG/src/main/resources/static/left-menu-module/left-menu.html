@@ -9,36 +9,35 @@
                     <a href="#" ng-click="switchToPage('info')"><i class="alico icon-menu"></i>个人中心</a>
                 </li>
 
-                <li class="item ">
+                <li class="item" ng-show ="isAdmin">
                     <a href="javascript:;"><i class="alico icon-ecs"></i>管理<span class="fa fa-caret-down"></span></a>
                     <ul>
                         <li><a href="#" ng-click="switchToPage('dorm')">寝室管理</a></li>
                         <li><a href="#" ng-click="switchToPage('student')">学生管理</a></li>
-                        <li><a href="http://mgyvpn.com/index.php?m=geninvoices">提前续费</a></li>
-                        <li><a href="knowledgebase.php?action=displaycat&catid=3">使用教程</a></li>
-                        <!--            <li><a target="_blank" href="http://ssblog.me/2017/09/02/new-server-list/">免费提供</a></li>  -->
-                        <!--        <li><a href="cart.php?gid=addons">可用的附加服务</a></li> -->
+                        <!--<li><a href="http://mgyvpn.com/index.php?m=geninvoices">提前续费</a></li>-->
+                        <!--<li><a href="knowledgebase.php?action=displaycat&catid=3">使用教程</a></li>-->
+
                     </ul>
                 </li>
-                <li class="item ">
-                    <a href="downloads.php">
-                        <i class="fa fa-cloud-download"></i>客户端下载
-                    </a>
-                </li>
-                <li class="item ">
-                    <a href="javascript:;"><i class="alico icon-expense"></i>我的账单<span class="fa fa-caret-down"></span></a>
-                    <ul>
-                        <li><a href="clientarea.php?action=invoices">我的账单</a></li>
-                    </ul>
-                </li>
-                <li class="item ">
-                    <a href="javascript:;"><i class="alico icon-pen"></i>使用帮助<span class="fa fa-caret-down"></span></a>
-                    <ul>
-                        <li><a href="knowledgebase.php?action=displaycat&catid=3">使用教程</a></li>
-                        <li><a href="submitticket.php">我要提问</a></li>
-                        <li><a href="announcements.php?id=71">售后服务</a></li>
-                    </ul>
-                </li>
+                <!--<li class="item ">-->
+                    <!--<a href="downloads.php">-->
+                        <!--<i class="fa fa-cloud-download"></i>客户端下载-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="item ">-->
+                    <!--<a href="javascript:;"><i class="alico icon-expense"></i>我的账单<span class="fa fa-caret-down"></span></a>-->
+                    <!--<ul>-->
+                        <!--<li><a href="clientarea.php?action=invoices">我的账单</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="item ">-->
+                    <!--<a href="javascript:;"><i class="alico icon-pen"></i>使用帮助<span class="fa fa-caret-down"></span></a>-->
+                    <!--<ul>-->
+                        <!--<li><a href="knowledgebase.php?action=displaycat&catid=3">使用教程</a></li>-->
+                        <!--<li><a href="submitticket.php">我要提问</a></li>-->
+                        <!--<li><a href="announcements.php?id=71">售后服务</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
                 <li class="item ">
                     <a href="javascript:;"><i class="alico icon-account-2"></i>账户管理<span class="fa fa-caret-down"></span>
                     </a>
@@ -46,7 +45,7 @@
                         <li><a href="#" ng-click="switchToPage('myInfo')">我的资料</a></li>
                         <!--       <li><a href="clientarea.php?action=contacts">子联系人</a></li>	 -->
                         <li><a href="#" ng-click="switchToPage('changePw')">更改密码</a></li>
-                        <li><a href="clientarea.php?action=emails">站内消息</a></li>
+                        <!--<li><a href="clientarea.php?action=emails">站内消息</a></li>-->
                     </ul>
                 </li>
                 <li class="item ">
@@ -61,7 +60,7 @@
         <div class="center ng-binding">
             <div class="logout"><a href="\logout" title="退出"><i class="md md-settings-power"></i></a>
             </div>
-            周皙昊
+            {{userName}}
             <span class="label">none</span>
         </div>
     </section>

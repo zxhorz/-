@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
-    angular.module('DormManagerApp').service('apiMiddleware', ['$window', 'dromManagerConfig', 'apiHandler',
-        function ($window, dromManagerConfig, ApiHandler) {
+    angular.module('DormManagerApp').service('apiMiddleware', ['$window', 'dormManagerConfig', 'apiHandler',
+        function ($window, dormManagerConfig, ApiHandler) {
 
         var ApiMiddleware = function() {
             this.apiHandler = new ApiHandler();
@@ -22,23 +22,23 @@
         };
 
         ApiMiddleware.prototype.list = function(path, customDeferredHandler) {
-            return this.apiHandler.list(dromManagerConfig.listUrl, this.getPath(path), customDeferredHandler);
+            return this.apiHandler.list(dormManagerConfig.listUrl, this.getPath(path), customDeferredHandler);
         };
 
         ApiMiddleware.prototype.copy = function(files, path) {
             var items = this.getFileList(files);
             var singleFilename = items.length === 1 ? files[0].tempModel.name : undefined;
-            return this.apiHandler.copy(dromManagerConfig.copyUrl, items, this.getPath(path), singleFilename);
+            return this.apiHandler.copy(dormManagerConfig.copyUrl, items, this.getPath(path), singleFilename);
         };
 
         ApiMiddleware.prototype.move = function(files, path) {
             var items = this.getFileList(files);
-            return this.apiHandler.move(dromManagerConfig.moveUrl, items, this.getPath(path));
+            return this.apiHandler.move(dormManagerConfig.moveUrl, items, this.getPath(path));
         };
 
         ApiMiddleware.prototype.remove = function(files) {
             var items = this.getFileList(files);
-            return this.apiHandler.remove(dromManagerConfig.removeUrl, items);
+            return this.apiHandler.remove(dormManagerConfig.removeUrl, items);
         };
 
         ApiMiddleware.prototype.upload = function(files, path) {
@@ -48,29 +48,29 @@
 
             var destination = this.getPath(path);
 
-            return this.apiHandler.upload(dromManagerConfig.uploadUrl, destination, files);
+            return this.apiHandler.upload(dormManagerConfig.uploadUrl, destination, files);
         };
 
         ApiMiddleware.prototype.getContent = function(item) {
             var itemPath = this.getFilePath(item);
-            return this.apiHandler.getContent(dromManagerConfig.getContentUrl, itemPath);
+            return this.apiHandler.getContent(dormManagerConfig.getContentUrl, itemPath);
         };
 
         ApiMiddleware.prototype.edit = function(item) {
             var itemPath = this.getFilePath(item);
-            return this.apiHandler.edit(dromManagerConfig.editUrl, itemPath, item.tempModel.content);
+            return this.apiHandler.edit(dormManagerConfig.editUrl, itemPath, item.tempModel.content);
         };
 
         ApiMiddleware.prototype.rename = function(item) {
             var itemPath = this.getFilePath(item);
             var newPath = item.tempModel.fullPath();
 
-            return this.apiHandler.rename(dromManagerConfig.renameUrl, itemPath, newPath);
+            return this.apiHandler.rename(dormManagerConfig.renameUrl, itemPath, newPath);
         };
 
         ApiMiddleware.prototype.getUrl = function(item) {
             var itemPath = this.getFilePath(item);
-            return this.apiHandler.getUrl(dromManagerConfig.downloadFileUrl, itemPath);
+            return this.apiHandler.getUrl(dormManagerConfig.downloadFileUrl, itemPath);
         };
 
         ApiMiddleware.prototype.download = function(item, forceNewWindow) {
@@ -83,10 +83,10 @@
             }
             
             return this.apiHandler.download(
-                dromManagerConfig.downloadFileUrl,
+                dormManagerConfig.downloadFileUrl,
                 itemPath,
                 toFilename,
-                dromManagerConfig.downloadFilesByAjax,
+                dormManagerConfig.downloadFilesByAjax,
                 forceNewWindow
             );
         };
@@ -94,25 +94,25 @@
         ApiMiddleware.prototype.downloadMultiple = function(files, forceNewWindow) {
             var items = this.getFileList(files);
             var timestamp = new Date().getTime().toString().substr(8, 13);
-            var toFilename = timestamp + '-' + dromManagerConfig.multipleDownloadFileName;
+            var toFilename = timestamp + '-' + dormManagerConfig.multipleDownloadFileName;
             
             return this.apiHandler.downloadMultiple(
-                dromManagerConfig.downloadMultipleUrl,
+                dormManagerConfig.downloadMultipleUrl,
                 items, 
                 toFilename, 
-                dromManagerConfig.downloadFilesByAjax,
+                dormManagerConfig.downloadFilesByAjax,
                 forceNewWindow
             );
         };
 
         ApiMiddleware.prototype.compress = function(files, compressedFilename, path) {
             var items = this.getFileList(files);
-            return this.apiHandler.compress(dromManagerConfig.compressUrl, items, compressedFilename, this.getPath(path));
+            return this.apiHandler.compress(dormManagerConfig.compressUrl, items, compressedFilename, this.getPath(path));
         };
 
         ApiMiddleware.prototype.extract = function(item, folderName, path) {
             var itemPath = this.getFilePath(item);
-            return this.apiHandler.extract(dromManagerConfig.extractUrl, itemPath, folderName, this.getPath(path));
+            return this.apiHandler.extract(dormManagerConfig.extractUrl, itemPath, folderName, this.getPath(path));
         };
 
         ApiMiddleware.prototype.changePermissions = function(files, dataItem) {
@@ -121,12 +121,12 @@
             var octal = dataItem.tempModel.perms.toOctal();
             var recursive = !!dataItem.tempModel.recursive;
 
-            return this.apiHandler.changePermissions(dromManagerConfig.permissionsUrl, items, code, octal, recursive);
+            return this.apiHandler.changePermissions(dormManagerConfig.permissionsUrl, items, code, octal, recursive);
         };
 
         ApiMiddleware.prototype.createFolder = function(item) {
             var path = item.tempModel.fullPath();
-            return this.apiHandler.createFolder(dromManagerConfig.createFolderUrl, path);
+            return this.apiHandler.createFolder(dormManagerConfig.createFolderUrl, path);
         };
 
         return ApiMiddleware;

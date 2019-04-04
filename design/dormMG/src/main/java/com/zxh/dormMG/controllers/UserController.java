@@ -6,6 +6,7 @@ import com.zxh.dormMG.domain.Student;
 import com.zxh.dormMG.domain.User;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
+import com.zxh.dormMG.dto.UserDto;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,13 @@ public class UserController {
 
     @RequestMapping(value = "/getUser", method = RequestMethod.GET)
     @ResponseBody
-    public ResultDto<String> getUser() {
+    public ResultDto<UserDto> getUser() {
         Session session = SecurityUtils.getSubject().getSession();
-        String userName = (String) session.getAttribute("signinId");
-        userName = "31501105";
-        return ResultDtoFactory.toAck("S",userName);
+        String userId = (String) session.getAttribute("signinId");
+//        User user = userRepository.findUserByName(userId);
+        User user = userRepository.findUserByName("31501105");
+        UserDto userDto = new UserDto(user.getId(),user.getUsername(),user.getRoles().get(0).getRoleName());
+        return ResultDtoFactory.toAck("S",userDto);
     }
 
 }

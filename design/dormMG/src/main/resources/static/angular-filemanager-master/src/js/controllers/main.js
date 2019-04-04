@@ -1,11 +1,11 @@
 (function(angular, $) {
     'use strict';
     angular.module('DormManagerApp').controller('DormManagerCtrl', [
-        '$scope', '$rootScope', '$window', '$translate', 'dromManagerConfig', 'item', 'fileNavigator', 'apiMiddleware',
-        function($scope, $rootScope, $window, $translate, dromManagerConfig, Item, FileNavigator, ApiMiddleware) {
+        '$scope', '$rootScope', '$window', '$translate', 'dormManagerConfig', 'item', 'fileNavigator', 'apiMiddleware',
+        function($scope, $rootScope, $window, $translate, dormManagerConfig, Item, FileNavigator, ApiMiddleware) {
 
         var $storage = $window.localStorage;
-        $scope.config = dromManagerConfig;
+        $scope.config = dormManagerConfig;
         $scope.reverse = false;
         $scope.predicate = ['model.type', 'model.name'];        
         $scope.order = function(predicate) {
@@ -46,7 +46,7 @@
                 $storage.setItem('language', locale);
                 return $translate.use(locale);
             }
-            $translate.use($storage.getItem('language') || dromManagerConfig.defaultLang);
+            $translate.use($storage.getItem('language') || dormManagerConfig.defaultLang);
         };
 
         $scope.isSelected = function(item) {

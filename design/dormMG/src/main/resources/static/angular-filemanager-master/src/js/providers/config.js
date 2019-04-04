@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('DormManagerApp').provider('dromManagerConfig', function() {
+    angular.module('DormManagerApp').provider('dormManagerConfig', function() {
 
         var values = {
             appName: 'angular-filemanager v1.5',

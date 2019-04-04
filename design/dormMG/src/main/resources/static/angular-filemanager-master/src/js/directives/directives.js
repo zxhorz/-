@@ -2,10 +2,10 @@
     'use strict';
     var app = angular.module('DormManagerApp');
 
-    app.directive('angularDormManager', ['$parse', 'dromManagerConfig', function($parse, dromManagerConfig) {
+    app.directive('angularDormManager', ['$parse', 'dormManagerConfig', function($parse, dormManagerConfig) {
         return {
             restrict: 'EA',
-            templateUrl: dromManagerConfig.tplPath + '/main.html'
+            templateUrl: dormManagerConfig.tplPath + '/main.html'
         };
     }]);
 
