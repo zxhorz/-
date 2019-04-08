@@ -18,10 +18,10 @@
 
         <h3 class="headline">
             寝室管理
-            <div ng-click="addDorm()">
+            <div ng-click="addDorm()" ng-show="isAdmin">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </div>
-            <div ngf-select ngf-change="upload($file)">
+            <div ngf-select ngf-change="upload($file)" ng-show="isAdmin">
                 <span class="glyphicon glyphicon-import"></span>
             </div>
             <!---->

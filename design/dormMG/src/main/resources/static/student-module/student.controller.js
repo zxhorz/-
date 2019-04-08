@@ -1,7 +1,7 @@
 (function (angular, $) {
     'use strict';
     var app = angular.module('studentModule', ['ui.bootstrap', 'ngFileUpload']);
-    app.controller('studentController', function ($scope, $state, $compile, $http, $modal, $stateParams, $timeout, Upload) {
+    app.controller('studentController', function ($scope, $state, $compile, $http, $modal, $stateParams, $rootScope,$timeout, Upload) {
         //	    var data = [];
         var search = $stateParams.search;
         var alreadyReady = false; // The ready function is being called twice on page load.
@@ -59,8 +59,12 @@
                 {
                     "data": null,
                     "render": function (data, type, row, meta) {
-                        var html = "<button class='btn btn-success' ng-click = showStudentInfo(" + data['id'] + ") ng-show = 'isAdmin'>查看信息</button><button class='btn btn-success' ng-click = studentDelete(" + data['id'] + ") ng-show = 'isAdmin'>删除</button>"
-                        return html;
+                        if ($rootScope.isAdmin) {
+                            var html = "<button class='btn btn-success' ng-click = showStudentInfo(" + data['id'] + ") ng-show = 'isAdmin'>查看信息</button><button class='btn btn-success' ng-click = studentDelete(" + data['id'] + ") ng-show = 'isAdmin'>删除</button>"
+                            return html;
+                        } else {
+                            return "";
+                        }
                     },
                     "fnCreatedCell": function (td, cellData, rowData, row, col) {
                         $compile(td)($scope);
@@ -128,8 +132,8 @@
                     file: file
                 })
                 .progress(function (evt) {
-//                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-//                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+                    //                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    //                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
                 })
                 .success(function (data) {
                     if (data.message === 'S') {
@@ -141,8 +145,7 @@
                         $scope.onModel.modelShow('warning', data.data);
                         downloadByFormPost({
                             url: 'student/downloadFailedImport',
-                            data: {
-                            }
+                            data: {}
                         });
                         $timeout(function () {
                             $state.reload();
@@ -205,18 +208,20 @@
         }
 
         function downloadByFormPost(options) {
-        	var config = $.extend(true, { method: 'post' }, options);
-        	var $iframe = $('<iframe id="down-file-iframe" />');
-        	var $form = $('<form target="down-file-iframe" method="post" />');
-        	$form.attr('action', config.url);
-        	$form.attr('target', '');
-        	for (var key in config.data) {
-        		$form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
-        	}
-        	$iframe.append($form);
-        	$(document.body).append($iframe);
-        	$form[0].submit();
-        	$iframe.remove();
+            var config = $.extend(true, {
+                method: 'post'
+            }, options);
+            var $iframe = $('<iframe id="down-file-iframe" />');
+            var $form = $('<form target="down-file-iframe" method="post" />');
+            $form.attr('action', config.url);
+            $form.attr('target', '');
+            for (var key in config.data) {
+                $form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
+            }
+            $iframe.append($form);
+            $(document.body).append($iframe);
+            $form[0].submit();
+            $iframe.remove();
         }
 
 

@@ -56,5 +56,10 @@
                     search: ''
                 }
             })
+            .state('application', {
+                url: '/application',
+                templateUrl: 'application-module/application.html',
+                controller: 'applicationController'
+            })
     }]);
 })(window, angular);

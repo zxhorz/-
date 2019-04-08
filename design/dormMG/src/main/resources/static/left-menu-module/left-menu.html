@@ -9,7 +9,7 @@
                     <a href="#" ng-click="switchToPage('info')"><i class="alico icon-menu"></i>个人中心</a>
                 </li>
 
-                <li class="item" ng-show ="isAdmin">
+                <li class="item">
                     <a href="javascript:;"><i class="alico icon-ecs"></i>管理<span class="fa fa-caret-down"></span></a>
                     <ul>
                         <li><a href="#" ng-click="switchToPage('dorm')">寝室管理</a></li>
@@ -20,30 +20,25 @@
                     </ul>
                 </li>
                 <!--<li class="item ">-->
-                    <!--<a href="downloads.php">-->
-                        <!--<i class="fa fa-cloud-download"></i>客户端下载-->
-                    <!--</a>-->
+                <!--<a href="downloads.php">-->
+                <!--<i class="fa fa-cloud-download"></i>客户端下载-->
+                <!--</a>-->
                 <!--</li>-->
                 <!--<li class="item ">-->
-                    <!--<a href="javascript:;"><i class="alico icon-expense"></i>我的账单<span class="fa fa-caret-down"></span></a>-->
-                    <!--<ul>-->
-                        <!--<li><a href="clientarea.php?action=invoices">我的账单</a></li>-->
-                    <!--</ul>-->
-                <!--</li>-->
-                <!--<li class="item ">-->
-                    <!--<a href="javascript:;"><i class="alico icon-pen"></i>使用帮助<span class="fa fa-caret-down"></span></a>-->
-                    <!--<ul>-->
-                        <!--<li><a href="knowledgebase.php?action=displaycat&catid=3">使用教程</a></li>-->
-                        <!--<li><a href="submitticket.php">我要提问</a></li>-->
-                        <!--<li><a href="announcements.php?id=71">售后服务</a></li>-->
-                    <!--</ul>-->
+                <!--<a href="javascript:;"><i class="alico icon-expense"></i>我的账单<span class="fa fa-caret-down"></span></a>-->
+                <!--<ul>-->
+                <!--<li><a href="clientarea.php?action=invoices">我的账单</a></li>-->
+                <!--</ul>-->
                 <!--</li>-->
                 <li class="item ">
-                    <a href="javascript:;"><i class="alico icon-account-2"></i>账户管理<span class="fa fa-caret-down"></span>
+                    <a href="#" ng-click="switchToPage('application')"><i class="alico icon-pen"></i>使用帮助</a>
+                </li>
+                <li class="item ">
+                    <a href="javascript:;"><i class="alico icon-account-2"></i>账户管理<span
+                            class="fa fa-caret-down"></span>
                     </a>
                     <ul>
                         <li><a href="#" ng-click="switchToPage('myInfo')">我的资料</a></li>
-                        <!--       <li><a href="clientarea.php?action=contacts">子联系人</a></li>	 -->
                         <li><a href="#" ng-click="switchToPage('changePw')">更改密码</a></li>
                         <!--<li><a href="clientarea.php?action=emails">站内消息</a></li>-->
                     </ul>

@@ -17,12 +17,12 @@
                             <div class="row">
                                 <div class="form-group col-xs-6 col-sm-6">
                                     <label for="studentId" class="control-label">学号</label>
-                                    <div type="text" name="studentId" id="studentId" class="form-control" >{{student.id}}</div>
+                                    <input type="text" name="studentId" id="studentId" class="form-control" disabled="disabled">{{student.id}}</input>
                                 </div>
 
                                 <div class="form-group col-xs-6  col-sm-6">
                                     <label for="studentName" class="control-label">姓名</label>
-                                    <div type="text" name="studentName" id="studentName" class="form-control" >{{student.name}}</div>
+                                    <input type="text" name="studentName" id="studentName" class="form-control" disabled="disabled">{{student.name}}</input>
                                 </div>
                             </div>
 
@@ -32,7 +32,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="inputPhone" class="control-label">联系电话</label>
+                                <label for="inputTel" class="control-label">联系电话</label>
                                 <input type="tel" name="tel" id="inputTel" class="form-control" ng-model="student.tel" required="required" autocomplete="off">
                             </div>
 

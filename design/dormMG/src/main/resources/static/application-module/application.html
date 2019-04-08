@@ -1,0 +1,105 @@
+<section class="header-nav">
+    <div class="pull-left">
+        <h3><a href="/">HOME</a></h3>
+    </div>
+
+</section>
+
+<div class="main-content">
+    <section id="main-body" class="content content--border">
+        <link rel="stylesheet" type="text/css" href="/editor-module/editor.css">
+        <!--<script type="text/javascript" charset="utf8" src="/assets/js/tinymce.min.js"></script>-->
+        <!--<script type="text/javascript" charset="utf8" src="/assets/lang/zh_CN.js"></script>-->
+        <h3 class="headline">填写申请</h3>
+
+        <div class="table-container clearfix">
+            <form method="post" action="/submitticket.php?step=3" enctype="multipart/form-data" role="form">
+                <input type="hidden" name="token" value="311b63054ed149bd58f2bf769061c6f5aec37065">
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="inputName">名字</label>
+                        <input type="text" name="name" id="inputName" class="form-control disabled" disabled="disabled"
+                               ng-model="application.name">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="inputEmail">邮箱</label>
+                        <input type="email" name="email" id="inputEmail" class="form-control disabled"
+                               disabled="disabled" ng-model="application.email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <label for="inputSubject">主题</label>
+                        <input type="text" name="subject" id="inputSubject" value="" class="form-control"
+                               ng-model="application.subject">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="inputType">问题类型</label>
+                        <select name="dorm" id="inputType" ng-model="application.type"
+                                class="form-control selectpicker">
+                            <option ng-repeat="type in types" value="type">{{type}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="inputPriority">优先权</label>
+                        <select name="dorm" id="inputPriority" ng-model="application.priority"
+                                class="form-control selectpicker">
+                            <option value="1">高</option>
+                            <option value="2">中</option>
+                            <option value="3">低</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputMessage">内容</label>
+                        <textarea name="message" id="inputMessage" rows="12" class="form-control"
+                                  ui-tinymce="tinymceOptions" ng-model="tinymceModel" style="resize: vertical;"></textarea>
+                    </div>
+
+                    <p class="text-center">
+                        <input type="submit" id="openTicketSubmit" value="提交" class="btn btn-primary">
+                    </p>
+                </div>
+            </form>
+
+        </div>
+
+
+
+    </section>
+</div>
+
+
+
+<script src="/assets/js/AjaxModal.js"></script>
+
+<div class="modal system-modal fade" id="modalAjax" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel panel-primary">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">关闭</span>
+                </button>
+                <h4 class="modal-title">标题</h4>
+            </div>
+            <div class="modal-body panel-body">
+                Loading...
+            </div>
+            <div class="modal-footer panel-footer">
+                <div class="pull-left loader">
+                    <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary modal-submit">
+                    提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<modelshow-directive></modelshow-directive>
