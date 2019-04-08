@@ -8,7 +8,7 @@
 				url: '/user/getUser',
 			}).success(function (data) {
 				if (data.message === 'S') {
-					$rootScope.userName = data.data;
+					$rootScope.userName = data.data['userName'];
 				}
 			}).error(function (data) {
 				console.log("error");

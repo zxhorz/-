@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,23 +46,21 @@ public class DormController {
         return ResultDtoFactory.toAck("S",dormService.availableDormList());
     }
 
-    @ApiOperation(value = "get dorm student")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 201, message = "Failed in getting") })
+    @RequiresRoles("admin")
     @RequestMapping(value = "/dormStudents", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<List<Student>> dormStudents(@RequestParam("id") String id) {
         return ResultDtoFactory.toAck("S",dormService.dormStudents(id));
     }
 
-
+    @RequiresRoles("admin")
     @RequestMapping(value = "/dormDelete", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<String> dormDelete(@RequestParam("id") String id) {
         return dormService.dormDelete(id);
     }
 
+    @RequiresRoles("admin")
     @RequestMapping(value = "/dormAdd", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> dormAdd(Dorm dorm) {
@@ -75,6 +74,7 @@ public class DormController {
         return (dormService.dormAdd(dorm));
     }
 
+    @RequiresRoles("admin")
     @RequestMapping(value = "/importDorms", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> importDorms(@RequestParam("file")MultipartFile file) {

@@ -4,17 +4,7 @@
         <h3><a href="/">HOME</a></h3>
     </div>
     <div class="pull-right hidden-xs hidden-sm" style="padding-top: 17px;">
-        <form role="form" method="post" action="clientarea.php?action=kbsearch">
-            <input type="hidden" name="token" value="2563d954adf71cf93fdf6d77f59262ffcd64097c">
-            <div class="home-kb-search">
-                <input type="text" name="search" class="form-control" placeholder="在知识库里查找您的问题">
-                <i class="fa fa-search"></i>
-            </div>
-        </form>
-        <!-- Language -->
 
-        <a href="/cart.php?a=view" class="btn btn-primary"><i class="fa fa-shopping-cart"></i><span id="cartItemCount"
-                                                                                                    class="badge badge-danger">0</span></a>
     </div>
 </section>
 
@@ -93,7 +83,7 @@
         <!--</script>-->
         <h3 class="headline">
             寝室公告
-            <div ng-click="addNotice()">
+            <div ng-click="addNotice()" ng-show = "isAdmin">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </div>
         </h3>

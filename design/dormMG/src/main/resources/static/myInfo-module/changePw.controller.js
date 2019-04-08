@@ -50,7 +50,7 @@
                     },1500)
 //					$state.go('info');
 				}else{
-					$scope.onModel.modelShow('error','修改失败')
+					$scope.onModel.modelShow('error',data.data)
 				}
 			}).error(function (data) {
 				$scope.onModel.modelShow('error','修改失败')

@@ -7,6 +7,7 @@ import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.utils.FilePathUtil;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,12 +30,14 @@ public class StudentController {
         return new DataTableDto<>(studentService.studentList());
     }
 
+    @RequiresRoles("admin")
     @RequestMapping(value = "/studentAdd", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> studentAdd(Student student) {
         return (studentService.studentAdd(student));
     }
 
+    @RequiresRoles("admin")
     @RequestMapping(value = "/studentDelete", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<String> studentDelete(@RequestParam("id") String id) {
@@ -43,6 +46,7 @@ public class StudentController {
         return ResultDtoFactory.toAck("F");
     }
 
+    @RequiresRoles("admin")
     @RequestMapping(value = "/importStudents", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> importStudents(@RequestParam("file")MultipartFile file) {
@@ -63,6 +67,7 @@ public class StudentController {
         return ResultDtoFactory.toAck("F","导入失败");
     }
 
+    @RequiresRoles("admin")
     @RequestMapping(value = "/downloadFailedImport", method = RequestMethod.POST)
     @ResponseBody
     public void downloadFailedImport(HttpServletResponse response) {

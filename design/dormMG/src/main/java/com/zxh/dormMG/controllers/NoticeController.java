@@ -5,6 +5,7 @@ import com.zxh.dormMG.domain.Notice;
 import com.zxh.dormMG.dto.DataTableDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class NoticeController {
     }
 
     //
+    @RequiresRoles("admin")
     @RequestMapping(value = "/noticeSave", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> noticeSave(@RequestParam("title") String title, @RequestParam("content") String content) {
@@ -45,6 +47,7 @@ public class NoticeController {
         return ResultDtoFactory.toAck("F");
     }
 
+    @RequiresRoles("admin")
     @RequestMapping(value = "/noticeDelete", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<String> noticeDelete(@RequestParam("id") String id) {

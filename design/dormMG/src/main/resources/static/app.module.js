@@ -8,6 +8,7 @@ angular.module('DormManagerApp', [
     'editorModule',
     'myInfoModule',
 //    'studentInfoModule',
+    'infoDataModule',
     'modelshowModule',
     'changePwModule',
     'pascalprecht.translate',
