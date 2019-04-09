@@ -62,7 +62,17 @@
                     {
                         "data": null,
                         "render": function (data, type, row, meta) {
-                            var html = "<button class='btn btn-success' ng-click = applicationDelete(" + data['id'] + ")>删除</button>"
+                            var rejectHtml = "<button class='btn btn-success' ng-click = operation(" + data['id'] + ",'拒绝')>拒绝</button>"
+                            var finishHtml = "<button class='btn btn-success' ng-click = operation(" + data['id'] + ",'完成')>完成</button>"
+                            var handleHtml = "<button class='btn btn-success' ng-click = operation(" + data['id'] + ",'处理')>处理</button>"
+                            var deleteHtml = "<button class='btn btn-success' ng-click = applicationDelete(" + data['id'] + ")>删除</button>"
+                            var html = "";
+                            if(data.status =='待处理')
+                                html = handleHtml + rejectHtml;
+                            else if (data.status =='处理中')
+                                html = finishHtml + rejectHtml;
+                            else if (data.status == '已完成')
+                                html = deleteHtml;
                             return html;
                         },
                         "fnCreatedCell": function (td, cellData, rowData, row, col) {
@@ -121,6 +131,28 @@
                     console.log('error')
                 });
             }
+
+            $scope.operate = function (id,operation) {
+                $http({
+                    method: 'GET',
+                    url: '/application/operate',
+                    params: {
+                        'id':id,
+                        'operation': operation
+                    }
+                }).success(function (data) {
+                    if (data.message === 'S') {
+                        $scope.onModel.modelShow('success','操作成功')
+
+                        initTable.ajax.reload();
+                    } else {
+                        console.log(error)
+                    }
+                }).error(function (data) {
+                    console.log('error')
+                });
+            }
+
 
         });
 
