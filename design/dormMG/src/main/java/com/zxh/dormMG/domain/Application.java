@@ -1,6 +1,10 @@
 package com.zxh.dormMG.domain;
 
+import com.zxh.dormMG.dto.ApplicationDto;
+
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "application")
@@ -13,8 +17,8 @@ public class Application {
     @Column(name = "date")
     private String date;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "student_id")
+    private String studentId;
 
     @Column(name = "email")
     private String email;
@@ -34,19 +38,40 @@ public class Application {
     @Column(name = "info")
     private String info;
 
+    @Column(name = "status")
+    private String status;
+
     public Application() {
     }
 
-    public Application(String id, String date, String name, String email, String subject, String type, String priority, String content, String info) {
+    public Application(String id) {
+        this.id = id;
+    }
+
+    public Application(String id, String date, String studentId, String email, String subject, String type, String priority, String content, String info, String status) {
         this.id = id;
         this.date = date;
-        this.name = name;
+        this.studentId = studentId;
         this.email = email;
         this.subject = subject;
         this.type = type;
         this.priority = priority;
         this.content = content;
         this.info = info;
+        this.status = status;
+    }
+
+    public Application(ApplicationDto applicationDto,Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        this.date = sdf.format(date);
+        this.studentId = applicationDto.getStudentId();
+        this.email = applicationDto.getEmail();
+        this.subject = applicationDto.getSubject();
+        this.type = applicationDto.getType();
+        this.priority = applicationDto.getPriority();
+        this.content = applicationDto.getContent();
+        this.info = "";
+        this.status = "待处理";
     }
 
     public String getId() {
@@ -65,12 +90,12 @@ public class Application {
         this.date = date;
     }
 
-    public String getName() {
-        return name;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public String getEmail() {
@@ -119,5 +144,13 @@ public class Application {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

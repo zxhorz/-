@@ -61,5 +61,10 @@
                 templateUrl: 'application-module/application.html',
                 controller: 'applicationController'
             })
+            .state('application/list', {
+                url: '/application/list',
+                templateUrl: 'application-list-module/app.list.html',
+                controller: 'applicationListController'
+            })
     }]);
 })(window, angular);

@@ -1,0 +1,100 @@
+<section class="header-nav">
+    <div class="pull-left">
+
+        <h3><a href="/">HOME</a></h3>
+    </div>
+    <div class="pull-right hidden-xs hidden-sm" style="padding-top: 17px;">
+
+    </div>
+</section>
+
+<div class="main-content">
+    <section id="main-body" class="content content--border">
+
+        <link rel="stylesheet" type="text/css" href="/notice-module/notice.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/dataTables.bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/dataTables.responsive.css">
+        <script type="text/javascript" charset="utf8" src="/assets/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="/assets/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="/assets/js/dataTables.responsive.min.js"></script>
+
+        <h3 class="headline">
+            申请一览
+            <div ng-click="addNotice()" ng-show = "isAdmin">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </div>
+        </h3>
+        <div class="table-container clearfix">
+
+                    <table id="tableEmailsList" class="table table-list dataTable no-footer dtr-inline"
+                           aria-describedby="tableEmailsList_info" role="grid">
+                        <thead>
+                        <tr role="row">
+                            <th class="hidden-xs hidden-sm sorting_desc">申请日期</th>
+                            <th class="sorting">申请主题</th>
+                            <th class="sorting">申请人学号</th>
+                            <th class="sorting">申请类型</th>
+                            <th class="sorting">优先级</th>
+                            <th class="sorting">状态</th>
+                            <th class="sorting_disabled">&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="odd">
+                            <td>Row 1 Data 1</td>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 3</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 5</td>
+                            <td>Row 1 Data 6</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+            <div class="text-center hidden" id="tableLoading">
+                <p><i class="fa fa-spinner fa-spin"></i> 下载中...</p>
+            </div>
+        </div>
+
+
+
+    </section>
+</div>
+
+<script type="text/javascript">
+    var csrfToken = '2563d954adf71cf93fdf6d77f59262ffcd64097c',
+        markdownGuide = '标记符指南',
+        locale = 'en_GB',
+        saved = '保存',
+        saving = '自动保存';
+</script>
+<script src="/assets/js/AjaxModal.js"></script>
+
+<div class="modal system-modal fade" id="modalAjax" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel panel-primary">
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Title</h4>
+            </div>
+            <div class="modal-body panel-body">
+                Loading...
+            </div>
+            <div class="modal-footer panel-footer">
+                <div class="pull-left loader">
+                    <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary modal-submit">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<modelshow-directive></modelshow-directive>

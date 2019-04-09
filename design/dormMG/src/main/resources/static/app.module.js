@@ -8,6 +8,7 @@ angular.module('DormManagerApp', [
     'editorModule',
     'myInfoModule',
 //    'studentInfoModule',
+    'applicationListModule',
     'applicationModule',
     'infoDataModule',
     'modelshowModule',

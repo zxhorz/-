@@ -5,7 +5,7 @@
     app.controller('applicationController', function ($scope, $http, $rootScope, $state,$timeout) {
         $scope.tinymceModel = '';
         $scope.types = ['寝室维修','换寝','其他事务']
-
+        $scope.application = {'content':''};
         var modelContent = '<input id="title" autocomplete="off" ng-model="title" ng-click="addNotice">'
 
         $scope.noticeSave = function () {
@@ -34,6 +34,29 @@
             });
         };
 
+        $scope.submitForm = function () {
+            $scope.onModel.modelLoading('loading', '提交中');
+            $http({
+                method: 'POST',
+                url: '/application/applicationAdd',
+                data: $.param($scope.application),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).success(function (data) {
+                if (data.message === 'S') {
+                    $scope.onModel.modelShow('success', '提交成功');
+                    $timeout(function () {
+                        $state.go("application/list");
+                    }, 2000)
+                } else {
+                    $scope.onModel.modelShow('error', '提交失败');
+                }
+            }).error(function (data) {
+                $scope.onModel.modelShow('error', '提交失败');
+            });
+        }
+
         $http({
             method: 'GET',
             url: '/myInfo/myInfoGet',
@@ -42,7 +65,7 @@
             }
         }).success(function (data) {
             if (data.message === 'S') {
-                $scope.application.name = data.data.name;
+                $scope.application.studentId = data.data.id;
                 $scope.application.email = data.data.email;
             }
         }).error(function (data) {
