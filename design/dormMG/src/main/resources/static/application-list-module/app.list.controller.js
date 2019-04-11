@@ -62,16 +62,16 @@
                     {
                         "data": null,
                         "render": function (data, type, row, meta) {
-                            var rejectHtml = "<button class='btn btn-success' ng-click = operation(" + data['id'] + ",'拒绝')>拒绝</button>"
-                            var finishHtml = "<button class='btn btn-success' ng-click = operation(" + data['id'] + ",'完成')>完成</button>"
-                            var handleHtml = "<button class='btn btn-success' ng-click = operation(" + data['id'] + ",'处理')>处理</button>"
+                            var rejectHtml = "<button class='btn btn-success' ng-click = operate(" + data['id'] + ",'拒绝')>拒绝</button>"
+                            var finishHtml = "<button class='btn btn-success' ng-click = operate(" + data['id'] + ",'完成')>完成</button>"
+                            var handleHtml = "<button class='btn btn-success' ng-click = operate(" + data['id'] + ",'处理')>处理</button>"
                             var deleteHtml = "<button class='btn btn-success' ng-click = applicationDelete(" + data['id'] + ")>删除</button>"
                             var html = "";
-                            if(data.status =='待处理')
+                            if(data.status =='isWaiting')
                                 html = handleHtml + rejectHtml;
-                            else if (data.status =='处理中')
+                            else if (data.status =='isHandling')
                                 html = finishHtml + rejectHtml;
-                            else if (data.status == '已完成')
+                            else if (data.status == 'isFinished' || data.status == 'isRejected')
                                 html = deleteHtml;
                             return html;
                         },

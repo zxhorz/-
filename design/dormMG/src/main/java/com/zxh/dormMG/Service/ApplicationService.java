@@ -76,13 +76,13 @@ public class ApplicationService {
         Operation operation = findOperation(string);
         switch (operation) {
             case FINISH:
-                application.setStatus("已完成");
+                application.setStatus("isFinished");
                 break;
             case HANDLE:
-                application.setStatus("处理中");
+                application.setStatus("isHandling");
                 break;
             case REJECT:
-                application.setStatus("已拒绝");
+                application.setStatus("isRejected");
                 break;
             default:
                 return false;

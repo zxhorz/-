@@ -30,14 +30,14 @@ public class StudentController {
         return new DataTableDto<>(studentService.studentList());
     }
 
-    @RequiresRoles("admin")
+//    @RequiresRoles("admin")
     @RequestMapping(value = "/studentAdd", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> studentAdd(Student student) {
         return (studentService.studentAdd(student));
     }
 
-    @RequiresRoles("admin")
+//    @RequiresRoles("admin")
     @RequestMapping(value = "/studentDelete", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<String> studentDelete(@RequestParam("id") String id) {
@@ -46,7 +46,7 @@ public class StudentController {
         return ResultDtoFactory.toAck("F");
     }
 
-    @RequiresRoles("admin")
+//    @RequiresRoles("admin")
     @RequestMapping(value = "/importStudents", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> importStudents(@RequestParam("file")MultipartFile file) {
@@ -67,7 +67,7 @@ public class StudentController {
         return ResultDtoFactory.toAck("F","导入失败");
     }
 
-    @RequiresRoles("admin")
+//    @RequiresRoles("admin")
     @RequestMapping(value = "/downloadFailedImport", method = RequestMethod.POST)
     @ResponseBody
     public void downloadFailedImport(HttpServletResponse response) {

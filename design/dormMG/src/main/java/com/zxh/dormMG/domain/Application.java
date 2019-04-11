@@ -71,7 +71,7 @@ public class Application {
         this.priority = applicationDto.getPriority();
         this.content = applicationDto.getContent();
         this.info = "";
-        this.status = "待处理";
+        this.status = "isWaiting";
     }
 
     public String getId() {

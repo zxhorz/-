@@ -48,7 +48,7 @@ public class ApplicationController {
         return ResultDtoFactory.toAck("F");
     }
 
-    @RequiresRoles("admin")
+//    @RequiresRoles("admin")
     @RequestMapping(value = "/applicationDelete", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<String> applicationDelete(@RequestParam("id") String id) {
@@ -57,10 +57,10 @@ public class ApplicationController {
         return ResultDtoFactory.toAck("F");
     }
 
-    @RequiresRoles("admin")
+//    @RequiresRoles("admin")
     @RequestMapping(value = "/operate", method = RequestMethod.GET)
     @ResponseBody
-    public ResultDto<String> operate(@RequestParam("id") String id, @RequestParam("String") String operation) {
+    public ResultDto<String> operate(@RequestParam("id") String id, @RequestParam("operation") String operation) {
         if (applicationService.operate(id, operation))
             return ResultDtoFactory.toAck("S");
         return ResultDtoFactory.toAck("F");
