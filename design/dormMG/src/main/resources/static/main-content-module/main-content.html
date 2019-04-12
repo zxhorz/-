@@ -71,8 +71,6 @@
     </style>
         <p class="tongzhi">
             <!-- 	1）以前的bcoderSS注册用户在此查询账户以及套餐   <a class="btn btn-sm btn-success margin-right-2 ng-binding" href="http://mgyvpn.com/announcements.php?id=54" target="_blank">查看旧账户</a>  -->
-            <a class="btn btn-sm btn-success margin-right-2 ng-binding" href="http://mgyvpn.com/knowledgebase.php?action=displaycat&catid=3"
-               target="_blank">使用教程</a><br>
             如需了解最新通知，请查看近期公告。
             <!-- 	<a class="btn btn-sm btn-success margin-right-2 ng-binding" href="http://ssblog.me" target="_blank">免费上网</a> -->
         </p>
@@ -81,13 +79,12 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="user-part-header">
-                        <a class="user-header ng-scope" href="clientarea.php?action=details">
+                        <div class="user-header ng-scope">
                             <img width="50" height="50" src="http://mgyvpn.com/templates/NeWorld/assets/img/default_family.jpg"
                                  alt="" />
-                        </a>
+                        </div>
                         <div class="user-name">
-                            <span class="text-muted">Hi,</span> <a class="text-primary" href="clientarea.php?action=details">
-                            周皙昊</a>
+                            <span class="text-muted">Hi,</span> <a class="text-primary" ng-click="switchToPage('myInfo')">{{student.name}}</a>
                         </div>
                         <div class="user-bound ng-scope">
 
@@ -105,49 +102,20 @@
                                     class="user-small suffix">元</span>
                             </div>
                         </div>
-                        <div>
-                            <div class="inline-block">
-                                <a class="ng-binding hide" href="">費用中心</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-6">
-                    <div class="user-part-todo ng-scope">
-                        <div class="user-body-title">
-                            續費帳單<span class="home-colon">:</span>
-                        </div>
-                        <div class="user-body-main">
-                            <div class="user-renew">
-                                <span class="ng-binding">0</span>
-                                <a class="user-small" href="clientarea.php?action=masspay&all=true">續費帳單</a>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="user-opt inline-block">
-                                <a href="clientarea.php?action=services">我的SS套餐</a>
-                                <span class="margin-left-1 ng-binding">1</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="user-part-tickets ng-scope">
                         <div class="user-body-title">
-                            我的工单<span class="home-colon">:</span>
+                            我的申请<span class="home-colon">:</span>
                         </div>
                         <div class="user-body-main">
                             <div class="user-renew">
-                                <span class="ng-binding">0</span>
-                                <a class="user-small" href="supporttickets.php">我的工单</a>
+                                <span class="ng-binding">{{applicationCount}}</span>
+                                <a class="user-small" ng-click="switchToPage('application/list')">我的申请</a>
                             </div>
                         </div>
-                        <div>
-                            <div class="user-opt inline-block">
-                                <a href="clientarea.php?action=quotes" class="hidden-xs">行情</a>
-                                <span class="margin-left-1 ng-binding hidden-xs">0</span>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -158,33 +126,11 @@
     <div class="client-home-panels">
         <div class="row">
             <div class="col-sm-6">
-                <div menuItemName="Active Products/Services" class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <div class="pull-right">
-                                <a href="clientarea.php?action=services" class="btn bg-color-gold btn-xs">
-                                    <i class="fa fa-plus"></i> 查看全部
-                                </a>
-                            </div>
-                            <i class="fa fa-cube"></i>&nbsp; 您订购的产品
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="list-group">
-                            <a menuItemName="0" href="clientarea.php?action=productdetails&id=21431" class="list-group-item"
-                               id="ClientAreaHomePagePanels-Active_Products_Services-0">
-                                All product - MGYVPN<br /><span class="text-domain">3619</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                    </div>
-                </div>
                 <div menuItemName="Recent News" class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             <div class="pull-right">
-                                <a href="announcements.php" class="btn bg-color-asbestos btn-xs">
+                                <a ng-click="switchToPage('notice')" class="btn bg-color-asbestos btn-xs">
                                     <i class="fa fa-arrow-right"></i> 查看全部
                                 </a>
                             </div>
@@ -193,14 +139,8 @@
                     </div>
                     <div class="panel-body">
                         <div class="list-group">
-                            <a menuItemName="0" href="announcements.php?id=80" class="list-group-item" id="ClientAreaHomePagePanels-Recent_News-0">
-                                近期封网提醒<br /><span class="text-last-updated">2018-12-22</span>
-                            </a>
-                            <a menuItemName="1" href="announcements.php?id=79" class="list-group-item" id="ClientAreaHomePagePanels-Recent_News-1">
-                                服务器问题<br /><span class="text-last-updated">2018-12-05</span>
-                            </a>
-                            <a menuItemName="2" href="announcements.php?id=78" class="list-group-item" id="ClientAreaHomePagePanels-Recent_News-2">
-                                日本亚马逊访问问题<br /><span class="text-last-updated">2018-11-15</span>
+                            <a ng-repeat="notice in notices track by $index" menuItemName="$index" ng-click="viewNotice($index)" class="list-group-item">
+                                {{notice.title}}<br /><span class="text-last-updated">{{notice.date}}</span>
                             </a>
                         </div>
                     </div>
@@ -213,15 +153,19 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             <div class="pull-right">
-                                <a href="submitticket.php" class="btn bg-color-blue btn-xs">
-                                    <i class="fa fa-plus"></i> 提交新工单
+                                <a ng-click="switchToPage('appliction')" class="btn bg-color-blue btn-xs">
+                                    <i class="fa fa-plus"></i> 提交新申请
                                 </a>
                             </div>
-                            <i class="fa fa-comments"></i>&nbsp; 最近的工单
+                            <i class="fa fa-comments"></i>&nbsp; 最近的申请
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <p>没有工单。如果您需要帮助，您可以 <a href="submitticket.php">提交一个工单</a>.</p>
+                        <a ng-if="applications.length>0" ng-repeat="application in applications track by $index" menuItemName="$index"  class="list-group-item">
+                            {{application.title}}<br /><span class="text-last-updated">{{application.date}}</span>
+                            <button class="pull-right btn bg-color-blue">{{application.status}}</button>
+                        </a>
+                        <p ng-if="notices.length===0">没有申请。如果您需要帮助，您可以 <a ng-click="switchToPage('appliction')">提交一个工单</a>.</p>
                     </div>
                     <div class="panel-footer">
                     </div>

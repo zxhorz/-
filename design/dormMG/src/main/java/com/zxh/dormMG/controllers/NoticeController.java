@@ -27,7 +27,7 @@ public class NoticeController {
     }
 
     //
-    @RequiresRoles("admin")
+//    @RequiresRoles("admin")
     @RequestMapping(value = "/noticeSave", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> noticeSave(@RequestParam("title") String title, @RequestParam("content") String content) {
@@ -47,7 +47,7 @@ public class NoticeController {
         return ResultDtoFactory.toAck("F");
     }
 
-    @RequiresRoles("admin")
+//    @RequiresRoles("admin")
     @RequestMapping(value = "/noticeDelete", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<String> noticeDelete(@RequestParam("id") String id) {
@@ -56,5 +56,10 @@ public class NoticeController {
         return ResultDtoFactory.toAck("F");
     }
 
+    @RequestMapping(value = "/noticePreview", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultDto<List<Notice>> applicationPreview() {
+        return ResultDtoFactory.toAck("S",noticeService.noticePreview());
+    }
 
 }

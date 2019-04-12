@@ -10,6 +10,7 @@ import com.zxh.dormMG.dto.UserDto;
 import com.zxh.dormMG.enums.Operation;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,9 +42,9 @@ public class ApplicationService {
         String name = user.getData().getUserName();
         List<Application> list = new ArrayList<>();
         Iterable<Application> applications;
-        if(Objects.equals(user.getData().getRole(), ADMIN)){
+        if (Objects.equals(user.getData().getRole(), ADMIN)) {
             applications = applicationRepository.findAll();
-        }else {
+        } else {
             applications = applicationRepository.findApplicationByName(name);
         }
 
@@ -52,6 +53,24 @@ public class ApplicationService {
         }
         return list;
     }
+
+    public Integer count() {
+        ResultDto<UserDto> user = userController.getUser();
+        String name = user.getData().getUserName();
+        List<Application> list = new ArrayList<>();
+        Iterable<Application> applications;
+        if (Objects.equals(user.getData().getRole(), ADMIN)) {
+            applications = applicationRepository.findAll();
+        } else {
+            applications = applicationRepository.findApplicationByName(name);
+        }
+
+        for (Application application : applications) {
+            list.add(application);
+        }
+        return list.size();
+    }
+
 
     public Application applicationGet(String id) {
         return applicationRepository.findApplicationById(id);
@@ -98,5 +117,29 @@ public class ApplicationService {
             }
         }
         return null;
+    }
+
+    public List<Application> applicationPreview() {
+        ResultDto<UserDto> user = userController.getUser();
+        String name = user.getData().getUserName();
+        List<Application> list = new ArrayList<>();
+        List<Application> result = new ArrayList<>();
+        Iterable<Application> applications;
+        if (Objects.equals(user.getData().getRole(), ADMIN)) {
+            Sort sort = new Sort(Sort.Direction.DESC, "date");
+            applications = applicationRepository.findAll(sort);
+        } else {
+            applications = applicationRepository.findApplicationByNameOrderByDate(name);
+        }
+
+        for (Application application : applications) {
+            list.add(application);
+        }
+        if (list.size() == 0)
+            return list;
+        for (int i = 0; i < Math.min(4,list.size()); i++) {
+            result.add(list.get(i));
+        }
+        return result;
     }
 }

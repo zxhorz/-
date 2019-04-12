@@ -36,6 +36,8 @@
 
 
             $rootScope.switchToPage = function(key){
+//                $(".menu .item ul", $(".menu .item").parents("ul:first")).slideUp(350);
+//                $(".menu .item").siblings().removeClass("active");
                 $state.go(key)
             }
 

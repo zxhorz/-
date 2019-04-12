@@ -16,4 +16,7 @@ public interface ApplicationRepository extends BaseRepository<Application,Long> 
 
     @Query("select n from Application n where n.studentId = :query")
     List<Application> findApplicationByName(@Param("query") String studentId);
+
+    @Query("select n from Application n where n.studentId = :query order by n.date desc")
+    List<Application> findApplicationByNameOrderByDate(@Param("query") String studentId);
 }

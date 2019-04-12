@@ -28,6 +28,19 @@ public class ApplicationController {
         return new DataTableDto<>(applicationService.applicationList());
     }
 
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultDto<Integer> count() {
+        return ResultDtoFactory.toAck("S",applicationService.count());
+    }
+
+    //
+    @RequestMapping(value = "/applicationPreview", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultDto<List<Application>> applicationPreview() {
+        return ResultDtoFactory.toAck("S",applicationService.applicationPreview());
+    }
+
     //
     @RequestMapping(value = "/applicationAdd", method = RequestMethod.POST)
     @ResponseBody
@@ -56,6 +69,8 @@ public class ApplicationController {
             return ResultDtoFactory.toAck("S");
         return ResultDtoFactory.toAck("F");
     }
+
+
 
 //    @RequiresRoles("admin")
     @RequestMapping(value = "/operate", method = RequestMethod.GET)
