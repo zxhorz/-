@@ -11,20 +11,39 @@
         <!--<script type="text/javascript" charset="utf8" src="/assets/js/tinymce.min.js"></script>-->
         <!--<script type="text/javascript" charset="utf8" src="/assets/lang/zh_CN.js"></script>-->
         <h3 class="headline">编写公告</h3>
-
-        <div class="table-container clearfix">
-            <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
-            <div class="pull-right form-group">
-                <button class="btn btn-success" ng-click="cancel()">取消</button>
-                <button class="btn btn-success" ng-click="noticeSave()">确定发布</button>
+        <form ng-submit="submitForm()" role="form">
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label for="inputSubject">标题</label>
+                    <input type="text" name="subject" id="inputSubject" value="" class="form-control" ng-model="notice.title" autocomplete="off">
+                </div>
             </div>
-            <!--<textarea id="editorTitle" >-->
-                <!--点击编辑标题-->
-            <!--</textarea>-->
-            <!--<textarea id="editorContent">-->
-                <!--点击编辑公告-->
-            <!--</textarea>-->
-        </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label for="inputMessage">内容</label>
+                    <textarea name="message" id="inputMessage" rows="12" class="form-control" ui-tinymce="tinymceOptions" ng-model="notice.content" style="resize: vertical;"></textarea>
+                </div>
+
+                <p class="text-center">
+                    <button id="cancel" class="btn btn-primary" ng-click="cancel()">取消</button>
+                    <input type="submit" value="确定发布" class="btn btn-primary">
+                </p>
+            </div>
+        </form>
+
+        <!--<div class="table-container clearfix">-->
+            <!--<textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>-->
+            <!--<div class="pull-right form-group">-->
+                <!--<button class="btn btn-success" ng-click="cancel()">取消</button>-->
+                <!--<button class="btn btn-success" ng-click="noticeSave()">确定发布</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<textarea id="editorTitle" >&ndash;&gt;-->
+                <!--&lt;!&ndash;点击编辑标题&ndash;&gt;-->
+            <!--&lt;!&ndash;</textarea>&ndash;&gt;-->
+            <!--&lt;!&ndash;<textarea id="editorContent">&ndash;&gt;-->
+                <!--&lt;!&ndash;点击编辑公告&ndash;&gt;-->
+            <!--&lt;!&ndash;</textarea>&ndash;&gt;-->
+        <!--</div>-->
 
 
 

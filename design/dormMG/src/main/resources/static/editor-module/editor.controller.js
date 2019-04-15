@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular,$) {
     'use strict';
     var app = angular.module('editorModule', []);
 
@@ -11,29 +11,27 @@
 
         var modelContent = '<input id="title" autocomplete="off" ng-model="title" ng-click="addNotice">'
 
-        $scope.noticeSave = function () {
+        $scope.submitForm = function () {
             //            $scope.tinymceModel = 'Time: ' + (new Date());
-            openModal('/notice/addNotice', '设置该公告的主题', 500, modelContent, '确定', 'addNotice');
-            $('#addNotice').on('click', function () {
-                $('#modalAjax .loader').show();
-                $http({
-                    method: 'POST',
-                    url: '/notice/noticeSave',
-                    params: {
-                        'title': $('#title').val(),
-                        'content': $scope.tinymceModel
-                    }
-                }).success(function (data) {
-                    if (data.message === 'S') {
-                        $('#modalAjax .loader').fadeOut();
-                        $scope.onModel.modelShow('success','发布成功')
-                        $timeout(function() {
-                            $state.go('notice');
-                        },1500)
-                    }
-                }).error(function (data) {
-                    $('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');
-                });
+            $scope.onModel.modelLoading('loading', '发布中');
+            $http({
+                method: 'POST',
+                url: '/notice/noticeSave',
+                data: $.param($scope.application),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).success(function (data) {
+                if (data.message === 'S') {
+                    $scope.onModel.modelShow('success','发布成功')
+                    $timeout(function() {
+                        $state.go('notice');
+                    },2000)
+                }else{
+                    $scope.onModel.modelShow('error','发布失败');
+                }
+            }).error(function (data) {
+                $scope.onModel.modelShow('error','发布失败');
             });
         };
 
@@ -43,7 +41,7 @@
 
         $scope.tinymceOptions = {
             menubar: false,
-            height: 600,
+            height: 500,
             plugins: "nonbreaking",
             nonbreaking_force_tab: true,
             toolbar: 'undo redo | formatselect | bold italic backcolor | fontselect fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
@@ -58,4 +56,4 @@
     })
 
 
-})(angular);
+})(angular,$);

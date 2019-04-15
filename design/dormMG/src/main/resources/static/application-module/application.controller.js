@@ -8,32 +8,6 @@
         $scope.application = {'content':''};
         var modelContent = '<input id="title" autocomplete="off" ng-model="title" ng-click="addNotice">'
 
-        $scope.noticeSave = function () {
-            //            $scope.tinymceModel = 'Time: ' + (new Date());
-            openModal('/notice/addNotice', '设置该公告的主题', 500, modelContent, '确定', 'addNotice');
-            $('#addNotice').on('click', function () {
-                $('#modalAjax .loader').show();
-                $http({
-                    method: 'POST',
-                    url: '/notice/noticeSave',
-                    params: {
-                        'title': $('#title').val(),
-                        'content': $scope.tinymceModel
-                    }
-                }).success(function (data) {
-                    if (data.message === 'S') {
-                        $('#modalAjax .loader').fadeOut();
-                        $scope.onModel.modelShow('success','发布成功')
-                        $timeout(function() {
-                            $state.go('notice');
-                        },1500)
-                    }
-                }).error(function (data) {
-                    $('#modalAjax .modal-body').html('An error occurred while communicating with the server. Please try again.');
-                });
-            });
-        };
-
         $scope.submitForm = function () {
             $scope.onModel.modelLoading('loading', '提交中');
             $http({

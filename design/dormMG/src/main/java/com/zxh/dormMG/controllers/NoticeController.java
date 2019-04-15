@@ -3,9 +3,9 @@ package com.zxh.dormMG.controllers;
 import com.zxh.dormMG.Service.NoticeService;
 import com.zxh.dormMG.domain.Notice;
 import com.zxh.dormMG.dto.DataTableDto;
+import com.zxh.dormMG.dto.NoticeDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +30,8 @@ public class NoticeController {
 //    @RequiresRoles("admin")
     @RequestMapping(value = "/noticeSave", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDto<String> noticeSave(@RequestParam("title") String title, @RequestParam("content") String content) {
-        Notice notice = new Notice(title,new Date(),content);
+    public ResultDto<String> noticeSave(NoticeDto noticeDto) {
+        Notice notice = new Notice(noticeDto,new Date());
         if(noticeService.noticeSave(notice))
             return ResultDtoFactory.toAck("S");
         return ResultDtoFactory.toAck("F");

@@ -1,5 +1,7 @@
 package com.zxh.dormMG.domain;
 
+import com.zxh.dormMG.dto.NoticeDto;
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,6 +25,13 @@ public class Notice {
     private String content;
 
     public Notice() {
+    }
+
+    public Notice(NoticeDto noticeDto, Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        this.title = noticeDto.getTitle();
+        this.date = sdf.format(date);
+        this.content = noticeDto.getContent();
     }
 
     public Notice(String title, Date date, String content) {
