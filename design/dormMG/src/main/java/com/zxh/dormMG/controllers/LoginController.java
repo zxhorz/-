@@ -70,12 +70,6 @@ public class LoginController {
     }
 
 
-    //退出的时候是get请求，主要是用于退出
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "login";
-    }
-
     @RequestMapping(value = "/index")
     public String index() {
         return "index";
