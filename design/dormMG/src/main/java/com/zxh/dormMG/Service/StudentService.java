@@ -90,6 +90,9 @@ public class StudentService {
 
         try {
             studentRepository.save(student);
+            //添加对应账号
+
+
             return ResultDtoFactory.toAck("S");
         } catch (Exception e) {
             return ResultDtoFactory.toAck("F", "添加失败");
