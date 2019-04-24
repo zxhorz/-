@@ -1,6 +1,6 @@
 package com.zxh.dormMG.Repository;
 
-import com.zxh.dormMG.domain.User;
+import com.zxh.dormMG.Domain.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

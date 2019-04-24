@@ -2,9 +2,9 @@ package com.zxh.dormMG.Security;
 
 import com.zxh.dormMG.Repository.UserRepository;
 import com.zxh.dormMG.Service.LoginService;
-import com.zxh.dormMG.domain.Permission;
-import com.zxh.dormMG.domain.Role;
-import com.zxh.dormMG.domain.User;
+import com.zxh.dormMG.Domain.Permission;
+import com.zxh.dormMG.Domain.Role;
+import com.zxh.dormMG.Domain.User;
 import com.zxh.dormMG.utils.OperationLogger;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

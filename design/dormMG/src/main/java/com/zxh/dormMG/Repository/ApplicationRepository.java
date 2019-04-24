@@ -1,6 +1,6 @@
 package com.zxh.dormMG.Repository;
 
-import com.zxh.dormMG.domain.Application;
+import com.zxh.dormMG.Domain.Application;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

@@ -1,8 +1,8 @@
 package com.zxh.dormMG.controllers;
 
+import com.zxh.dormMG.Domain.Role;
+import com.zxh.dormMG.Domain.User;
 import com.zxh.dormMG.Service.LoginService;
-import com.zxh.dormMG.domain.Role;
-import com.zxh.dormMG.domain.User;
 import com.zxh.dormMG.dto.LoginDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/login")
@@ -89,15 +88,15 @@ public class LoginController {
 
     //数据初始化
     @RequestMapping(value = "/addUser")
-    public String addUser(@RequestBody Map<String, Object> map) {
-        User user = loginService.addUser(map);
+    public String addUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+        User user = loginService.addUser(username, password);
         return "addUser is ok! \n" + user;
     }
 
     //角色初始化
     @RequestMapping(value = "/addRole")
-    public String addRole(@RequestBody Map<String, Object> map) {
-        Role role = loginService.addRole(map);
+    public String addRole(@RequestParam("username") String username, @RequestParam("roleName") String roleName) {
+        Role role = loginService.addRole(username,roleName);
         return "addRole is ok! \n" + role;
     }
 

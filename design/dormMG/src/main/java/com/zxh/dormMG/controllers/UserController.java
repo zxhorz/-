@@ -1,9 +1,7 @@
 package com.zxh.dormMG.controllers;
 
 import com.zxh.dormMG.Repository.UserRepository;
-import com.zxh.dormMG.Service.MyInfoService;
-import com.zxh.dormMG.domain.Student;
-import com.zxh.dormMG.domain.User;
+import com.zxh.dormMG.Domain.User;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.dto.UserDto;

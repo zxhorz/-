@@ -2,8 +2,8 @@ package com.zxh.dormMG.Service;
 
 import com.zxh.dormMG.Repository.DormRepository;
 import com.zxh.dormMG.Repository.StudentRepository;
-import com.zxh.dormMG.domain.Dorm;
-import com.zxh.dormMG.domain.Student;
+import com.zxh.dormMG.Domain.Dorm;
+import com.zxh.dormMG.Domain.Student;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.utils.*;

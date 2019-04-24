@@ -1,4 +1,4 @@
-package com.zxh.dormMG.domain;
+package com.zxh.dormMG.Domain;
 
 import com.zxh.dormMG.dto.NoticeDto;
 

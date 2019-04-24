@@ -1,7 +1,7 @@
 package com.zxh.dormMG.controllers;
 
 import com.zxh.dormMG.Service.NoticeService;
-import com.zxh.dormMG.domain.Notice;
+import com.zxh.dormMG.Domain.Notice;
 import com.zxh.dormMG.dto.DataTableDto;
 import com.zxh.dormMG.dto.NoticeDto;
 import com.zxh.dormMG.dto.ResultDto;

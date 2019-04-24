@@ -1,10 +1,8 @@
 package com.zxh.dormMG.Repository;
 
-import com.zxh.dormMG.domain.Dorm;
-import com.zxh.dormMG.domain.Student;
+import com.zxh.dormMG.Domain.Dorm;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 

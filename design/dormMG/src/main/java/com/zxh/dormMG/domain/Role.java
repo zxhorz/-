@@ -1,4 +1,4 @@
-package com.zxh.dormMG.domain;
+package com.zxh.dormMG.Domain;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +20,13 @@ public class Role {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
     private List<Permission> permissions;
+
+    public Role() {
+    }
+
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
 
     public Long getId() {
         return id;
@@ -51,5 +58,11 @@ public class Role {
 
     public void setPermissions(List<Permission> permissions) {
         this.permissions = permissions;
+    }
+
+    public void addPermission(Permission permission) {
+        if (permission != null) {
+            this.permissions.add(permission);
+        }
     }
 }

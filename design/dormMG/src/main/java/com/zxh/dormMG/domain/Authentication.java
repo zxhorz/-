@@ -1,4 +1,4 @@
-package com.zxh.dormMG.domain;
+package com.zxh.dormMG.Domain;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

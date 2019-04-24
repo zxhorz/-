@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.zxh.dormMG.Repository.OperationLogRepository;
 import com.zxh.dormMG.Repository.RoleRepository;
-import com.zxh.dormMG.domain.OperationLog;
+import com.zxh.dormMG.Domain.OperationLog;
 import com.zxh.dormMG.enums.OperationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

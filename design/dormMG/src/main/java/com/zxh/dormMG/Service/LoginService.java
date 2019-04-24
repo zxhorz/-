@@ -1,11 +1,11 @@
 package com.zxh.dormMG.Service;
 
+import com.zxh.dormMG.Domain.Authentication;
+import com.zxh.dormMG.Domain.Permission;
+import com.zxh.dormMG.Domain.Role;
+import com.zxh.dormMG.Domain.User;
 import com.zxh.dormMG.Repository.RoleRepository;
 import com.zxh.dormMG.Repository.UserRepository;
-import com.zxh.dormMG.domain.Authentication;
-import com.zxh.dormMG.domain.Permission;
-import com.zxh.dormMG.domain.Role;
-import com.zxh.dormMG.domain.User;
 import com.zxh.dormMG.dto.LoginDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
@@ -38,7 +38,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 @Service
@@ -60,10 +59,11 @@ public class LoginService {
     }
 
     //添加用户
-    public User addUser(Map<String, Object> map) {
+    public User addUser(String username,String password) {
         User user = new User();
-        user.setUsername(map.get("username").toString());
-        user.setPassword(map.get("password").toString());
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setState(UserState.ACTIVE.getState());
         userRepository.save(user);
         return user;
     }
@@ -76,20 +76,24 @@ public class LoginService {
     }
 
     //添加角色
-    public Role addRole(Map<String, Object> map) {
-        User user = userRepository.findOne(Long.valueOf(map.get("userId").toString()));
+    public Role addRole(String username,String roleName) {
+        User user = userRepository.findUserByName(username);
         Role role = new Role();
-        role.setRoleName(map.get("roleName").toString());
+        role.setRoleName(roleName);
         role.setUser(user);
-        Permission permission1 = new Permission();
-        permission1.setPermission("create");
-        permission1.setRole(role);
-        Permission permission2 = new Permission();
-        permission2.setPermission("update");
-        permission2.setRole(role);
+        Permission permission = new Permission();
+        permission.setPermission("all");
+        permission.setRole(role);
+//        Permission permission1 = new Permission();
+//        permission1.setPermission("create");
+//        permission1.setRole(role);
+//        Permission permission2 = new Permission();
+//        permission2.setPermission("update");
+//        permission2.setRole(role);
         List<Permission> permissions = new ArrayList<>();
-        permissions.add(permission1);
-        permissions.add(permission2);
+//        permissions.add(permission1);
+//        permissions.add(permission2);
+        permissions.add(permission);
         role.setPermissions(permissions);
         roleRepository.save(role);
         return role;

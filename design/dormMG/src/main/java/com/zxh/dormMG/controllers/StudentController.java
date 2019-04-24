@@ -1,13 +1,12 @@
 package com.zxh.dormMG.controllers;
 
 import com.zxh.dormMG.Service.StudentService;
-import com.zxh.dormMG.domain.Student;
+import com.zxh.dormMG.Domain.Student;
 import com.zxh.dormMG.dto.DataTableDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.utils.FilePathUtil;
 import org.apache.log4j.Logger;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,7 +49,6 @@ public class StudentController {
     @RequestMapping(value = "/importStudents", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> importStudents(@RequestParam("file")MultipartFile file) {
-//        return (studentService.studentAdd(student));
         if (file != null) {
             String fileName = file.getOriginalFilename();
             String path = FilePathUtil.createUploadFile(fileName);
@@ -71,7 +69,6 @@ public class StudentController {
     @RequestMapping(value = "/downloadFailedImport", method = RequestMethod.POST)
     @ResponseBody
     public void downloadFailedImport(HttpServletResponse response) {
-//        return (studentService.studentAdd(student));
         try {
             File file = FilePathUtil.getDownloadFilePath("导入失败学生名单.xls");
             FilePathUtil.download(file, response);

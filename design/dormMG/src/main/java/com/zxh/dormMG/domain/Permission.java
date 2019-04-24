@@ -1,4 +1,4 @@
-package com.zxh.dormMG.domain;
+package com.zxh.dormMG.Domain;
 
 import javax.persistence.*;
 
@@ -16,6 +16,13 @@ public class Permission {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
+
+    public Permission() {
+    }
+
+    public Permission(String permission) {
+        this.permission = permission;
+    }
 
     public Long getId() {
         return id;

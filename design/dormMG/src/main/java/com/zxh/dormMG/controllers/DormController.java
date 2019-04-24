@@ -1,18 +1,13 @@
 package com.zxh.dormMG.controllers;
 
 import com.zxh.dormMG.Service.DormService;
-import com.zxh.dormMG.Service.NoticeService;
-import com.zxh.dormMG.domain.Dorm;
-import com.zxh.dormMG.domain.Notice;
-import com.zxh.dormMG.domain.Student;
+import com.zxh.dormMG.Domain.Dorm;
+import com.zxh.dormMG.Domain.Student;
 import com.zxh.dormMG.dto.DataTableDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.utils.FilePathUtil;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 @Api(tags = {"Dorm"}, description = "the Dorm API")

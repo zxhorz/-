@@ -2,7 +2,7 @@ package com.zxh.dormMG.utils;
 
 import com.zxh.dormMG.Repository.RoleRepository;
 import com.zxh.dormMG.Repository.UserRepository;
-import com.zxh.dormMG.domain.User;
+import com.zxh.dormMG.Domain.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;

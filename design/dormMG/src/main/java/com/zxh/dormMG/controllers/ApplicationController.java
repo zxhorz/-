@@ -1,13 +1,11 @@
 package com.zxh.dormMG.controllers;
 
 import com.zxh.dormMG.Service.ApplicationService;
-import com.zxh.dormMG.Service.ApplicationService;
-import com.zxh.dormMG.domain.Application;
+import com.zxh.dormMG.Domain.Application;
 import com.zxh.dormMG.dto.ApplicationDto;
 import com.zxh.dormMG.dto.DataTableDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

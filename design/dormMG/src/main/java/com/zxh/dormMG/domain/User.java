@@ -1,4 +1,4 @@
-package com.zxh.dormMG.domain;
+package com.zxh.dormMG.Domain;
 
 import javax.persistence.*;
 import java.util.List;
@@ -104,5 +104,11 @@ public class User {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public void addRole(Role role) {
+        if (role != null) {
+            this.roles.add(role);
+        }
     }
 }

@@ -1,19 +1,20 @@
 package com.zxh.dormMG.Service;
 
+import com.zxh.dormMG.Domain.Dorm;
+import com.zxh.dormMG.Domain.Student;
+import com.zxh.dormMG.Domain.User;
 import com.zxh.dormMG.Repository.DormRepository;
+import com.zxh.dormMG.Repository.RoleRepository;
 import com.zxh.dormMG.Repository.StudentRepository;
-import com.zxh.dormMG.domain.Dorm;
-import com.zxh.dormMG.domain.Student;
+import com.zxh.dormMG.Repository.UserRepository;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.utils.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.util.*;
@@ -24,6 +25,12 @@ public class StudentService {
     private static final String DOWNLOAD_PATH = "download/";
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private DormService dormService;
 
     @Autowired
@@ -31,6 +38,9 @@ public class StudentService {
 
     @Autowired
     private DormRepository dormRepository;
+
+    @Autowired
+    private LoginService loginService;
 
     public List<Student> studentList() {
         Iterable<Student> students = studentRepository.findAll();
@@ -89,6 +99,8 @@ public class StudentService {
         }
 
         try {
+            loginService.addUser(student.getId(),PasswordUtil.MD5(student.getId()));
+            loginService.addRole(student.getId(),"user");
             studentRepository.save(student);
             //添加对应账号
 
@@ -101,8 +113,11 @@ public class StudentService {
 
     public boolean studentDelete(String id) {
         try {
+            User user = userRepository.findUserByName(id);
+            userRepository.delete(user);
             Student student = new Student(id);
             studentRepository.delete(student);
+
             logger.info("student deleted successfully");
             return true;
         } catch (Exception e) {
@@ -133,10 +148,9 @@ public class StudentService {
                 for (int i = 1; i < list.size(); i++) {
                     List<String> row = list.get(i);
                     Student student = new Student(row.get(idIndex), row.get(nameIndex), row.get(branchIndex), row.get(telIndex), row.get(emailIndex), row.get(classIndex));
-//                    students.add(student);
                     student = autoImportStudent(student);
                     if (student == null)
-                        ResultDtoFactory.toAck("F", "寝室容量不足");
+                        return ResultDtoFactory.toAck("F", "寝室容量不足");
                     ResultDto<String> result = studentAdd(student);
                     if (result.getMessage().equals("F"))
                         students.put(student, result.getData());
@@ -144,9 +158,12 @@ public class StudentService {
 
                 if (students.size() != 0) {
                     File tempFile = new File(FilePathUtil.createDownloadFile("导入失败名单.xls"));
-                    tempFile.delete();
+                    if(tempFile.delete()){
                     if (!tempFile.exists()) {
                         tempFile.createNewFile();
+                    }}
+                    else{
+                        return ResultDtoFactory.toAck("F","文件存储错误");
                     }
 
                     ArrayList<ArrayList> writeContent = new ArrayList<>();
@@ -182,13 +199,13 @@ public class StudentService {
 
     public Student autoImportStudent(Student student) {
         List<Dorm> dorms = dormService.availableDormList();
-        if (dorms.size() == 0)
+        if (dorms.isEmpty())
             return null;
         float max = -Float.MAX_VALUE;
         String dormId = dorms.get(0).getId();
         for (Dorm dorm : dorms) {
             List<Student> students = dorm.getStudents();
-            if (students.size() == 0 && max <= 0 && dormRepository.findDormById(dormId).getStudents().size() != 0)
+            if (students.isEmpty() && max <= 0 && !dormRepository.findDormById(dormId).getStudents().isEmpty())
                 dormId = dorm.getId();
             else {
                 for (Student student1 : students) {

@@ -1,6 +1,6 @@
 package com.zxh.dormMG.Repository;
 
-import com.zxh.dormMG.domain.OperationLog;
+import com.zxh.dormMG.Domain.OperationLog;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

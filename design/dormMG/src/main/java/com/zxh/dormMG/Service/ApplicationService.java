@@ -2,9 +2,7 @@ package com.zxh.dormMG.Service;
 
 import com.zxh.dormMG.Repository.ApplicationRepository;
 import com.zxh.dormMG.controllers.UserController;
-import com.zxh.dormMG.domain.Application;
-import com.zxh.dormMG.domain.Notice;
-import com.zxh.dormMG.domain.User;
+import com.zxh.dormMG.Domain.Application;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.UserDto;
 import com.zxh.dormMG.enums.Operation;

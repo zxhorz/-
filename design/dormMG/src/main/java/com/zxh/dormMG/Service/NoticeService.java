@@ -1,9 +1,7 @@
 package com.zxh.dormMG.Service;
 
 import com.zxh.dormMG.Repository.NoticeRepository;
-import com.zxh.dormMG.domain.Notice;
-import com.zxh.dormMG.dto.ResultDto;
-import com.zxh.dormMG.dto.UserDto;
+import com.zxh.dormMG.Domain.Notice;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class NoticeService {
