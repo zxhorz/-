@@ -145,6 +145,8 @@ public class Student {
 
     @Override
     public boolean equals(Object o) {
+        if(o==null || !(o instanceof Student))
+            return false;
         Student inItem = (Student) o;
         return Objects.equals(id, inItem.getId());
     }
