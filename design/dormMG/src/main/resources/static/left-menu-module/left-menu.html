@@ -34,16 +34,17 @@
                     <a href="javascript:;"><i class="alico icon-pen"></i>申请管理<span class="fa fa-caret-down"></span></a>
                     <ul>
                         <li><a href="#" ng-click="switchToPage('application/list')">申请一览</a></li>
-                        <li ng-show="isAdmin"><a href="#" ng-click="switchToPage('application')">新建申请</a></li>
+                        <li ng-show="!isAdmin"><a href="#" ng-click="switchToPage('application')">新建申请</a></li>
                     </ul>
                 </li>
                 <li class="item ">
                     <a href="javascript:;"><i class="alico icon-account-2"></i>账户管理<span class="fa fa-caret-down"></span>
                     </a>
                     <ul>
-                        <li><a href="#" ng-click="switchToPage('myInfo')">我的资料</a></li>
+                        <li ng-show="!isAdmin"><a href="#" ng-click="switchToPage('myInfo')">我的资料</a></li>
 
                         <li><a href="#" ng-click="switchToPage('changePw')">更改密码</a></li>
+                        <li ng-show="isAdmin"><a href="#" ng-click="showAuthority()">权限管理</a></li>
 
                     </ul>
                 </li>
@@ -66,3 +67,4 @@
 </div>
 <script src="assets/js/wow.min.js"></script>
 <script src="assets/js/whmcs.js"></script>
+<modelshow-directive></modelshow-directive>

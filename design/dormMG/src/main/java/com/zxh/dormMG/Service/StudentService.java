@@ -114,7 +114,8 @@ public class StudentService {
     public boolean studentDelete(String id) {
         try {
             User user = userRepository.findUserByName(id);
-            userRepository.delete(user);
+            if(user != null)
+                userRepository.delete(user);
             Student student = new Student(id);
             studentRepository.delete(student);
 

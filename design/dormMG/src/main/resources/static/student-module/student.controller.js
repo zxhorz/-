@@ -266,12 +266,14 @@
             }).success(function (data) {
                 if (data.message === 'S') {
                     $modalInstance.close('S')
-                } else {}
+                } else {
+
+                }
             }).error(function (data) {});
         }
 
         $scope.close = function () {
-            $modalInstance.close();
+            $modalInstance.dismiss();
         }
     }).controller('studentAddCtrl', function ($scope, $http, $state, $rootScope, $modalInstance, $timeout) {
         $scope.title = "添加学生";

@@ -15,6 +15,9 @@ public class Role {
     @Column(name = "role_name")
     private String roleName;
 
+    @Column(name = "level")
+    private int level;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
@@ -58,6 +61,14 @@ public class Role {
 
     public void setPermissions(List<Permission> permissions) {
         this.permissions = permissions;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public void addPermission(Permission permission) {

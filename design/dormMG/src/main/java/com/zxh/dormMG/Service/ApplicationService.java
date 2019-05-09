@@ -19,6 +19,7 @@ import java.util.Objects;
 public class ApplicationService {
     private static final Logger logger = Logger.getLogger(ApplicationService.class);
     private static final String ADMIN = "admin";
+    private static final String ROOT = "root";
     @Autowired
     private ApplicationRepository applicationRepository;
 
@@ -40,7 +41,7 @@ public class ApplicationService {
         String name = user.getData().getUserName();
         List<Application> list = new ArrayList<>();
         Iterable<Application> applications;
-        if (Objects.equals(user.getData().getRole(), ADMIN)) {
+        if (Objects.equals(user.getData().getRole(), ADMIN) || Objects.equals(user.getData().getRole(), ROOT)) {
             applications = applicationRepository.findAll();
         } else {
             applications = applicationRepository.findApplicationByName(name);

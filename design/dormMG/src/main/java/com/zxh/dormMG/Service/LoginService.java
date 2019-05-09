@@ -59,10 +59,19 @@ public class LoginService {
     }
 
     //添加用户
-    public User addUser(String username,String password) {
+    public User addUser(String username, String password) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
+        user.setState(UserState.ACTIVE.getState());
+        userRepository.save(user);
+        return user;
+    }
+
+    public User deleteUser(String username) {
+        User user = userRepository.findUserByName(username);
+        user.setUsername(username);
+//        user.setPassword(password);
         user.setState(UserState.ACTIVE.getState());
         userRepository.save(user);
         return user;
@@ -76,11 +85,24 @@ public class LoginService {
     }
 
     //添加角色
-    public Role addRole(String username,String roleName) {
+    public Role addRole(String username, String roleName) {
         User user = userRepository.findUserByName(username);
         Role role = new Role();
         role.setRoleName(roleName);
         role.setUser(user);
+        switch (roleName) {
+            case "user":
+                role.setLevel(1);
+                break;
+            case "admin":
+                role.setLevel(2);
+                break;
+            case "root":
+                role.setLevel(3);
+                break;
+            default:
+                role.setLevel(1);
+        }
         Permission permission = new Permission();
         permission.setPermission("all");
         permission.setRole(role);
@@ -94,6 +116,24 @@ public class LoginService {
 //        permissions.add(permission1);
 //        permissions.add(permission2);
         permissions.add(permission);
+        role.setPermissions(permissions);
+        roleRepository.save(role);
+        return role;
+    }
+
+    public Role updateRole(String username, String roleName) {
+        User user = userRepository.findUserByName(username);
+        Role role = user.getRoles().get(0);
+        role.setRoleName(roleName);
+
+        List<Permission> permissions;
+        permissions = role.getPermissions();
+        for (int i = 0; i < permissions.size(); i++) {
+            Permission permission = permissions.get(i);
+            permission.setRole(role);
+            permissions.set(i, permission);
+        }
+
         role.setPermissions(permissions);
         roleRepository.save(role);
         return role;

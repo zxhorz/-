@@ -18,7 +18,9 @@
                     }).success(function (data) {
                         if (data.message === 'S') {
                             $scope.student = data.data;
-
+                        }else{
+                            $scope.student = {};
+                            $scope.student.name = "admin";
                         }
                     }).error(function (data) {
 

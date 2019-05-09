@@ -50,8 +50,8 @@ public class ShiroConfiguration {
         map.put("/webjars/springfox-swagger-ui/**", "anon");
 
         //对所有用户认证
-//        map.put("/**","authc");
-        map.put("/**","anon");
+        map.put("/**","authc");
+//        map.put("/**","anon");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login-module/myLogin.html");
         //首页

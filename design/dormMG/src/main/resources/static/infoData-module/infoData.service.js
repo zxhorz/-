@@ -6,10 +6,12 @@ angular.module('infoDataModule')
         $rootScope.isAdmin = false;
         infoData.setUser = function(user){
             info.user = user;
-            if(user['role'] !== 'admin')
-                $rootScope.isAdmin = false;
-            else
+            if(user['role'] == 'root')
                 $rootScope.isAdmin = true;
+            else if(user['role'] == 'admin')
+                $rootScope.isAdmin = true;
+            else
+                $rootScope.isAdmin = false;
         }
 
         infoData.getUser = function(){

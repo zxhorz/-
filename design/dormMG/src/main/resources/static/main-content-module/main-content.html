@@ -68,6 +68,11 @@
         padding: 10px;
         border-left: 7px solid #322e3a;
     }
+
+    button.pull-right.btn.bg-color-red.btn-xs.ng-binding {
+        width: 70px;
+    }
+
     </style>
         <p class="tongzhi">
             <!-- 	1）以前的bcoderSS注册用户在此查询账户以及套餐   <a class="btn btn-sm btn-success margin-right-2 ng-binding" href="http://mgyvpn.com/announcements.php?id=54" target="_blank">查看旧账户</a>  -->
@@ -94,7 +99,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="user-part-account ng-scope">
                         <div class="user-body-title">
-                            帳戶金額<span class="home-colon">:</span>
+                            账户金额<span class="home-colon">:</span>
                         </div>
                         <div class="user-body-main">
                             <div class="user-balance">
@@ -153,7 +158,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             <div class="pull-right">
-                                <a ng-click="switchToPage('appliction')" class="btn bg-color-blue btn-xs">
+                                <a ng-click="switchToPage('application')" class="btn bg-color-blue btn-xs">
                                     <i class="fa fa-plus"></i> 提交新申请
                                 </a>
                             </div>
@@ -163,7 +168,7 @@
                     <div class="panel-body">
                         <a ng-if="applications.length>0" ng-repeat="application in applications track by $index" menuItemName="$index"  class="list-group-item">
                             {{application.title}}<br /><span class="text-last-updated">{{application.date}}</span>
-                            <button class="pull-right btn bg-color-blue">{{application.status}}</button>
+                            <button class="pull-right btn bg-color-red btn-xs">{{application.status}}</button>
                         </a>
                         <p ng-if="notices.length===0">没有申请。如果您需要帮助，您可以 <a ng-click="switchToPage('appliction')">提交一个工单</a>.</p>
                     </div>

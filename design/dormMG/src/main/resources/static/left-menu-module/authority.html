@@ -1,0 +1,61 @@
+<div class="jobHistory">
+    <nav class="navbar navbar-inverse">
+        <div class="row">
+            <div class="modal-title">
+                <div class="col-sm-9 col-md-8 hidden-xs">
+                    <h3>
+                        权限管理
+                    </h3>
+                </div>
+                <div class="col-sm-3 col-md-4">
+                    <div class="navbar-collapse">
+                        <div class="navbar-form navbar-right text-right">
+                            <button class="btn btn-flat btn-sm" ng-click="close()" title="Close">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal-body" id="content content--border">
+        <div class="portlet">
+            <form ng-submit="submitForm()" role="form">
+                <input type="hidden" name="token" value="68638049942167b2afbf98d195a6e17de3ec5db1">
+
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-12">
+                                <label for="username" class="control-label">账号</label>
+                                <input type="text" name="username" id="username" class="form-control" ng-model="authority.username" autocomplete="off">
+                            </div>
+
+                            <div class="form-group col-xs-12">
+                                <label for="authority" class="control-label">寝室</label>
+                                <select name="authority" id="authority" ng-model="authority.authority" class="form-control selectpicker">
+                                    <option value="学生" >学生</option>
+                                    <option value="管理员" >管理员</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="form-group text-center">
+                    <input class="btn btn-primary" type="submit" name="save" value="保存更改">
+                    <input class="btn btn-default" type="reset" value="清空">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<modelshow-directive></modelshow-directive>
