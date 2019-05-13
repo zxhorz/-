@@ -1,12 +1,15 @@
 package com.zxh.dormMG.Service;
 
-import com.zxh.dormMG.Repository.DormRepository;
-import com.zxh.dormMG.Repository.StudentRepository;
 import com.zxh.dormMG.Domain.Dorm;
 import com.zxh.dormMG.Domain.Student;
+import com.zxh.dormMG.Repository.DormRepository;
+import com.zxh.dormMG.Repository.StudentRepository;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
-import com.zxh.dormMG.utils.*;
+import com.zxh.dormMG.utils.DocUtil;
+import com.zxh.dormMG.utils.FilePathUtil;
+import com.zxh.dormMG.utils.FileType;
+import com.zxh.dormMG.utils.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -155,5 +158,21 @@ public class DormService {
         }
         file.delete();
         return ResultDtoFactory.toAck("S", "导入成功");
+    }
+
+    public List<Integer> availablePosList(String dormId) {
+        Dorm dorm = dormRepository.findDormById(dormId);
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i <= dorm.getVolume(); i++) {
+            list.add(i);
+        }
+        List<Student> students = studentRepository.findStudentsByDorm(dorm.getId());
+        if (students == null ||students.isEmpty())
+            return list;
+
+        for (Student student : students) {
+            list.remove(student.getPos());
+        }
+        return list;
     }
 }

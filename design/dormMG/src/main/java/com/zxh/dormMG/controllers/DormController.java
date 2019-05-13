@@ -41,6 +41,12 @@ public class DormController {
         return ResultDtoFactory.toAck("S",dormService.availableDormList());
     }
 
+    @RequestMapping(value = "/availablePosList", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultDto<List<Integer>> availablePosList(@RequestParam("dorm")String dorm) {
+        return ResultDtoFactory.toAck("S",dormService.availablePosList(dorm));
+    }
+
     @RequiresRoles(value = {"admin","root"},logical = Logical.OR)
     @RequestMapping(value = "/dormStudents", method = RequestMethod.GET)
     @ResponseBody

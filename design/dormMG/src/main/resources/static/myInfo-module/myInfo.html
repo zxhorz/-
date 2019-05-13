@@ -20,7 +20,7 @@
                                     <div type="text" name="studentId" id="studentId" class="form-control" disabled="disabled">{{student.id}}</div>
                                 </div>
 
-                                <div class="form-group col-xs-6  col-sm-6">
+                                <div class="form-group col-xs-6 col-sm-6">
                                     <label for="studentName" class="control-label">姓名</label>
                                     <div type="text" name="studentName" id="studentName" class="form-control" disabled="disabled">{{student.name}}</div>
                                 </div>
@@ -29,6 +29,11 @@
                             <div class="form-group">
                                 <label for="inputEmail" class="control-label">电子邮箱</label>
                                 <input type="email" name="email" id="inputEmail"  class="form-control" ng-model="student.email" required="required" autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPos" class="control-label">床位</label>
+                                <div type="pos" name="pos" id="inputPos" class="form-control" disabled="disabled">{{student.pos}}</div>
                             </div>
 
                             <div class="form-group">
@@ -46,7 +51,7 @@
 
                             <div class="form-group">
                                 <label for="inputDorm" class="control-label">寝室</label>
-                                <div type="text" name="dorm" id="inputDorm" class="form-control">{{student.dorm}}</div>
+                                <div type="text" name="dorm" id="inputDorm" class="form-control" disabled="disabled">{{student.dorm}}</div>
                             </div>
 
                             <div class="form-group">

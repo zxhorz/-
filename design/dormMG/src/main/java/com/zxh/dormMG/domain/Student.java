@@ -41,7 +41,7 @@ public class Student {
     private String studentClass;
 
     @Column(name = "dorm_pos")
-    private String pos;
+    private Integer pos;
 
     public Student() {
 
@@ -51,7 +51,7 @@ public class Student {
         this.id = id;
     }
 
-    public Student(String id, String name, String dorm, String branch, String tel, String email, String studentClass, String pos) {
+    public Student(String id, String name, String dorm, String branch, String tel, String email, String studentClass, Integer pos) {
         this.id = id;
         this.name = name;
         this.dorm = dorm;
@@ -127,11 +127,11 @@ public class Student {
         this.studentClass = studentClass;
     }
 
-    public String getPos() {
+    public Integer getPos() {
         return pos;
     }
 
-    public void setPos(String pos) {
+    public void setPos(Integer pos) {
         this.pos = pos;
     }
 

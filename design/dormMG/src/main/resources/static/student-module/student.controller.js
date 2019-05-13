@@ -232,7 +232,6 @@
             url: '/dorm/availableDormList',
         }).success(function (data) {
             $scope.dorms = data.data;
-
             $http({
                 method: 'GET',
                 url: '/myInfo/myInfoGet',

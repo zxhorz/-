@@ -89,9 +89,9 @@ public class StudentService {
         if (dorm.getRemain() == 0)
             return ResultDtoFactory.toAck("F", dorm.getId() + "寝室已满");
         else {
-            List<String> positions = new ArrayList<>();
+            List<Integer> positions = new ArrayList<>();
             for (int i = 1; i <= dorm.getVolume(); i++)
-                positions.add(i + "");
+                positions.add(i);
             for (Student temp : students) {
                 positions.remove(temp.getPos());
             }
@@ -99,8 +99,8 @@ public class StudentService {
         }
 
         try {
-            loginService.addUser(student.getId(),PasswordUtil.MD5(student.getId()));
-            loginService.addRole(student.getId(),"user");
+            loginService.addUser(student.getId(), PasswordUtil.MD5(student.getId()));
+            loginService.addRole(student.getId(), "user");
             studentRepository.save(student);
             //添加对应账号
 
@@ -114,7 +114,7 @@ public class StudentService {
     public boolean studentDelete(String id) {
         try {
             User user = userRepository.findUserByName(id);
-            if(user != null)
+            if (user != null)
                 userRepository.delete(user);
             Student student = new Student(id);
             studentRepository.delete(student);
@@ -159,12 +159,12 @@ public class StudentService {
 
                 if (students.size() != 0) {
                     File tempFile = new File(FilePathUtil.createDownloadFile("导入失败名单.xls"));
-                    if(tempFile.delete()){
-                    if (!tempFile.exists()) {
-                        tempFile.createNewFile();
-                    }}
-                    else{
-                        return ResultDtoFactory.toAck("F","文件存储错误");
+                    if (tempFile.delete()) {
+                        if (!tempFile.exists()) {
+                            tempFile.createNewFile();
+                        }
+                    } else {
+                        return ResultDtoFactory.toAck("F", "文件存储错误");
                     }
 
                     ArrayList<ArrayList> writeContent = new ArrayList<>();
@@ -183,7 +183,7 @@ public class StudentService {
 
                     }
 
-                    DocUtil.writeExcel(writeContent,DOWNLOAD_PATH+"导入失败学生名单.xls");
+                    DocUtil.writeExcel(writeContent, DOWNLOAD_PATH + "导入失败学生名单.xls");
 
                     file.delete();
                     return ResultDtoFactory.toAck("W", "部分导入成功");

@@ -52,8 +52,9 @@
                         "render": function (data, type, row, meta) {
                             var html="";
                             if($scope.isAdmin)
-                                html = "<button class='btn btn-success' ng-click = noticeDelete(" + data['id'] + ")>删除</button>"
+                                html = "<button class='btn btn-success' ng-click = noticeDelete(" + data['id'] + ")>删除</button>";
                             else
+                                html = "";
                             return html;
                         },
                         "fnCreatedCell": function (td, cellData, rowData, row, col) {
