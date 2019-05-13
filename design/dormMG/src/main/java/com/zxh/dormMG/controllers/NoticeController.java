@@ -1,11 +1,13 @@
 package com.zxh.dormMG.controllers;
 
-import com.zxh.dormMG.Service.NoticeService;
 import com.zxh.dormMG.Domain.Notice;
+import com.zxh.dormMG.Service.NoticeService;
 import com.zxh.dormMG.dto.DataTableDto;
 import com.zxh.dormMG.dto.NoticeDto;
 import com.zxh.dormMG.dto.ResultDto;
 import com.zxh.dormMG.dto.ResultDtoFactory;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +29,7 @@ public class NoticeController {
     }
 
     //
-//    @RequiresRoles("admin")
+    @RequiresRoles(value = {"admin","root"},logical = Logical.OR)
     @RequestMapping(value = "/noticeSave", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> noticeSave(NoticeDto noticeDto) {
@@ -47,7 +49,7 @@ public class NoticeController {
         return ResultDtoFactory.toAck("F");
     }
 
-//    @RequiresRoles("admin")
+    @RequiresRoles(value = {"admin","root"},logical = Logical.OR)
     @RequestMapping(value = "/noticeDelete", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<String> noticeDelete(@RequestParam("id") String id) {
@@ -58,7 +60,7 @@ public class NoticeController {
 
     @RequestMapping(value = "/noticePreview", method = RequestMethod.GET)
     @ResponseBody
-    public ResultDto<List<Notice>> applicationPreview() {
+    public ResultDto<List<Notice>> noticePreview() {
         return ResultDtoFactory.toAck("S",noticeService.noticePreview());
     }
 

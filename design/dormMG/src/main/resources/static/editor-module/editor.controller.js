@@ -17,7 +17,7 @@
             $http({
                 method: 'POST',
                 url: '/notice/noticeSave',
-                data: $.param($scope.application),
+                data: $.param($scope.notice),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }

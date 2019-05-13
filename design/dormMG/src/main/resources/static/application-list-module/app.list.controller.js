@@ -67,6 +67,8 @@
                             var handleHtml = "<button class='btn btn-success' ng-click = operate(" + data['id'] + ",'处理')>处理</button>"
                             var deleteHtml = "<button class='btn btn-success' ng-click = applicationDelete(" + data['id'] + ")>删除</button>"
                             var html = "";
+                            if(!$scope.isAdmin)
+                                return html;
                             if(data.status =='isWaiting')
                                 html = handleHtml + rejectHtml;
                             else if (data.status =='isHandling')

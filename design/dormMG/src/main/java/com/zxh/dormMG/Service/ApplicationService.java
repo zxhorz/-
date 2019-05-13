@@ -124,7 +124,7 @@ public class ApplicationService {
         List<Application> list = new ArrayList<>();
         List<Application> result = new ArrayList<>();
         Iterable<Application> applications;
-        if (Objects.equals(user.getData().getRole(), ADMIN)) {
+        if (Objects.equals(user.getData().getRole(), ADMIN) || Objects.equals(user.getData().getRole(), ROOT)) {
             Sort sort = new Sort(Sort.Direction.DESC, "date");
             applications = applicationRepository.findAll(sort);
         } else {

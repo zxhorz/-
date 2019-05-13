@@ -11,6 +11,7 @@ import com.zxh.dormMG.utils.RSAUtils;
 import com.zxh.dormMG.utils.ValidateCode;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.session.Session;
@@ -113,7 +114,7 @@ public class LoginController {
     }
 
     //注解的使用
-    @RequiresRoles("admin")
+    @RequiresRoles(value = {"admin","root"},logical = Logical.OR)
     @RequiresPermissions("create")
     @RequestMapping(value = "/create")
     public String create() {

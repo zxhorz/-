@@ -9,6 +9,7 @@ import com.zxh.dormMG.dto.ResultDtoFactory;
 import com.zxh.dormMG.utils.FilePathUtil;
 import io.swagger.annotations.Api;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,21 +41,21 @@ public class DormController {
         return ResultDtoFactory.toAck("S",dormService.availableDormList());
     }
 
-    @RequiresRoles("admin")
+    @RequiresRoles(value = {"admin","root"},logical = Logical.OR)
     @RequestMapping(value = "/dormStudents", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<List<Student>> dormStudents(@RequestParam("id") String id) {
         return ResultDtoFactory.toAck("S",dormService.dormStudents(id));
     }
 
-    @RequiresRoles("admin")
+    @RequiresRoles(value = {"admin","root"},logical = Logical.OR)
     @RequestMapping(value = "/dormDelete", method = RequestMethod.GET)
     @ResponseBody
     public ResultDto<String> dormDelete(@RequestParam("id") String id) {
         return dormService.dormDelete(id);
     }
 
-    @RequiresRoles("admin")
+    @RequiresRoles(value = {"admin","root"},logical = Logical.OR)
     @RequestMapping(value = "/dormAdd", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> dormAdd(Dorm dorm) {
@@ -68,7 +69,7 @@ public class DormController {
         return (dormService.dormAdd(dorm));
     }
 
-    @RequiresRoles("admin")
+    @RequiresRoles(value = {"admin","root"},logical = Logical.OR)
     @RequestMapping(value = "/importDorms", method = RequestMethod.POST)
     @ResponseBody
     public ResultDto<String> importDorms(@RequestParam("file")MultipartFile file) {
