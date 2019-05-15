@@ -200,7 +200,10 @@
             });
             modal.result.then(function (result) {
                 if (result == 'S') {
-                    $scope.onModel.modelShow('success', '修改成功')
+                    $scope.onModel.modelShow('success','修改成功')
+                }
+                else{
+                    $scope.onModel.modelShow('error',result)
                 }
             }, function (reason) {
                 //        	$state.reload();
@@ -266,7 +269,7 @@
                 if (data.message === 'S') {
                     $modalInstance.close('S')
                 } else {
-
+                    $modalInstance.close(data.data)
                 }
             }).error(function (data) {});
         }
